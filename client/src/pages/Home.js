@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import ApplicantsForm from "../components/ApplicantsForm";
+
 import "./Home.css";
 import logo from "./logo.svg";
 
@@ -36,6 +38,10 @@ export function Home() {
 					{message}
 				</h1>
 				<Link to="/about/this/site">About</Link>
+				<br></br>
+				<br></br>
+				<br></br>
+				<ApplicantsForm />
 			</div>
 		</main>
 	);
