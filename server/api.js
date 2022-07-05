@@ -30,14 +30,17 @@ router.get("/applicants", (req, res) => {
 });
 
 router.post("/applicants", (req, res) => {
-  const { _user_id, _title, _firstName, _surname, _gender_id, _sex_orient_id, _city_id, _phone } = req.body;
-  const { _skills, _currently_work, _right_to_work, _cv,	_gap_reasons, _supp_statement, _dbs_work } = req.body;
-  const { _dbs_convictions, _age_band_id, _ethnic_group_id, _religion_id } = req.body;
+  const { user_id, title, first_name, surname, gender_id, sex_orient_id, city_id, phone } = req.body;
+  const { skills, currently_work, right_to_work, cv, gap_reasons, supp_statement, dbs_work } = req.body;
+  const { dbs_convictions, age_band_id, ethnic_group_id, religion_id } = req.body;
   const queryString = `Insert Into applicants (user_id, title, firstName, surname, gender_id, sex_orient_id, 
-									city_id, phone, skills, currently_work, right_to_work, cv, 
-									gap_reasons, supp_statement, dbs_work, dbs_convictions, age_band_id, ethnic_group_id, 
-									religion_id ) Values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)`;
-  const params = [ _user_id, _title, _firstName, _surname, _gender_id, _sex_orient_id, _city_id, _phone, _skills, _currently_work, _right_to_work, _cv, _gap_reasons, _supp_statement, _dbs_work, _dbs_convictions, _age_band_id, _ethnic_group_id, _religion_id ];
+									city_id, phone, skills, currently_work, right_to_work, cv, gap_reasons, 
+									supp_statement, dbs_work, dbs_convictions, age_band_id, ethnic_group_id, 
+									religion_id ) Values 
+									($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)`;
+  const params = [ user_id, title, first_name, surname, gender_id, sex_orient_id, city_id, phone, skills, currently_work, right_to_work, cv, gap_reasons, supp_statement, dbs_work, dbs_convictions, age_band_id, ethnic_group_id, religion_id ];
+  console.log(params);
+  console.log(queryString);
   pool.query(queryString, params)
   .then(() => res.status(201).send("Applicant created."))
   .catch((error) => res.status(500).json(error));
@@ -60,6 +63,15 @@ router.get("/users", (req, res) => {
   .catch((error) => res.status(500).json(error));
 });
 
+router.post("/users", (req, res) => {
+  const { username, email, type_id } = req.body;
+  const queryString = "Insert Into users (username, email, type_id) Values ($1, $2, $3)";
+  const params = [ username, email, type_id ];
+  pool.query(queryString, params)
+  .then(() => res.status(201).send("User created."))
+  .catch((error) => res.status(500).json(error));
+});
+
 //Jobs
 router.get("/jobs", (req, res) => {
   const queryString = "Select * From jobs";
@@ -69,9 +81,9 @@ router.get("/jobs", (req, res) => {
 });
 
 //Applications
-router.get("/applications/:applicantId", (req, res) => {
-  const id = req.params.applicantId;
-  const queryString = "Select * From applications where applicant_id = $1";
+router.get("/applications/:applicationId", (req, res) => {
+  const id = req.params.applicationId;
+  const queryString = "Select * From applications where id = $1";
   pool.query(queryString, [id])
  .then((result) => res.status(201).json(result.rows))
  .catch((error) => res.status(500).json(error));
@@ -82,6 +94,14 @@ router.get("/applications", (req, res) => {
   pool.query(queryString)
   .then((result) => res.status(201).json(result.rows))
   .catch((error) => res.status(500).json(error));
+});
+
+router.get("/:applicantId/applications", (req, res) => {
+  const id = req.params.applicantId;
+  const queryString = "Select * From applications where applicant_id = $1";
+  pool.query(queryString, [id])
+ .then((result) => res.status(201).json(result.rows))
+ .catch((error) => res.status(500).json(error));
 });
 
 export default router;
