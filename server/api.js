@@ -111,7 +111,8 @@ const applicantsQueryString = `
 	Inner join religions on religions.id = religion_id) as selectTable `;
 
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, skills, gap_reasons, job_id, 
+	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, 
+			currently_work, right_to_work, skills, gap_reasons, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, status_id, status
 	From applications 
@@ -308,7 +309,7 @@ router.get("/:applicantId/applicantAllData", (req, res) => {
 	const qualQuery = "Select * From qualifications Where applicant_id = $1";
 	const langQuery = "Select * From languages Where applicant_id = $1";
 
-	pool.query(`${applicantsQueryString} Where applicants.id = $1`, [applicantId])
+	pool.query(`${applicantsQueryString} Where id = $1`, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Applicant": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
