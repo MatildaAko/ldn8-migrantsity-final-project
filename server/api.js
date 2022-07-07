@@ -300,7 +300,7 @@ router.put("/languages/:languageId", (req, res) => put(getTableName(req), req, r
 router.delete("/languages/:languageId", (req, res) => del(getTableName(req), req, res));
 
 /////////// Get All Related to Applicants ////////////
-router.get("/:applicantId/applicantAllData", (req, res) => {
+router.get("/:applicantId/applicantAllData", async (req, res) => {
 	const allResult = [];
 	const applicantId = req.params.applicantId;
 
@@ -309,23 +309,23 @@ router.get("/:applicantId/applicantAllData", (req, res) => {
 	const qualQuery = "Select * From qualifications Where applicant_id = $1";
 	const langQuery = "Select * From languages Where applicant_id = $1";
 
-	pool.query(`${applicantsQueryString} Where id = $1`, [applicantId])
+	await pool.query(`${applicantsQueryString} Where id = $1`, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Applicant": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
-	pool.query(educQuery, [applicantId])
+	await pool.query(educQuery, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Education": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
-	pool.query(examQuery, [applicantId])
+	await pool.query(examQuery, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Exams": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
-	pool.query(qualQuery, [applicantId])
+	await pool.query(qualQuery, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Qualifications": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
-	pool.query(langQuery, [applicantId])
+	await pool.query(langQuery, [applicantId])
 	.then((result) => {
 		result.rows.length>0&&allResult.push({ "Languages": result.rows });
 		res.status(201).json(allResult);
