@@ -1,65 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
 
-function DetailsPage1() {
-	const [radioState, setRadioState] = useState(null);
-	const [radioStateRightWork, setRadioStateRightWork] = useState(null);
+import {
+	Box,
+	FormLabel,
+	FormControl,
+	FormControlLabel,
+	Radio,
+	RadioGroup,
+} from "@mui/material";
 
-	const handleRadioChangeCurrentlyWork = (e) => {
-		// console.log(e.target.value);
-		setRadioState(e.target.value);
-	};
-
-	const handleRadioChangeRightWork = (e) => {
-		setRadioStateRightWork(e.target.value);
-	};
-
+function DetailsPage1({ values, handleChange }) {
 	return (
 		<>
-			<div>
-				<h3>*Do you currently work/ volunteer for Hackney Migrant Centre?</h3>
-				<div className="radio">
-					<label>
-						<input
-							type="radio"
-							value="yes"
-							checked={radioState === "yes"}
-							onChange={handleRadioChangeCurrentlyWork}
-						/>
-						Yes
-						<br></br>
-						<input
-							type="radio"
-							value="no"
-							checked={radioState === "no"}
-							onChange={handleRadioChangeCurrentlyWork}
-						/>
-						No
-					</label>
-				</div>
-			</div>
-			<div>
-				<h1>Right to Work</h1>
-				<h3>*Do you have the Right to Work in the UK?</h3>
-				<div className="radio">
-					<label>
-						<input
-							type="radio"
-							value="yes"
-							checked={radioStateRightWork === "yes"}
-							onChange={handleRadioChangeRightWork}
-						/>
-						Yes
-						<br></br>
-						<input
-							type="radio"
-							value="no"
-							checked={radioStateRightWork === "no"}
-							onChange={handleRadioChangeRightWork}
-						/>
-						No
-					</label>
-				</div>
-			</div>
+			<h1>Personal Details and Right to Work</h1>
+			<Box>
+				<FormControl>
+					<FormLabel id="currently-work">
+						*Do you currently work/ volunteer for Hackney Migrant Centre?
+					</FormLabel>
+					<RadioGroup
+						aria-label="currently-work"
+						value={values.currently_work}
+						onChange={handleChange("currently_work")}
+					>
+						<FormControlLabel control={<Radio />} label="yes" value="yes" />
+						<FormControlLabel control={<Radio />} label="no" value="no" />
+					</RadioGroup>
+				</FormControl>
+			</Box>
+			<h1>Right to Work</h1>
+			<Box>
+				<FormControl>
+					<FormLabel id="right-to-work">
+						*Do you have the Right to Work in the UK?
+					</FormLabel>
+					<RadioGroup
+						aria-label="right-to-work"
+						value={values.right_to_work}
+						onChange={handleChange("right_to_work")}
+					>
+						<FormControlLabel control={<Radio />} label="yes" value="yes" />
+						<FormControlLabel control={<Radio />} label="no" value="no" />
+					</RadioGroup>
+				</FormControl>
+			</Box>
+			<p>
+				Please note: if you are successful in securing an interview, you will be
+				required to provide proof of your right to work. Hackney Migrant Centre
+				is unable to provide visa sponsorship. You will need to have secured a
+				Right to Work prior to applying for the role.
+			</p>
 		</>
 	);
 }

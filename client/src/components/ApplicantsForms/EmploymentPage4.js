@@ -1,23 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from "react";
+import React from "react";
 
-function EmploymentPage4() {
-	const [textarea, setTextarea] = useState();
+import {
+	TextField,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	Paper,
+} from "@mui/material";
 
-	const handleChange = (e) => {
-		setTextarea(e.target.value);
-	};
+function EmploymentPage4({ values, handleChange }) {
 
-	const onSubmit = (e) => {
-		e.preventDefault();
-        alert("Thanks for your application");
-		console.log(textarea);
-	};
+	function createData(language, spoken, written, degree_of_fluency) {
+		return { language, spoken, written, degree_of_fluency };
+	}
+
+	const rows = [createData("English", "Yes", "Yes", "---")];
 
 	return (
 		<>
-			<form onSubmit={onSubmit}>
-				<h2>Employment History</h2>
+			<h1>Employment, Education, Qualifications and Language History</h1>
+			<div>
+				<h3>Employment History</h3>
 				<p>
 					We require information for the previous three years of your employment
 					history.
@@ -26,53 +33,110 @@ function EmploymentPage4() {
 					We require information for the previous three years of your employment
 					history.
 				</p>
-
-				<label>
-					If you have any gaps in your last 5 years of employment history,
-					please provide information on the reason(s) for this.
-					<br></br>
-					<textarea
-						placeholder="Information here.."
-						value={textarea}
-						onChange={handleChange}
-					/>
-				</label>
-				<br></br>
-				<h2>Education History</h2>
+				<br />
+				<br />
+				<TextField
+					id="outlined-multiline-static"
+					label="Employment History"
+					multiline
+					rows={3}
+					variant="outlined"
+					onChange={handleChange("employment_history")}
+					defaultValue={values.employment_history}
+				/>
+				<br />
+				<br />
+			</div>
+			<div>
+				<h3>Education History</h3>
 				<p>
 					Please click on the 'Add' button to add schools / colleges /
 					universities or courses attended. Click to EDIT
 				</p>
-				<h2>Exam History</h2>
+				<br />
+				<br />
+				<TextField
+					id="outlined-multiline-static"
+					label="Employment Education History"
+					multiline
+					rows={3}
+					variant="outlined"
+					onChange={handleChange("education_history")}
+					defaultValue={values.education_history}
+				/>
+				<br />
+				<br />
+			</div>
+			<div>
+				<h3>Exam History</h3>
 				<p>
 					Please click on the 'Add' button to add exams. Click on the text
 					highlighted in red to edit your entry.
 				</p>
-				<h2>Professional Qualifications</h2>
+				<br />
+				<br />
+				<TextField
+					id="outlined-multiline-static"
+					label="Exam History"
+					multiline
+					rows={3}
+					variant="outlined"
+					onChange={handleChange("exam_history")}
+					defaultValue={values.exam_history}
+				/>
+				<br />
+				<br />
+			</div>
+			<div>
+				<h3>Professional Qualifications</h3>
 				<p>
-					Please click on the 'Add' button to add professional qualifications.
-					Click on the text highlighted in red to edit your entry.
+					Please click on the 'Add' button to add exams. Click on the text
+					highlighted in red to edit your entry.
 				</p>
-				<h2>Languages</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Language</th>
-							<th>Spoken</th>
-							<th>Written</th>
-							<th>Degree of Fluency</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>English</td>
-							<td>Yes</td>
-							<td>Yes</td>
-							<td>---</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
+				<br />
+				<br />
+				<TextField
+					id="outlined-multiline-static"
+					label="Professional Qualifications"
+					multiline
+					rows={3}
+					variant="outlined"
+					onChange={handleChange("professional_qualifications")}
+					defaultValue={values.professional_qualifications}
+				/>
+				<br />
+				<br />
+			</div>
+			<div>
+				<h3>Languages</h3>
+				<TableContainer component={Paper}>
+					<Table aria-label="simple table">
+						<TableHead>
+							<TableRow>
+								<TableCell>Language</TableCell>
+
+								<TableCell align="right">Spoken</TableCell>
+								<TableCell align="right">Written</TableCell>
+								<TableCell align="right">Degree of Fluency</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{rows.map((row) => (
+								<TableRow key={row.language}>
+									<TableCell component="th" scope="row">
+										{row.language}
+									</TableCell>
+									<TableCell align="right">{row.spoken}</TableCell>
+									<TableCell align="right">{row.written}</TableCell>
+									<TableCell align="right">{row.degree_of_fluency}</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+				<br />
+				<br />
+			</div>
 		</>
 	);
 }

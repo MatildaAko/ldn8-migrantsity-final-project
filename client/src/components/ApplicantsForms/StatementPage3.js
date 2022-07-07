@@ -1,36 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 
-function StatementPage3() {
-	const [textarea, setTextarea] = useState();
+import { TextField } from "@mui/material";
 
-	const handleChange = (e) => {
-		setTextarea(e.target.value);
-	};
-
-	const onSubmit = (e) => {
-		e.preventDefault();
-		console.log(textarea);
-	};
-
+function StatementPage3({ values, handleChange }) {
 	return (
-		<form onSubmit={onSubmit}>
-
-			<label>
+		<>
+			<h1>Supporting Statement</h1>
+			<p>
 				*Please use the space below to tell us how you meet the person
 				specification for this role by taking into consider your knowledge,
 				experience, and skills. We are also keen to understand what motivated
 				you to apply for this role and why you’re interested in working for the
 				Hackney migrant Centre.
-				<br></br>
-				<textarea
-					placeholder="Comments here.."
-					value={textarea}
-					onChange={handleChange}
-				/>
-			</label>
-			<br></br>
-			<button>Submit</button>
-		</form>
+			</p>
+
+			<TextField
+				label="Supporting Statement"
+				multiline
+				rows={4}
+				variant="outlined"
+				onChange={handleChange("supp_statement")}
+				defaultValue={values.supp_statement}
+			/>
+			<br />
+			<br />
+		</>
 	);
 }
 

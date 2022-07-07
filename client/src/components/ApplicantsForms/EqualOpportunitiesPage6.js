@@ -1,9 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 
-function SubmissionPage6() {
+import { TextField, Box, InputLabel, Select } from "@mui/material";
+
+function SubmissionPage6({ values, handleChange }) {
 	return (
 		<>
+			<h1>Equal Opportunities and Submission</h1>
 			<p>
 				We seek to ensure that our organisation and our services are relevant
 				and accessible to all. We welcome people from the widest possible
@@ -26,15 +29,33 @@ function SubmissionPage6() {
 				viewed by members of the shortlisting or interview panels throughout the
 				recruitment process and will not affect the outcome of your application.
 			</p>
-			<form>
-				<h3>*Do you consider yourself to have a disability?</h3>
-				<select>
-					<option value="no">No</option>
-					<option value="yes">Yes</option>
-				</select>
-				<h3>Age Band</h3>
-				<select>
-					<option value="">Please Select</option>
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
+					*Do you consider yourself to have a disability?
+				</InputLabel>
+				<Select
+					native
+					value={values.disability}
+					onChange={handleChange("disability")}
+				>
+					<option aria-label="no" value="No">
+						No
+					</option>
+					<option value="Yes">Yes</option>
+				</Select>
+			</Box>
+			<br />
+
+			<Box>
+				<InputLabel htmlFor="age-native-simple">*Age band</InputLabel>
+				<Select
+					native
+					value={values.age_band}
+					onChange={handleChange("age_band")}
+				>
+					<option aria-label="Please Select" value="">
+						Please Select
+					</option>
 					<option value="18-25">18-25</option>
 					<option value="26-33">26-33</option>
 					<option value="34-41">34-41</option>
@@ -43,10 +64,21 @@ function SubmissionPage6() {
 					<option value="58-64">58-64</option>
 					<option value="65+">65+</option>
 					<option value="prefer not to say">Prefer not to say</option>
-				</select>
-				<h3>*What best describes your ethnic group?</h3>
-				<select>
-					<option value="Other ethnic Group">Other ethnic Group</option>
+				</Select>
+			</Box>
+			<br />
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
+					*What best describes your ethnic group?
+				</InputLabel>
+				<Select
+					native
+					value={values.ethnic_group}
+					onChange={handleChange("ethnic_group")}
+				>
+					<option aria-label="Other ethnic Group" value="Other ethnic Group">
+						Other ethnic Group
+					</option>
 					<option value="Asian or Asian British">Asian or Asian British</option>
 					<option value="Black African, Caribbean or Black British">
 						Black African, Caribbean or Black British
@@ -55,12 +87,36 @@ function SubmissionPage6() {
 						Mixed or Multiple ethnic groups
 					</option>
 					<option value="White">White</option>
-				</select>
-				<h3>If Other, please give details here *insert a text box here*</h3>
-				<textarea />
-				<h3>*Which best describes your Religion or Belief?</h3>
-				<select>
-					<option value="">Please Select</option>
+				</Select>
+			</Box>
+			<br />
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
+					If Other, please give details here:
+				</InputLabel>
+				<TextField
+					id="outlined-multiline-static"
+					label="Please give details here"
+					multiline
+					rows={3}
+					variant="outlined"
+					onChange={handleChange("description")}
+					defaultValue={values.description}
+				/>
+			</Box>
+			<br />
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
+					*Which best describes your Religion or Belief?
+				</InputLabel>
+				<Select
+					native
+					value={values.religion}
+					onChange={handleChange("religion")}
+				>
+					<option aria-label="Please Select" value="">
+						Please Select
+					</option>
 					<option value="No religion or belief">No religion or belief</option>
 					<option value="Buddhist">Buddhist</option>
 					<option value="Christian">Christian</option>
@@ -69,10 +125,21 @@ function SubmissionPage6() {
 					<option value="Muslim">Muslim</option>
 					<option value="Sikh">Sikh</option>
 					<option value="prefer not to say">Prefer not to say</option>
-				</select>
-				<h3>*Sexual Orientation:</h3>
-				<select>
-					<option value="">Please Select</option>
+				</Select>
+			</Box>
+			<br />
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
+					*Sexual Orientation:
+				</InputLabel>
+				<Select
+					native
+					value={values.sex_orientation}
+					onChange={handleChange("sex_orientation")}
+				>
+					<option aria-label="Please Select" value="">
+						Please Select
+					</option>
 					<option value="Heterosexual">Heterosexual</option>
 					<option value="Gay">Gay</option>
 					<option value="Lesbian">Lesbian</option>
@@ -81,22 +148,32 @@ function SubmissionPage6() {
 					<option value="Pansexual">Pansexual</option>
 					<option value="Undecided">Undecided</option>
 					<option value="prefer not to say">Prefer not to say</option>
-				</select>
-				<h3>*Which gender identity do you most identify with?</h3>
-				<select>
-					<option value="">Please Select</option>
+				</Select>
+			</Box>
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
+					*Which gender identity do you most identify with?
+				</InputLabel>
+				<Select native value={values.gender} onChange={handleChange("gender")}>
+					<option aria-label="Please Select" value="">
+						Please Select
+					</option>
 					<option value="Male">Male</option>
 					<option value="Female">Female</option>
 					<option value="Intersex">Intersex</option>
 					<option value="Non-binary">Non-binary</option>
 					<option value="prefer not to say">Prefer not to say</option>
-				</select>
-				<h3>
+				</Select>
+			</Box>
+			<Box>
+				<InputLabel htmlFor="age-native-simple">
 					*Do you have caring responsibilities?If yes, please tick all that
 					apply.
-				</h3>
-				<select>
-					<option value="">Please Select</option>
+				</InputLabel>
+				<Select native value={values.caring} onChange={handleChange("caring")}>
+					<option aria-label="Please Select" value="">
+						Please Select
+					</option>
 					<option value="no">No</option>
 					<option value="Primary carer of a child/children (under 18) ">
 						Primary carer of a child/children (under 18){" "}
@@ -114,16 +191,9 @@ function SubmissionPage6() {
 						Secondary carer (another person carries out the main caring role)
 					</option>
 					<option value="prefer not to say">Prefer not to say</option>
-				</select>
-				<br></br>
-				<br></br>
-				<button>Submit</button>
-			</form>
-			<p>
-				Please Note: after clicking ‘Submit’, you will no longer have the
-				opportunity to edit your application. Please ensure you have included
-				everything you want us to review.
-			</p>
+				</Select>
+			</Box>
+			<br />
 		</>
 	);
 }

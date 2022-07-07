@@ -1,10 +1,24 @@
 import React from "react";
 
-function CVPage2() {
+import { TextField } from "@mui/material";
+
+function CVPage2({ values, handleChange }) {
 	return (
-		<div>
-			<div>CV</div>
-		</div>
+		<>
+			<div>CV Upload and Supporting Statement</div>
+			<br />
+			<TextField
+				id="outlined-multiline-static"
+				label="CV"
+				multiline
+				rows={4}
+				variant="outlined"
+				onChange={handleChange("cv")}
+				defaultValue={values.cv}
+			/>
+			<br />
+			<br />
+		</>
 	);
 }
 
