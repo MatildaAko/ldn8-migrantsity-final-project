@@ -111,7 +111,8 @@ const applicantsQueryString = `
 	Inner join religions on religions.id = religion_id) as selectTable `;
 
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, skills, gap_reasons, job_id, 
+	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, 
+			right_to_work, skills, gap_reasons, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, status_id, status
 	From applications 
