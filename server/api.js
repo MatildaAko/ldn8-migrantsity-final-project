@@ -308,7 +308,7 @@ router.get("/:applicantId/applicantAllData", (req, res) => {
 	const qualQuery = "Select * From qualifications Where applicant_id = $1";
 	const langQuery = "Select * From languages Where applicant_id = $1";
 
-	pool.query(`${applicantsQueryString} Where applicants.id = $1`, [applicantId])
+	pool.query(`${applicantsQueryString} Where id = $1`, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Applicant": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
