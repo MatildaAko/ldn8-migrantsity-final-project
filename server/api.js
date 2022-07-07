@@ -8,7 +8,18 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
+
 //////--------- CRUD Data --------//////
+
+const getTableName = (req) => {
+	const regexp = "(?<=\/)(.*?)(?=\/)";
+	const path = req.path;
+	return path.match(/[/]/g).length>1 ? path.match(regexp)[0] : path.slice(1);
+};
+
+// const capitalize = (str) => {
+// 	return str[0].toUpperCase().concat(str.slice(1));
+// };
 
 const get = (table, req,res) => {
 		const queryString = `Select * From ${table}`;
@@ -17,6 +28,66 @@ const get = (table, req,res) => {
 	.catch((error) => res.status(500).json(error));
 };
 
+const post = (table, req, res) => {
+	const params = [];
+	const values = [];
+	const fields = [];
+
+	Object.keys(req.body).map((param, index) => {
+		values.push(`$${index + 1}`);
+		fields.push(param);
+		params.push(req.body[param]);
+	});
+
+	const queryString = `Insert Into ${table} (${fields.join(",")}) 
+  					   		Values (${values.join(",")})`;
+	pool.query(queryString, params)
+	.then(() => res.status(201).send("New record added."))
+	.catch((error) => res.status(500).json(error));
+};
+
+const put = (table, req, res) => {
+	const id = req.params[Object.keys(req.params)[0]];
+	const insideParams = [];
+	const params = [id];
+
+	Object.keys(req.body).map((param, index) => {
+    insideParams.push(`${param} = $${index + 2}`);
+    params.push(req.body[param]);
+	});
+
+	const selectQuery = `Select * From ${table} Where id = $1`;
+	const queryString = `Update ${table} Set ${insideParams.join(",")} 
+  					   		Where id = $1`;
+	pool.query(selectQuery, [id])
+	.then((result) => {
+		if (result.rows == 0) {
+			res.status(400).send("Record doesn't exist!");
+		} else {
+			pool.query(queryString, params)
+			.then(() => res.status(201).send("Record has been updated."))
+			.catch((error) => res.status(500).json(error));
+		}
+	}).catch((error) => res.status(500).json(error));
+};
+
+const del = (table , req, res) => {
+	const id = req.params[Object.keys(req.params)[0]];
+	const selectQuery = `Select * From ${table} Where id = $1`;
+	const queryString = `Delete From ${table} Where id = $1`;
+	const params = [id];
+	pool.query(selectQuery, [id])
+	.then((result) => {
+		if (result.rows == 0) {
+			res.status(400).send("Record doesn't exist!");
+		} else {
+			pool.query(queryString, params)
+			.then(() => res.status(201).send("Record has been deleted."))
+			.catch((error) => res.status(500).json(error));
+		}
+	}).catch((error) => res.status(500).json(error));
+
+};
 
 //Applicants
 const applicantsSelect = "Select * From applicants Where id = $1";
@@ -147,35 +218,47 @@ router.post("/users", (req, res) => {
 });
 
 //Jobs
-router.get("/jobs", (req, res) => get(req.path.slice(1), req, res));
+router.get("/jobs", (req, res) => get(getTableName(req), req, res));
+router.post("/jobs", (req, res) => post(getTableName(req), req, res));
+router.put("/jobs/:jobId", (req, res) => put(getTableName(req), req, res));
+router.delete("/jobs/:jobId", (req, res) => del(getTableName(req), req, res));
 
 //Cities
-router.get("/cities", (req, res) => get(req.path.slice(1), req, res));
+router.get("/cities", (req, res) => get(getTableName(req), req, res));
+router.post("/cities", (req, res) => post(getTableName(req), req, res));
+router.put("/cities/:cityId", (req, res) => put(getTableName(req), req, res));
+router.delete("/cities/:cityId", (req, res) => del(getTableName(req), req, res));
 
 //Flexible Working
-router.get("/flexible_working", (req, res) => get(req.path.slice(1), req, res));
+router.get("/flexible_working", (req, res) => get(getTableName(req), req, res));
+router.post("/flexible_working", (req, res) => post(getTableName(req), req, res));
+router.put("/flexible_working/:id", (req, res) => put(getTableName(req), req, res));
+router.delete("/flexible_working/:id", (req, res) => del(getTableName(req), req, res));
 
 //Working Pattern
-router.get("/working_pattern", (req, res) => get(req.path.slice(1), req, res));
+router.get("/working_pattern", (req, res) => get(getTableName(req), req, res));
+router.post("/working_pattern", (req, res) => post(getTableName(req), req, res));
+router.put("/working_pattern/:id", (req, res) => put(getTableName(req), req, res));
+router.delete("/working_pattern/:id", (req, res) => del(getTableName(req), req, res));
 
 //Genders
-router.get("/genders", (req, res) => get(req.path.slice(1), req, res));
+router.get("/genders", (req, res) => get(getTableName(req), req, res));
 
 //Sex Orientations
-router.get("/sex_orientations", (req, res) => get(req.path.slice(1), req, res));
+router.get("/sex_orientations", (req, res) => get(getTableName(req), req, res));
 
 //Age Bands
-router.get("/age_bands", (req, res) => get(req.path.slice(1), req, res));
+router.get("/age_bands", (req, res) => get(getTableName(req), req, res));
 
 //Religions
-router.get("/religions", (req, res) => get(req.path.slice(1), req, res));
+router.get("/religions", (req, res) => get(getTableName(req), req, res));
 
 //Ethnic Groups
-router.get("/ethnic_groups", (req, res) => get(req.path.slice(1), req, res));
+router.get("/ethnic_groups", (req, res) => get(getTableName(req), req, res));
 
 //Applications
 const applicationsQueryString = `
-	Select applicant_id, first_name, surname, email, skills, gap_reasons, job_id, 
+	Select applications.id, applicant_id, first_name, surname, email, skills, gap_reasons, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, status_id, status
 	From applications 
@@ -205,8 +288,12 @@ router.get("/:applicantId/applications", (req, res) => {
 	.catch((error) => res.status(500).json(error));
 });
 
+router.post("/applications", (req, res) => post(getTableName(req), req, res));
+router.put("/applications/:applicationId", (req, res) => put(getTableName(req), req, res));
+router.delete("/exams/:applicationId", (req, res) => del(getTableName(req), req, res));
+
 //Education
-router.get("/education", (req, res) => get(req.path.slice(1), req, res));
+router.get("/education", (req, res) => get(getTableName(req), req, res));
 
 router.get("/:applicantId/education", (req, res) => {
 	const applicantId = req.params.applicantId;
@@ -216,70 +303,12 @@ router.get("/:applicantId/education", (req, res) => {
 	.catch((error) => res.status(500).json(error));
 });
 
-router.post("/education", (req, res) => {
-	const params = [];
-	const values = [];
-	const fields = [];
-
-	Object.keys(req.body).map((param, index) => {
-		values.push(`$${index + 1}`);
-		fields.push(param);
-		params.push(req.body[param]);
-	});
-
-	const queryString = `Insert Into education (${fields.join(",")}) 
-  					   		Values (${values.join(",")})`;
-	pool.query(queryString, params)
-	.then(() => res.status(201).send("Education added."))
-	.catch((error) => res.status(500).json(error));
-});
-
-router.put("/education/:educationId", (req, res) => {
-	const educationId = req.params.educationId;
-	const insideParams = [];
-	const params = [educationId];
-
-	Object.keys(req.body).map((param, index) => {
-    insideParams.push(`${param} = $${index + 2}`);
-    params.push(req.body[param]);
-	});
-
-	const selectQuery = "Select * From education Where id = $1";
-	const queryString = `Update education Set ${insideParams.join(",")} 
-  					   		Where id = $1`;
-
-	pool.query(selectQuery, [educationId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Education doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Education has been updated."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-});
-
-router.delete("/education/:educationId", (req, res) => {
-	const educationId = req.params.educationId;
-	const selectQuery = "Select * From education Where id = $1";
-	const queryString = "Delete From education Where id = $1";
-	const params = [educationId];
-	pool.query(selectQuery, [educationId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Education doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Education has been deleted."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-
-});
+router.post("/education", (req, res) => post(getTableName(req), req, res));
+router.put("/education/:educationId", (req, res) => put(getTableName(req), req, res));
+router.delete("/education/:educationId", (req, res) => del(getTableName(req), req, res));
 
 //Exams
-router.get("/exams", (req, res) => get(req.path.slice(1), req, res));
+router.get("/exams", (req, res) => get(getTableName(req), req, res));
 
 router.get("/:applicantId/exams", (req, res) => {
 	const applicantId = req.params.applicantId;
@@ -289,70 +318,12 @@ router.get("/:applicantId/exams", (req, res) => {
 	.catch((error) => res.status(500).json(error));
 });
 
-router.post("/exams", (req, res) => {
-	const params = [];
-	const values = [];
-	const fields = [];
-
-	Object.keys(req.body).map((param, index) => {
-		values.push(`$${index + 1}`);
-		fields.push(param);
-		params.push(req.body[param]);
-	});
-
-	const queryString = `Insert Into exams (${fields.join(",")}) 
-  					   		Values (${values.join(",")})`;
-	pool.query(queryString, params)
-	.then(() => res.status(201).send("Exams added."))
-	.catch((error) => res.status(500).json(error));
-});
-
-router.put("/exams/:examId", (req, res) => {
-	const examId = req.params.examId;
-	const insideParams = [];
-	const params = [examId];
-
-	Object.keys(req.body).map((param, index) => {
-    insideParams.push(`${param} = $${index + 2}`);
-    params.push(req.body[param]);
-	});
-
-	const selectQuery = "Select * From exams Where id = $1";
-	const queryString = `Update exams Set ${insideParams.join(",")} 
-  					   		Where id = $1`;
-
-	pool.query(selectQuery, [examId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Exams doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Exams has been updated."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-});
-
-router.delete("/exams/:examId", (req, res) => {
-	const examId = req.params.examId;
-	const selectQuery = "Select * From exams Where id = $1";
-	const queryString = "Delete From exams Where id = $1";
-	const params = [examId];
-	pool.query(selectQuery, [examId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Exams doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Exams has been deleted."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-
-});
+router.post("/exams", (req, res) => post(getTableName(req), req, res));
+router.put("/exams/:examId", (req, res) => put(getTableName(req), req, res));
+router.delete("/exams/:examId", (req, res) => del(getTableName(req), req, res));
 
 //Qualifications
-router.get("/qualifications", (req, res) => get(req.path.slice(1), req, res));
+router.get("/qualifications", (req, res) => get(getTableName(req), req, res));
 
 router.get("/:applicantId/qualifications", (req, res) => {
 	const applicantId = req.params.applicantId;
@@ -362,70 +333,12 @@ router.get("/:applicantId/qualifications", (req, res) => {
 	.catch((error) => res.status(500).json(error));
 });
 
-router.post("/qualifications", (req, res) => {
-	const params = [];
-	const values = [];
-	const fields = [];
-
-	Object.keys(req.body).map((param, index) => {
-		values.push(`$${index + 1}`);
-		fields.push(param);
-		params.push(req.body[param]);
-	});
-
-	const queryString = `Insert Into qualifications (${fields.join(",")}) 
-  					   		Values (${values.join(",")})`;
-	pool.query(queryString, params)
-	.then(() => res.status(201).send("Qualifications added."))
-	.catch((error) => res.status(500).json(error));
-});
-
-router.put("/qualifications/:qualificationId", (req, res) => {
-	const qualificationId = req.params.qualificationId;
-	const insideParams = [];
-	const params = [qualificationId];
-
-	Object.keys(req.body).map((param, index) => {
-    insideParams.push(`${param} = $${index + 2}`);
-    params.push(req.body[param]);
-	});
-
-	const selectQuery = "Select * From qualifications Where id = $1";
-	const queryString = `Update qualifications Set ${insideParams.join(",")} 
-  					   		Where id = $1`;
-
-	pool.query(selectQuery, [qualificationId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Qualifications doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Qualifications has been updated."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-});
-
-router.delete("/qualifications/:qualificationId", (req, res) => {
-	const qualificationId = req.params.qualificationId;
-	const selectQuery = "Select * From qualifications Where id = $1";
-	const queryString = "Delete From qualifications Where id = $1";
-	const params = [qualificationId];
-	pool.query(selectQuery, [qualificationId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Qualifications doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Qualifications has been deleted."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-
-});
+router.post("/qualifications", (req, res) => post(getTableName(req), req, res));
+router.put("/qualifications/:qualificationId", (req, res) => put(getTableName(req), req, res));
+router.delete("/qualifications/:qualificationId", (req, res) => del(getTableName(req), req, res));
 
 //Languages
-router.get("/languages", (req, res) => get(req.path.slice(1), req, res));
+router.get("/languages", (req, res) => get(getTableName(req), req, res));
 
 router.get("/:applicantId/languages", (req, res) => {
 	const applicantId = req.params.applicantId;
@@ -435,67 +348,9 @@ router.get("/:applicantId/languages", (req, res) => {
 	.catch((error) => res.status(500).json(error));
 });
 
-router.post("/languages", (req, res) => {
-	const params = [];
-	const values = [];
-	const fields = [];
-
-	Object.keys(req.body).map((param, index) => {
-		values.push(`$${index + 1}`);
-		fields.push(param);
-		params.push(req.body[param]);
-	});
-
-	const queryString = `Insert Into languages (${fields.join(",")}) 
-  					   		Values (${values.join(",")})`;
-	pool.query(queryString, params)
-	.then(() => res.status(201).send("Languages added."))
-	.catch((error) => res.status(500).json(error));
-});
-
-router.put("/languages/:languageId", (req, res) => {
-	const languageId = req.params.languageId;
-	const insideParams = [];
-	const params = [languageId];
-
-	Object.keys(req.body).map((param, index) => {
-    insideParams.push(`${param} = $${index + 2}`);
-    params.push(req.body[param]);
-	});
-
-	const selectQuery = "Select * From languages Where id = $1";
-	const queryString = `Update languages Set ${insideParams.join(",")} 
-  					   		Where id = $1`;
-
-	pool.query(selectQuery, [languageId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Languages doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Languages has been updated."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-});
-
-router.delete("/languages/:languageId", (req, res) => {
-	const languageId = req.params.languageId;
-	const selectQuery = "Select * From languages Where id = $1";
-	const queryString = "Delete From languages Where id = $1";
-	const params = [languageId];
-	pool.query(selectQuery, [languageId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Languages doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Languages has been deleted."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-
-});
+router.post("/languages", (req, res) => post(getTableName(req), req, res));
+router.put("/languages/:languageId", (req, res) => put(getTableName(req), req, res));
+router.delete("/languages/:languageId", (req, res) => del(getTableName(req), req, res));
 
 /////////// Get All Related to Applicants ////////////
 router.get("/:applicantId/applicantAllData", (req, res) => {
