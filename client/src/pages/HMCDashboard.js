@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import ApplicationDetails from "./ApplicationDetails";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
@@ -8,7 +9,7 @@ import { DataGrid } from "@mui/x-data-grid";
 const HMCDashboard = () => {
 	const [applications, setApplications] = useState([]);
   useEffect(() => {
-		fetch("/api/applicants")
+		fetch("/api/applications")
 			.then((res) => {
 				if (!res.ok) {
 					throw new Error(res.statusText);
@@ -24,21 +25,28 @@ const HMCDashboard = () => {
 			});
 	}, []);
 	const columns = [
-		{ field: "id", headerName: "Application ID", width: 120 },
 		{
-			field: "jobtitle",
+			field: "id",
+			headerName: "Application ID",
+			width: 300,
+			renderCell: (params) => (
+				<Link to={`/applicationdetails/${params.id}`}>{params.id}</Link>
+			),
+		},
+		{
+			field: "jobTitle",
 			headerName: "Job Title",
 			width: 150,
 			editable: false,
 		},
 		{
-			field: "currentlywork",
+			field: "currentlyWork",
 			headerName: "Current Employee",
 			width: 150,
 			editable: false,
 		},
 		{
-			field: "righttowork",
+			field: "rightToWork",
 			headerName: "Right to Work",
 			description: "This column has a value getter and is not sortable.",
 			width: 160,
@@ -51,7 +59,7 @@ const HMCDashboard = () => {
 			editable: false,
 		},
 		{
-			field: "hasgap",
+			field: "hasGap",
 			headerName: "Gap",
 			width: 200,
 			editable: false,
@@ -66,12 +74,12 @@ const HMCDashboard = () => {
 	const rows = applications.map((application) => {
 		return {
 			id: application.id,
-			// jobtitle: application.surname,
-			righttowork: application.right_to_work,
-			currentlywork: application.currently_work,
+			jobTitle: application.job_title,
+			rightToWork: `${application.right_to_work ? "Yes" : "No"}`,
+			currentlyWork: `${application.currently_work ? "Yes" : "No"}`,
 			skills: application.skills.split(",").join("\n"),
-			hasgap: application.gap_reasons,
-			cover: application.supp_statement,
+			hasGap: application.gap_reasons,
+			cover: application.cover_letter,
 		};
 	});
   return (
@@ -79,10 +87,10 @@ const HMCDashboard = () => {
 			<Box sx={{ height: 400, width: "100%" }}>
 				<DataGrid
 					getRowHeight={() => "auto"}
-					getEstimatedRowHeight={() => 200}
+					getEstimatedRowHeight={() => 10}
 					rows={rows}
 					columns={columns}
-					pageSize={applications.length % 10}
+					// pageSize={applications.length % 10}
 					rowsPerPageOptions={[10, 25, 50, 100]}
 					checkboxSelection
 					disableSelectionOnClick
