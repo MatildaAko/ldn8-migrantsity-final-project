@@ -8,7 +8,7 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
-//////--------- Basic Data --------//////
+//////--------- CRUD Data --------//////
 
 const get = (table, req,res) => {
 		const queryString = `Select * From ${table}`;
@@ -149,6 +149,15 @@ router.post("/users", (req, res) => {
 //Jobs
 router.get("/jobs", (req, res) => get(req.path.slice(1), req, res));
 
+//Cities
+router.get("/cities", (req, res) => get(req.path.slice(1), req, res));
+
+//Flexible Working
+router.get("/flexible_working", (req, res) => get(req.path.slice(1), req, res));
+
+//Working Pattern
+router.get("/working_pattern", (req, res) => get(req.path.slice(1), req, res));
+
 //Genders
 router.get("/genders", (req, res) => get(req.path.slice(1), req, res));
 
@@ -158,24 +167,15 @@ router.get("/sex_orientations", (req, res) => get(req.path.slice(1), req, res));
 //Age Bands
 router.get("/age_bands", (req, res) => get(req.path.slice(1), req, res));
 
-//Flexible Working
-router.get("/flexible_working", (req, res) => get(req.path.slice(1), req, res));
-
-//Working Pattern
-router.get("/working_pattern", (req, res) => get(req.path.slice(1), req, res));
-
 //Religions
 router.get("/religions", (req, res) => get(req.path.slice(1), req, res));
 
 //Ethnic Groups
 router.get("/ethnic_groups", (req, res) => get(req.path.slice(1), req, res));
 
-//Cities
-router.get("/cities", (req, res) => get(req.path.slice(1), req, res));
-
 //Applications
 const applicationsQueryString = `
-	Select applicant_id, first_name, surname, email, job_id, 
+	Select applicant_id, first_name, surname, email, skills, gap_reasons, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, status_id, status
 	From applications 
@@ -529,9 +529,5 @@ router.get("/:applicantId/applicantAllData", (req, res) => {
 		res.status(201).json(allResult);
 	}).catch((error) => res.status(500).json(error));
 });
-
-
-
-
 
 export default router;
