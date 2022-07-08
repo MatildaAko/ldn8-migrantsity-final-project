@@ -1,8 +1,63 @@
-import React from "react";
-import { Box, TextField, FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import React, { useState, useEffect } from "react";
+
+import { Button } from "@mui/material";
+
+import GenderEqualityForm from "../components/EqualityFormControl/GenderEqualityForm";
+import IdentifyEqualityForm from "../components/EqualityFormControl/IdentifyEqualityForm";
+import AgeEqualityForm from "../components/EqualityFormControl/AgeEqualityForm";
+import EthnicityEqualityForm from "../components/EqualityFormControl/EthnicityEqualityForm";
+import DisabilityEqualityForm from "../components/EqualityFormControl/DisabilityEqualityForm";
+import SexOrientationEqualityForm from "../components/EqualityFormControl/SexOrientationEqualityForm";
+import ReligionEqualityForm from "../components/EqualityFormControl/ReligionEqualityForm";
+import WorkingPatternEqualityForm from "../components/EqualityFormControl/WorkingPatternEqualityForm";
+import WorkingArrangementEqualityForm from "../components/EqualityFormControl/WorkingArrangementEqualityForm";
+import CaringEqualityForm from "../components/EqualityFormControl/CaringEqualityForm";
+import ConfirmEqualityForm from "../components/EqualityFormControl/ConfirmEqualityForm";
 
 const EqualityForm = () => {
-  return (
+	const [backToTopButton, setBackToTopButton] = useState(false);
+	const [userInfo, setUserInfo] = useState({
+		gender: "",
+		identify: "",
+		age_band: "",
+		ethnic_group: "", // main_group
+		disability: "",
+		sex_orientation: "",
+		religion: "",
+		working_pattern: "",
+		flexible_working: "",
+		caring: "",
+	});
+
+	// Handle Reset data
+	const handleReset = () => {
+		setUserInfo({
+			gender: "",
+			identify: "",
+			age_band: "",
+			ethnic_group: "",
+			disability: "",
+			sex_orientation: "",
+			religion: "",
+			working_pattern: "",
+			flexible_working: "",
+			caring: "",
+		});
+		setBackToTopButton(true);
+	};
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [backToTopButton]);
+
+	// Handle fields change
+	const handleChange = (input) => (e) => {
+		// console.log(e.target.value);
+		setUserInfo({ ...userInfo, [input]: e.target.value });
+	};
+
+	console.log(userInfo);
+	return (
 		<>
 			<h1>Hackney Migrant Centre Equal Opportunities Monitoring Form</h1>
 			<p>
@@ -37,120 +92,68 @@ const EqualityForm = () => {
 			</p>
 			<hr />
 
-			<Box sx={{ display: "flex" }}>
-				<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-					<FormLabel component="legend">
-						<b>Gender</b>
-					</FormLabel>
-					<FormGroup row={true}>
-						<FormControlLabel
-							control={
-								<Checkbox checked={""} onChange={"handleChange"} name="male" />
-							}
-							label="Male"
-							labelPlacement="start"
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									// checked={"female"}
-									onChange={"handleChange"}
-									name="female"
-								/>
-							}
-							label="Female"
-							labelPlacement="start"
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={"intersex"}
-									onChange={"handleChange"}
-									name="intersex"
-								/>
-							}
-							label="Intersex"
-							labelPlacement="start"
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={"non-binary"}
-									onChange={"handleChange"}
-									name="non-binary"
-								/>
-							}
-							label="Non-binary"
-							labelPlacement="start"
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={"not-answered"}
-									onChange={"handleChange"}
-									name="not-answered"
-								/>
-							}
-							label="Prefer not to say"
-							labelPlacement="start"
-						/>
-					</FormGroup>
-					<FormControlLabel
-						control={
-							<TextField id="standard-basic" label="" variant="standard" />
-						}
-						label="If you prefer to use your own gender identity, please write in:"
-						labelPlacement="start"
-					/>
-				</FormControl>
-				<FormControl
-					required
-					error={"error"}
-					component="fieldset"
-					sx={{ m: 3 }}
-					variant="standard"
-				></FormControl>
-			</Box>
-			<Box sx={{ display: "flex" }}>
-				<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-					<FormLabel component="legend">
-						Is the gender you identify with the same as your gender registered
-						at birth?
-					</FormLabel>
-					<FormGroup row={true}>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={"yes"}
-									onChange={"handleChange"}
-									name="yes"
-								/>
-							}
-							label="Yes"
-							labelPlacement="start"
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox checked={"no"} onChange={"handleChange"} name="no" />
-							}
-							label="No"
-							labelPlacement="start"
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={"not-answered"}
-									onChange={"handleChange"}
-									name="not-answered"
-								/>
-							}
-							label="Prefer not to say"
-							labelPlacement="start"
-						/>
-					</FormGroup>
-				</FormControl>
-      </Box>
-      <hr />
+			{/* Gender */}
+			<GenderEqualityForm handleChange={handleChange} />
+
+			{/* Identify */}
+			<IdentifyEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			{/* Age */}
+			<AgeEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			{/* What is your ethnicity? */}
+			<EthnicityEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			{/* Do you consider yourself to have a disability or health condition?    */}
+			<DisabilityEqualityForm handleChange={handleChange} />
+			<br />
+			<br />
+			<p>
+				The information in this form is for monitoring purposes only. If you
+				believe you need a ‘reasonable adjustment’, then please email our
+				Recruitment team.
+			</p>
+
+			<hr />
+
+			{/* What is your sexual orientation? */}
+			<SexOrientationEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			{/* What is your religion or belief? */}
+			<ReligionEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			{/* What is your working pattern?
+			 */}
+			<WorkingPatternEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			{/* What is your flexible working arrangement?
+			 */}
+			<WorkingArrangementEqualityForm handleChange={handleChange} />
+
+			{/* Do you have caring responsibilities? If yes, please tick all that apply.
+			 */}
+			<CaringEqualityForm handleChange={handleChange} />
+
+			<hr />
+
+			<ConfirmEqualityForm values={userInfo} />
+
+			<hr />
+			<Button variant="contained" color="primary" onClick={handleReset}>
+				Submit
+			</Button>
 		</>
 	);
 };
