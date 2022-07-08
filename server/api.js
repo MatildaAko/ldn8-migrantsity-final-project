@@ -332,7 +332,7 @@ router.get("/:applicantId/applicantAllData", async (req, res) => {
 	.catch((error) => res.status(500).json(error));
 
 	await pool.query(langQuery, [applicantId])
-	.then((result) => result.rows.length>0&&allResult.push({ "Qualifications": result.rows }))
+	.then((result) => result.rows.length>0&&allResult.push({ "Languages": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
 	await pool.query(appQuery, [applicantId])
