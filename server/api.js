@@ -120,6 +120,11 @@ const applicationsQueryString = `
 	Inner join jobs on jobs.id = job_id
 	Inner join application_status on application_status.id = status_id) selectTable `;
 
+const appOnlyQueryString = `Select id, applicant_id, gap_reasons, job_id, job_title, job_description,
+								skills_require, cover_letter, description, status_id, status 
+							From (${applicationsQueryString}) TableSelect `;
+
+
 ////////////////////////////////////////////////////////
 
 //Applicants
@@ -308,6 +313,7 @@ router.get("/:applicantId/applicantAllData", async (req, res) => {
 	const examQuery = "Select * From exams Where applicant_id = $1";
 	const qualQuery = "Select * From qualifications Where applicant_id = $1";
 	const langQuery = "Select * From languages Where applicant_id = $1";
+	const appQuery  = appOnlyQueryString+" Where applicant_id = $1";
 
 	await pool.query(`${applicantsQueryString} Where id = $1`, [applicantId])
 	.then((result) => result.rows.length>0&&allResult.push({ "Applicant": result.rows }))
@@ -326,10 +332,15 @@ router.get("/:applicantId/applicantAllData", async (req, res) => {
 	.catch((error) => res.status(500).json(error));
 
 	await pool.query(langQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Qualifications": result.rows }))
+	.catch((error) => res.status(500).json(error));
+
+	await pool.query(appQuery, [applicantId])
 	.then((result) => {
-		result.rows.length>0&&allResult.push({ "Languages": result.rows });
+		result.rows.length>0&&allResult.push({ "Applications": result.rows });
 		res.status(201).json(allResult);
 	}).catch((error) => res.status(500).json(error));
 });
+
 
 export default router;
