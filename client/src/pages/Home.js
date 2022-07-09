@@ -36,7 +36,13 @@ export function Home() {
 					{message}
 				</h1>
 				<Link to="/about/this/site">About</Link>
+        <br />
 				<Link to="/hmcview">HMC Dashboard</Link>
+				<br />
+				<Link to="/application">Application</Link>
+        <br />
+				<Link to="/equality">Equality Form</Link>
+    
 			</div>
 		</main>
 	);
