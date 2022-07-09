@@ -26,23 +26,16 @@ export function Home() {
 	return (
 		<main role="main">
 			<div>
-				<img
-					className="logo"
-					data-qa="logo"
-					src={logo}
-					alt="Just the React logo"
-				/>
-				<h1 className="message" data-qa="message">
-					{message}
-				</h1>
-				<Link to="/about/this/site">About</Link>
+				<h1>MIGRANTSITY</h1>
+				<h2 className="message" data-qa="message">
+					Hackney Migrant Center
+				</h2>
         <br />
 				<Link to="/hmcview">HMC Dashboard</Link>
 				<br />
 				<Link to="/application">Application</Link>
         <br />
 				<Link to="/equality">Equality Form</Link>
-    
 			</div>
 		</main>
 	);
