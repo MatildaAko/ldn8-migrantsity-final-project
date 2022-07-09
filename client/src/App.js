@@ -14,7 +14,6 @@ const App = () => {
 			<Route path="/" element={<Home />} />
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/hmcview" element={<HMCDashboard />} />
-      
 		<Route path="/application" element={<ApplicantForm />} />
 		<Route path="/equality" element={<EqualityForm />} />
 			<Route
