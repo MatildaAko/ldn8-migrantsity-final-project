@@ -2,8 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import ApplicationDetails from "./ApplicationDetails";
-import Box from "@mui/material/Box";
+import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 const HMCDashboard = () => {
@@ -28,9 +27,11 @@ const HMCDashboard = () => {
 		{
 			field: "id",
 			headerName: "Application ID",
-			width: 300,
+			width: 120,
 			renderCell: (params) => (
-				<Link to={`/applicationdetails/${params.id}`}>{params.id}</Link>
+				<Link to={`/applicationdetails/${params.id}`}>
+					<Button>{params.id}</Button>
+				</Link>
 			),
 		},
 		{
@@ -90,7 +91,6 @@ const HMCDashboard = () => {
 					getEstimatedRowHeight={() => 10}
 					rows={rows}
 					columns={columns}
-					// pageSize={applications.length % 10}
 					rowsPerPageOptions={[10, 25, 50, 100]}
 					checkboxSelection
 					disableSelectionOnClick
