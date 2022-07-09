@@ -1,6 +1,5 @@
 import { Router } from "express";
 import pool from "./db";
-// import { query } from "./db";
 
 const router = Router();
 
@@ -8,47 +7,135 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
-//////--------- Basic Data --------//////
+//////////--------- CRUD Data --------////////////
 
-//Applicants
-router.get("/applicants", (req, res) => {
-	const queryString = `
-		Select applicants.*, genders.gender,
- 			sex_orientations.sex_orientation, cities.city, age_bands.age_band, 
-			ethnic_groups.ethnic_group, religions.religion
-		From applicants
-		Inner join users on users.id = user_id
-		Inner join user_types on user_types.id = type_id
-		Inner join genders on genders.id = gender_id
-		Inner join sex_orientations on sex_orientations.id = sex_orient_id
-		Inner join cities on cities.id = city_id
-		Inner join age_bands on age_bands.id = age_band_id
-		Inner join ethnic_groups on ethnic_groups.id = ethnic_group_id
-		Inner join religions on religions.id = religion_id`;
+const getTableName = (req) => {
+	const regexp = "(?<=\/)(.*?)(?=\/)";
+	const path = req.path;
+	const firstPart = path.match(regexp);
+	const isFirstPartNumber = Number.isInteger(parseInt(firstPart, 10));
+	const lastPart = path.slice(path.lastIndexOf("/")+1);
+	return path.match(/[/]/g).length==1 ? path.slice(1) : isFirstPartNumber?lastPart:firstPart ;
+};
+
+const get = (table, req, res, query = "") => {
+	const queryString = query.length > 0 ? query : `Select * From ${table}`;
 	pool.query(queryString)
 	.then((result) => res.status(201).json(result.rows))
 	.catch((error) => res.status(500).json(error));
-});
+};
+
+const post = (table, req, res) => {
+	const params = [];
+	const values = [];
+	const fields = [];
+
+	Object.keys(req.body).map((param, index) => {
+		values.push(`$${index + 1}`);
+		fields.push(param);
+		params.push(req.body[param]);
+	});
+
+	const queryString = `Insert Into ${table} (${fields.join(",")}) 
+  					   		Values (${values.join(",")})`;
+	pool.query(queryString, params)
+	.then(() => res.status(201).send("New record added."))
+	.catch((error) => res.status(500).json(error));
+};
+
+const put = (table, req, res) => {
+	const id = req.params[Object.keys(req.params)[0]];
+	const insideParams = [];
+	const params = [id];
+
+	Object.keys(req.body).map((param, index) => {
+    insideParams.push(`${param} = $${index + 2}`);
+    params.push(req.body[param]);
+	});
+
+	const selectQuery = `Select * From ${table} Where id = $1`;
+	const queryString = `Update ${table} Set ${insideParams.join(",")} 
+  					   		Where id = $1`;
+	pool.query(selectQuery, [id])
+	.then((result) => {
+		if (result.rows == 0) {
+			res.status(400).send("Record doesn't exist!");
+		} else {
+			pool.query(queryString, params)
+			.then(() => res.status(201).send("Record has been updated."))
+			.catch((error) => res.status(500).json(error));
+		}
+	}).catch((error) => res.status(500).json(error));
+};
+
+const del = (table , req, res) => {
+	const id = req.params[Object.keys(req.params)[0]];
+	const selectQuery = `Select * From ${table} Where id = $1`;
+	const queryString = `Delete From ${table} Where id = $1`;
+	const params = [id];
+	pool.query(selectQuery, [id])
+	.then((result) => {
+		if (result.rows == 0) {
+			res.status(400).send("Record doesn't exist!");
+		} else {
+			pool.query(queryString, params)
+			.then(() => res.status(201).send("Record has been deleted."))
+			.catch((error) => res.status(500).json(error));
+		}
+	}).catch((error) => res.status(500).json(error));
+
+};
+
+const getApplicantData = (table, req, res, query = "") => {
+	const id = req.params[Object.keys(req.params)[0]];
+	const queryString = query.length > 0 ? `Select * From (${query}) as t Where applicant_id = $1` : `Select * From ${table} Where applicant_id = $1`;
+	pool.query(queryString, [id])
+	.then((result) => res.status(201).json(result.rows))
+	.catch((error) => res.status(500).json(error));
+};
+
+//////////--------- Select Queries --------////////////
+const applicantsSelect = "Select * From applicants Where id = $1";
+const applicantsQueryString = `		
+	Select * from (Select applicants.*, genders.gender,
+		sex_orientations.sex_orientation, cities.city, age_bands.age_band, 
+		ethnic_groups.ethnic_group, religions.religion
+	From applicants
+	Inner join users on users.id = user_id
+	Inner join user_types on user_types.id = type_id
+	Inner join genders on genders.id = gender_id
+	Inner join sex_orientations on sex_orientations.id = sex_orient_id
+	Inner join cities on cities.id = city_id
+	Inner join age_bands on age_bands.id = age_band_id
+	Inner join ethnic_groups on ethnic_groups.id = ethnic_group_id
+	Inner join religions on religions.id = religion_id) as selectTable `;
+
+const applicationsQueryString = `
+	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, 
+			currently_work, right_to_work, skills, gap_reasons, job_id, 
+			jobs.title as job_title, jobs.description as job_description, 
+			skills_require, cover_letter, applications.description, status_id, status
+	From applications 
+	Inner join applicants on applicants.id = applicant_id
+	Inner join jobs on jobs.id = job_id
+	Inner join application_status on application_status.id = status_id) selectTable `;
+
+const appOnlyQueryString = `Select id, applicant_id, gap_reasons, job_id, job_title, job_description,
+								skills_require, cover_letter, description, status_id, status 
+							From (${applicationsQueryString}) TableSelect `;
+
+
+////////////////////////////////////////////////////////
+
+//Applicants
+router.get("/applicants", (req, res) => get(getTableName(req), req, res, applicantsQueryString));
 
 router.get("/applicants/:applicantId", (req, res) => {
 	const applicantId = req.params.applicantId;
 	const params = [applicantId];
-	const selectQuery = "Select * From applicants Where id = $1";
-	const queryString = `
-		Select applicants.*, genders.gender,
- 			sex_orientations.sex_orientation, cities.city, age_bands.age_band, 
-			ethnic_groups.ethnic_group, religions.religion
-		From applicants
-		Inner join users on users.id = user_id
-		Inner join user_types on user_types.id = type_id
-		Inner join genders on genders.id = gender_id
-		Inner join sex_orientations on sex_orientations.id = sex_orient_id
-		Inner join cities on cities.id = city_id
-		Inner join age_bands on age_bands.id = age_band_id
-		Inner join ethnic_groups on ethnic_groups.id = ethnic_group_id
-		Inner join religions on religions.id = religion_id
-		Where applicants.id = $1`;
-	pool.query(selectQuery, params)
+	const queryString = `${applicantsQueryString} Where id = $1`;
+
+	pool.query(applicantsSelect, params)
 	.then((result) => {
 		if (result.rows == 0) {
 			res.status(400).send("Applicant doesn't exist!");
@@ -96,11 +183,10 @@ router.put("/applicants/:applicantId", (req, res) => {
     params.push(req.body[param]);
 	});
 
-	const selectQuery = "Select * From applicants Where id = $1";
 	const queryString = `Update applicants Set ${insideParams.join(",")} 
   					   		Where id = $1`;
 
-	pool.query(selectQuery, [applicantId])
+	pool.query(applicantsSelect, [applicantId])
 	.then((result) => {
 		if (result.rows == 0) {
 			res.status(400).send("Applicant doesn't exist!");
@@ -114,10 +200,10 @@ router.put("/applicants/:applicantId", (req, res) => {
 
 router.delete("/applicants/:applicantId", (req, res) => {
 	const applicantId = req.params.applicantId;
-	const selectQuery = "Select * From applicants Where id = $1";
 	const queryString = "Delete From applicants Where id = $1";
 	const params = [applicantId];
-	pool.query(selectQuery, [applicantId])
+
+	pool.query(applicantsSelect, [applicantId])
 	.then((result) => {
 		if (result.rows == 0) {
 			res.status(400).send("Applicant doesn't exist!");
@@ -131,187 +217,129 @@ router.delete("/applicants/:applicantId", (req, res) => {
 });
 
 //Users
-router.get("/users", (req, res) => {
-	const queryString = "Select user_types.user_type, users.* From users Inner join user_types on user_types.id = type_id";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-router.post("/users", (req, res) => {
-	const { username, email, type_id } = req.body;
-	const queryString = "Insert Into users (username, email, type_id) Values ($1, $2, $3)";
-	const params = [ username, email, type_id ];
-	pool.query(queryString, params)
-	.then(() => res.status(201).send("User created."))
-	.catch((error) => res.status(500).json(error));
-});
+router.get("/users", (req, res) => get(getTableName(req), req, res));
+router.post("/users", (req, res) => post(getTableName(req), req, res));
+router.put("/users/:userId", (req, res) => put(getTableName(req), req, res));
+router.delete("/users/:userId", (req, res) => del(getTableName(req), req, res));
 
 //Jobs
-router.get("/jobs", (req, res) => {
-	const queryString = "Select * From jobs";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Genders
-router.get("/genders", (req, res) => {
-	const queryString = "Select * From genders";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Sex Orientations
-router.get("/sex_orientations", (req, res) => {
-	const queryString = "Select * From sex_orientations";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Age Bands
-router.get("/age_bands", (req, res) => {
-	const queryString = "Select * From age_bands";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Flexible Working
-router.get("/flexible_working", (req, res) => {
-	const queryString = "Select * From flexible_working";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Working Pattern
-router.get("/working_pattern", (req, res) => {
-	const queryString = "Select * From working_pattern";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Religions
-router.get("/religions", (req, res) => {
-	const queryString = "Select * From religions";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-//Ethnic Groups
-router.get("/ethnic_groups", (req, res) => {
-	const queryString = "Select * From ethnic_groups";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
+router.get("/jobs", (req, res) => get(getTableName(req), req, res));
+router.post("/jobs", (req, res) => post(getTableName(req), req, res));
+router.put("/jobs/:jobId", (req, res) => put(getTableName(req), req, res));
+router.delete("/jobs/:jobId", (req, res) => del(getTableName(req), req, res));
 
 //Cities
-router.get("/cities", (req, res) => {
-	const queryString = "Select * From cities";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
+router.get("/cities", (req, res) => get(getTableName(req), req, res));
+router.post("/cities", (req, res) => post(getTableName(req), req, res));
+router.put("/cities/:cityId", (req, res) => put(getTableName(req), req, res));
+router.delete("/cities/:cityId", (req, res) => del(getTableName(req), req, res));
+
+//Flexible Working
+router.get("/flexible_working", (req, res) => get(getTableName(req), req, res));
+router.post("/flexible_working", (req, res) => post(getTableName(req), req, res));
+router.put("/flexible_working/:id", (req, res) => put(getTableName(req), req, res));
+router.delete("/flexible_working/:id", (req, res) => del(getTableName(req), req, res));
+
+//Working Pattern
+router.get("/working_pattern", (req, res) => get(getTableName(req), req, res));
+router.post("/working_pattern", (req, res) => post(getTableName(req), req, res));
+router.put("/working_pattern/:id", (req, res) => put(getTableName(req), req, res));
+router.delete("/working_pattern/:id", (req, res) => del(getTableName(req), req, res));
+
+//Genders
+router.get("/genders", (req, res) => get(getTableName(req), req, res));
+
+//Sex Orientations
+router.get("/sex_orientations", (req, res) => get(getTableName(req), req, res));
+
+//Age Bands
+router.get("/age_bands", (req, res) => get(getTableName(req), req, res));
+
+//Religions
+router.get("/religions", (req, res) => get(getTableName(req), req, res));
+
+//Ethnic Groups
+router.get("/ethnic_groups", (req, res) => get(getTableName(req), req, res));
 
 //Applications
 router.get("/applications/:applicationId", (req, res) => {
 	const applicationId = req.params.applicationId;
-	const queryString = "Select * From applications where id = $1";
+	const queryString = `${applicationsQueryString} where id = $1`;
 	pool.query(queryString, [applicationId])
 	.then((result) => res.status(201).json(result.rows))
 	.catch((error) => res.status(500).json(error));
 });
 
-router.get("/applications", (req, res) => {
-	const queryString = "Select * From applications";
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
-
-router.get("/:applicantId/applications", (req, res) => {
-	const applicationId = req.params.applicantId;
-	const queryString = "Select * From applications where applicant_id = $1";
-	pool.query(queryString, [applicationId])
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-});
+router.get("/applications", (req, res) => get(getTableName(req), req, res, applicationsQueryString ));
+router.get("/:applicantId/applications", (req, res) => getApplicantData(getTableName(req), req, res, applicationsQueryString));
+router.post("/applications", (req, res) => post(getTableName(req), req, res));
+router.put("/applications/:applicationId", (req, res) => put(getTableName(req), req, res));
+router.delete("/applications/:applicationId", (req, res) => del(getTableName(req), req, res));
 
 //Education
-router.get("/:applicantId/education", (req, res) => {
+router.get("/education", (req, res) => get(getTableName(req), req, res));
+router.get("/:applicantId/education", (req, res) => getApplicantData(getTableName(req), req, res));
+router.post("/education", (req, res) => post(getTableName(req), req, res));
+router.put("/education/:educationId", (req, res) => put(getTableName(req), req, res));
+router.delete("/education/:educationId", (req, res) => del(getTableName(req), req, res));
+
+//Exams
+router.get("/exams", (req, res) => get(getTableName(req), req, res));
+router.get("/:applicantId/exams", (req, res) => getApplicantData(getTableName(req), req, res));
+router.post("/exams", (req, res) => post(getTableName(req), req, res));
+router.put("/exams/:examId", (req, res) => put(getTableName(req), req, res));
+router.delete("/exams/:examId", (req, res) => del(getTableName(req), req, res));
+
+//Qualifications
+router.get("/qualifications", (req, res) => get(getTableName(req), req, res));
+router.get("/:applicantId/qualifications", (req, res) => getApplicantData(getTableName(req), req, res));
+router.post("/qualifications", (req, res) => post(getTableName(req), req, res));
+router.put("/qualifications/:qualificationId", (req, res) => put(getTableName(req), req, res));
+router.delete("/qualifications/:qualificationId", (req, res) => del(getTableName(req), req, res));
+
+//Languages
+router.get("/languages", (req, res) => get(getTableName(req), req, res));
+router.get("/:applicantId/languages", (req, res) => getApplicantData(getTableName(req), req, res));
+router.post("/languages", (req, res) => post(getTableName(req), req, res));
+router.put("/languages/:languageId", (req, res) => put(getTableName(req), req, res));
+router.delete("/languages/:languageId", (req, res) => del(getTableName(req), req, res));
+
+/////////// Get All Related to Applicants ////////////
+router.get("/:applicantId/applicantAllData", async (req, res) => {
+	const allResult = [];
 	const applicantId = req.params.applicantId;
-	const queryString = "Select * From education Where applicant_id = $1";
-	pool.query(queryString, [applicantId])
-	.then((result) => res.status(201).json(result.rows))
+
+	const educQuery = "Select * From education Where applicant_id = $1";
+	const examQuery = "Select * From exams Where applicant_id = $1";
+	const qualQuery = "Select * From qualifications Where applicant_id = $1";
+	const langQuery = "Select * From languages Where applicant_id = $1";
+	const appQuery  = appOnlyQueryString+" Where applicant_id = $1";
+
+	await pool.query(`${applicantsQueryString} Where id = $1`, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Applicant": result.rows }))
 	.catch((error) => res.status(500).json(error));
-});
 
-router.post("/education", (req, res) => {
-	const params = [];
-	const values = [];
-	const fields = [];
-
-	Object.keys(req.body).map((param, index) => {
-		values.push(`$${index + 1}`);
-		fields.push(param);
-		params.push(req.body[param]);
-	});
-
-	const queryString = `Insert Into education (${fields.join(",")}) 
-  					   		Values (${values.join(",")})`;
-	pool.query(queryString, params)
-	.then(() => res.status(201).send("Education added."))
+	await pool.query(educQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Education": result.rows }))
 	.catch((error) => res.status(500).json(error));
-});
 
-router.put("/education/:educationId", (req, res) => {
-	const educationId = req.params.educationId;
-	const insideParams = [];
-	const params = [educationId];
+	await pool.query(examQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Exams": result.rows }))
+	.catch((error) => res.status(500).json(error));
 
-	Object.keys(req.body).map((param, index) => {
-    insideParams.push(`${param} = $${index + 2}`);
-    params.push(req.body[param]);
-	});
+	await pool.query(qualQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Qualifications": result.rows }))
+	.catch((error) => res.status(500).json(error));
 
-	const selectQuery = "Select * From education Where id = $1";
-	const queryString = `Update education Set ${insideParams.join(",")} 
-  					   		Where id = $1`;
+	await pool.query(langQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Languages": result.rows }))
+	.catch((error) => res.status(500).json(error));
 
-	pool.query(selectQuery, [educationId])
+	await pool.query(appQuery, [applicantId])
 	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Education doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Education has been updated."))
-			.catch((error) => res.status(500).json(error));
-		}
+		result.rows.length>0&&allResult.push({ "Applications": result.rows });
+		res.status(201).json(allResult);
 	}).catch((error) => res.status(500).json(error));
-});
-
-router.delete("/education/:educationId", (req, res) => {
-	const educationId = req.params.educationId;
-	const selectQuery = "Select * From education Where id = $1";
-	const queryString = "Delete From education Where id = $1";
-	const params = [educationId];
-	pool.query(selectQuery, [educationId])
-	.then((result) => {
-		if (result.rows == 0) {
-			res.status(400).send("Education doesn't exist!");
-		} else {
-			pool.query(queryString, params)
-			.then(() => res.status(201).send("Education has been deleted."))
-			.catch((error) => res.status(500).json(error));
-		}
-	}).catch((error) => res.status(500).json(error));
-
 });
 
 

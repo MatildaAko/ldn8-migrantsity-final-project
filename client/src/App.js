@@ -3,15 +3,26 @@ import { Route, Routes } from "react-router-dom";
 import ApplicantForm from "./components/ApplicantsForms/ApplicantForm";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import EqualityForm from "./pages/EqualityForm";
 
-const App = () => (
-	<Routes>
-		<Route path="/" element={<Home />} />
+import EqualityForm from "./pages/EqualityForm";
+import HMCDashboard from "./pages/HMCDashboard";
+import ApplicationDetails from "./pages/ApplicationDetails";
+
+const App = () => {
+	return (
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/about/this/site" element={<About />} />
+			<Route path="/hmcview" element={<HMCDashboard />} />
+      
 		<Route path="/application" element={<ApplicantForm />} />
-		<Route path="/about/this/site" element={<About />} />
 		<Route path="/equality" element={<EqualityForm />} />
-	</Routes>
-);
+			<Route
+				path="/applicationdetails/:id"
+				element={<ApplicationDetails />}
+			/>
+		</Routes>
+	);
+};
 
 export default App;
