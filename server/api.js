@@ -342,5 +342,127 @@ router.get("/:applicantId/applicantAllData", async (req, res) => {
 	}).catch((error) => res.status(500).json(error));
 });
 
+router.post("/applicantAllData", async (req, res) => {
+	let items  = [];
+	let params = [];
+	let values = [];
+	let fields = [];
+	let queryString = "";
+	let lastValuesLength = 0;
+	const addValue = (n) => {
+		values.push(`$${n+1}`);
+	};
+	const addEducation = () => {
+		fields = [];
+		items  = [];
+		req.body.education.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` educ${index} as (Insert Into education (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app) ) returning *), `;
+		});
+	};
+
+	const addExams = () => {
+		fields = [];
+		items  = [];
+		req.body.exams.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` exam${index} as (Insert Into exams (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app) ) returning *), `;
+		});
+	};
+
+	const addQualification = () => {
+		fields = [];
+		items  = [];
+		req.body.qualifications.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` qual${index} as (Insert Into qualifications (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app) ) returning *), `;
+		});
+	};
+
+	const addLanguages = () => {
+		fields = [];
+		items  = [];
+		req.body.languages.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` lang${index} as ( Insert Into languages (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app)) returning *), `;
+		});
+	};
+
+	//prepare query to add applicant
+	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="exams"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
+		addValue(values.length);
+		fields.push(param);
+		params.push(req.body[param]);
+	});
+	queryString += ` with app as (Insert Into applicants (${fields.join(",")}) 
+		Values (${values.join(",")}) returning id ), `;
+	addEducation();
+	addExams();
+	addQualification();
+	addLanguages();
+
+	queryString = queryString.slice(0, -2);
+	queryString += " select * from app;";
+
+	console.log( params, params.length);
+	console.log(queryString);
+
+	pool.query(queryString, params)
+	.then(() => {
+		res.status(201).send("All records added.");
+	}).catch((error) => res.status(500).json(error));
+
+});
+
+
 
 export default router;
+
