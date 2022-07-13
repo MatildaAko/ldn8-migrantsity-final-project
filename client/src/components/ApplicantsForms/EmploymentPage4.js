@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import React, { useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import EducationModal from "./EducationModal";
 
 import {
 	TextField,
@@ -19,7 +21,49 @@ function EmploymentPage4({ values, handleChange }) {
 	}
 
 	const rows = [createData("English", "Yes", "Yes", "---")];
+	const [education, setEducation] = useState([{ "id":1, "school":"Test School", "degree":80, "description": "Nothing" }]);
 
+	const columns = [
+		{
+			field: "id",
+			headerName: "Education ID",
+			width: 120,
+			// renderCell: (params) => (
+			// 	// <Link to={`/applicationdetails/${params.id}`}>
+			// 	// 	<Button>{params.id}</Button>
+			// 	// </Link>
+			// ),
+		},
+		{
+			field: "school",
+			headerName: "School",
+			width: 150,
+			editable: false,
+		},
+		{
+			field: "degree",
+			headerName: "Degree",
+			width: 150,
+			editable: false,
+		},
+		{
+			field: "description",
+			headerName: "Description",
+			description: "",
+			width: 160,
+			editable: false,
+		},
+	];
+	const eduRows = education.map((edu)=> {
+		// console.log("education: ",education);
+		// console.log("school: ",edu.school);
+		return {
+			id: edu.id,
+			school: edu.school,
+			degree: edu.degree,
+			description: edu.description,
+		};
+	});
 	return (
 		<>
 			<h1>Employment, Education, Qualifications and Language History</h1>
@@ -66,6 +110,16 @@ function EmploymentPage4({ values, handleChange }) {
 				/>
 				<br />
 				<br />
+				<EducationModal setEducation = {setEducation} />
+				<DataGrid
+					getRowHeight={() => "auto"}
+					getEstimatedRowHeight={() => 10}
+					rows={eduRows}
+					columns={columns}
+					rowsPerPageOptions={[10, 25, 50, 100]}
+					checkboxSelection
+					disableSelectionOnClick
+				/>
 			</div>
 			<div>
 				<h3>Exam History</h3>
