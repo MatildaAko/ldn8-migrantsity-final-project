@@ -1,7 +1,7 @@
 import React from "react";
-import { List, ListItem, ListItemText, Button } from "@mui/material";
+import { List, ListItem, ListItemText } from "@mui/material";
 
-function Confirm({ values, activeStep, steps }) {
+function Confirm({ values }) {
 	const {
 		currently_work,
 		right_to_work,
@@ -23,23 +23,6 @@ function Confirm({ values, activeStep, steps }) {
 		gender,
 		caring,
 	} = values;
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
-		let data = { values };
-
-		fetch("http://localhost:5000/applicantion", {
-			method: "POST",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => response.json())
-			.then((response) => console.log("Success:", JSON.stringify(response)))
-			.catch((error) => console.error("Error:", error));
-	};
 
 	return (
 		<>
@@ -154,9 +137,6 @@ function Confirm({ values, activeStep, steps }) {
 					/>
 				</ListItem>
 			</List>
-			<Button enabled={activeStep === steps?.length - 1} onClick={handleSubmit}>
-				Submit
-			</Button>
 		</>
 	);
 }

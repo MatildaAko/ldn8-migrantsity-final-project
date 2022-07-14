@@ -37,7 +37,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"female"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="Buddhist"
@@ -50,7 +49,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"female"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="Christian"
@@ -63,7 +61,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"female"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="Hindu"
@@ -76,7 +73,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"female"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="Jewish"
@@ -89,7 +85,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"female"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="Muslim"
@@ -102,7 +97,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"female"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="Sikh"
@@ -116,7 +110,6 @@ function ReligionEqualityForm({ handleChange }) {
 					<FormControlLabel
 						control={
 							<Checkbox
-								// checked={"not-answered"}
 								ref={ref}
 								onChange={handleChange("religion")}
 								name="not-answered"

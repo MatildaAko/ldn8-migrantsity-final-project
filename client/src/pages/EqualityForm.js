@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-
-import { Button } from "@mui/material";
+import React, { useState } from "react";
 
 import GenderEqualityForm from "../components/EqualityFormControl/GenderEqualityForm";
 import IdentifyEqualityForm from "../components/EqualityFormControl/IdentifyEqualityForm";
@@ -15,7 +13,7 @@ import CaringEqualityForm from "../components/EqualityFormControl/CaringEquality
 import ConfirmEqualityForm from "../components/EqualityFormControl/ConfirmEqualityForm";
 
 const EqualityForm = () => {
-	const [backToTopButton, setBackToTopButton] = useState(false);
+
 	const [userInfo, setUserInfo] = useState({
 		gender: "",
 		identify: "",
@@ -29,26 +27,6 @@ const EqualityForm = () => {
 		caring: "",
 	});
 
-	// Handle Reset data
-	const handleReset = () => {
-		setUserInfo({
-			gender: "",
-			identify: "",
-			age_band: "",
-			ethnic_group: "",
-			disability: "",
-			sex_orientation: "",
-			religion: "",
-			working_pattern: "",
-			flexible_working: "",
-			caring: "",
-		});
-		setBackToTopButton(true);
-	};
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [backToTopButton]);
 
 	// Handle fields change
 	const handleChange = (input) => (e) => {
@@ -144,16 +122,13 @@ const EqualityForm = () => {
 
 			{/* Do you have caring responsibilities? If yes, please tick all that apply.
 			 */}
-			<CaringEqualityForm handleChange={handleChange} />
+			<CaringEqualityForm handleChange={handleChange} values={userInfo} />
 
 			<hr />
 
 			<ConfirmEqualityForm values={userInfo} />
 
 			<hr />
-			<Button variant="contained" color="primary" onClick={handleReset}>
-				Submit
-			</Button>
 		</>
 	);
 };

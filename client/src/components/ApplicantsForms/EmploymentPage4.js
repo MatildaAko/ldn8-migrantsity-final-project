@@ -134,16 +134,6 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 				</div>
 				<br />
 				<br />
-				{/* <ProfessionalQualificationsModal setProfessional={setProfessional} />
-				<DataGrid
-					getRowHeight={() => "auto"}
-					getEstimatedRowHeight={() => 10}
-					rows={profRows}
-					columns={columns}
-					rowsPerPageOptions={[10, 25, 50, 100]}
-					checkboxSelection
-					disableSelectionOnClick
-				/> */}
 			</div>
 			<div className="featureJobs">
 				<h2>Languages</h2>
@@ -154,31 +144,6 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 					</p>
 					<LanguagesModal />
 				</div>
-				{/* <TableContainer component={Paper}>
-					<Table aria-label="simple table">
-						<TableHead>
-							<TableRow>
-								<TableCell>Language</TableCell>
-
-								<TableCell align="right">Spoken</TableCell>
-								<TableCell align="right">Written</TableCell>
-								<TableCell align="right">Degree of Fluency</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{rows.map((row) => (
-								<TableRow key={row.language}>
-									<TableCell component="th" scope="row">
-										{row.language}
-									</TableCell>
-									<TableCell align="right">{row.spoken}</TableCell>
-									<TableCell align="right">{row.written}</TableCell>
-									<TableCell align="right">{row.degree_of_fluency}</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				</TableContainer> */}
 				<br />
 				<br />
 			</div>

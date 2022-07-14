@@ -56,7 +56,7 @@ function LanguagesModal() {
 				<DialogContent>
 					<Box
 						sx={{
-							width: 600,
+							width: 550,
 							height: 200,
 							display: "flex",
 							alignItems: "center",
@@ -66,8 +66,8 @@ function LanguagesModal() {
 						<Box>
 							<DialogContentText>Language<span className="asterisk"> *</span></DialogContentText>
 							<FormControl
-								variant="container"
-								sx={{ m: 1, minWidth: 220 }}
+								variant="standard"
+								sx={{ m: 1, minWidth: 200 }}
 								size="small"
 							>
 								<Select
