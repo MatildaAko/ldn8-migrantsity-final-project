@@ -2,33 +2,16 @@
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
+import "../../styles/JobsHistory.css";
+
 import EmploymentModal from "../Modals/EmploymentModal";
+import EducationHistoryModal from "../Modals/EducationHistoryModal";
 import EducationModal from "./EducationModal";
 import ProfessionalQualificationsModal from "../Modals/ProfessionalQualificationsModal";
 import LanguagesModal from "../Modals/LanguagesModal";
 
-import {
-	TextField,
-	// Table,
-	// TableBody,
-	// TableCell,
-	// TableContainer,
-	// TableHead,
-	// TableRow,
-	// Paper,
-} from "@mui/material";
 
-// import { Button } from "bootstrap";
-// import ProfessionalQualificationsModal from "./ProfessionalQualificationsModal";
-
-function EmploymentPage4({ values, handleChange }) {
-	// function createData(language, spoken, written, degree_of_fluency) {
-	// 	return { language, spoken, written, degree_of_fluency };
-	// }
-	// const [professional, setProfessional] =
-	// 	useState[{ title: "", date: "", status: "" }];
-
-	// const rows = [createData("English", "Yes", "Yes", "---")];
+function EmploymentPage4(/*{ values, handleChange }*/) {
 	const [education, setEducation] = useState([
 		{ id: 1, school: "Test School", degree: 80, description: "Nothing" },
 	]);
@@ -75,17 +58,10 @@ function EmploymentPage4({ values, handleChange }) {
 		};
 	});
 
-	// const profRows = professional.map((prof) => {
-	// 	return {
-	// 		title: prof.title,
-	// 		date: prof.date,
-	// 		status: prof.status,
-	// 	};
-	// });
 	return (
 		<>
 			<h1>Right to Work, Employment, Education, Qualification and Language History</h1>
-			<div>
+			<div className="featureJobs">
 				<h2>Employment History</h2>
 				<p>
 					We require information for the previous three years of your employment
@@ -110,15 +86,22 @@ function EmploymentPage4({ values, handleChange }) {
 					defaultValue={values.employment_history}
 				/> */}
 			</div>
-			<div>
+			<div className="featureJobs">
 				<h2>Education History</h2>
 				<p>
 					Please click on the 'Add' button to add schools / colleges /
 					universities or courses attended. Click to EDIT
 				</p>
+				<div className="paragraphAndModalButton">
+					<p>
+						Please click on the 'Add' button to add your education history.
+						Click on the text highlighted in red to edit your entry.
+					</p>
+					<EducationHistoryModal />
+				</div>
 				<br />
 				<br />
-				<TextField
+				{/* <TextField
 					id="outlined-multiline-static"
 					label="Employment Education History"
 					multiline
@@ -126,7 +109,7 @@ function EmploymentPage4({ values, handleChange }) {
 					variant="outlined"
 					onChange={handleChange("education_history")}
 					defaultValue={values.education_history}
-				/>
+				/> */}
 				<br />
 				<br />
 				<EducationModal setEducation={setEducation} />
@@ -140,27 +123,7 @@ function EmploymentPage4({ values, handleChange }) {
 					disableSelectionOnClick
 				/>
 			</div>
-			<div>
-				<h2>Exam History</h2>
-				<p>
-					Please click on the 'Add' button to add exams. Click on the text
-					highlighted in red to edit your entry.
-				</p>
-				<br />
-				<br />
-				<TextField
-					id="outlined-multiline-static"
-					label="Exam History"
-					multiline
-					rows={3}
-					variant="outlined"
-					onChange={handleChange("exam_history")}
-					defaultValue={values.exam_history}
-				/>
-				<br />
-				<br />
-			</div>
-			<div>
+			<div className="featureJobs">
 				<h2>Professional Qualifications</h2>
 				<div className="paragraphAndModalButton">
 					<p>
@@ -182,7 +145,7 @@ function EmploymentPage4({ values, handleChange }) {
 					disableSelectionOnClick
 				/> */}
 			</div>
-			<div>
+			<div className="featureJobs">
 				<h2>Languages</h2>
 				<div className="paragraphAndModalButton">
 					<p>

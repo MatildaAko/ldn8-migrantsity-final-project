@@ -38,7 +38,7 @@ function ProfessionalQualificationsModal() {
 			<Dialog open={open} onClose={handleClose}>
 				<DialogContent>
 					<DialogContentText>
-						Title<span>*</span>
+						Title<span className="asterisk"> *</span>
 					</DialogContentText>
 					<TextField
 						required
@@ -59,7 +59,7 @@ function ProfessionalQualificationsModal() {
 					>
 						<Box>
 							<DialogContentText>
-								Date<span>*</span>
+								Date<span className="asterisk">*</span>
 							</DialogContentText>
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>

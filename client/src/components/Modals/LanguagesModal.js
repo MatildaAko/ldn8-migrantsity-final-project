@@ -64,7 +64,7 @@ function LanguagesModal() {
 						}}
 					>
 						<Box>
-							<DialogContentText>Language*</DialogContentText>
+							<DialogContentText>Language<span className="asterisk"> *</span></DialogContentText>
 							<FormControl
 								variant="container"
 								sx={{ m: 1, minWidth: 220 }}

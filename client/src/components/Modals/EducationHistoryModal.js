@@ -9,18 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Box from "@mui/material/Box";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import Stack from "@mui/material/Stack";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal() {
+function EducationHistoryModal() {
 	const [open, setOpen] = React.useState(false);
-	const [date, setDate] = React.useState(new Date());
-	const [checked, setChecked] = React.useState(false);
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -28,14 +19,6 @@ function EmploymentModal() {
 
 	const handleClose = () => {
 		setOpen(false);
-	};
-
-	const handleChange = (newDate) => {
-		setDate(newDate);
-	};
-
-	const handleChangeCheck = (event) => {
-		setChecked(event.target.checked);
 	};
 
 	return (
@@ -47,7 +30,7 @@ function EmploymentModal() {
 			<Dialog open={open} onClose={handleClose}>
 				<DialogContent>
 					<DialogContentText>
-						Position/Gap<span className="asterisk"> *</span>
+						School Name<span className="asterisk"> *</span>
 					</DialogContentText>
 					<TextField
 						required
@@ -59,9 +42,7 @@ function EmploymentModal() {
 					/>
 					<br />
 					<br />
-					<DialogContentText>
-						Employer/Gap<span className="asterisk"> *</span>
-					</DialogContentText>
+					<DialogContentText>Course</DialogContentText>
 					<TextField
 						required
 						id="outlined-basic"
@@ -70,56 +51,78 @@ function EmploymentModal() {
 						size="small"
 						fullWidth
 					/>
-					<FormGroup>
-						<FormControlLabel
-							control={
-								<Checkbox
-									defaultChecked
-									checked={checked}
-									onChange={handleChangeCheck}
-								/>
-							}
-							label="I am currently working in this role"
-						/>
-					</FormGroup>
+					<br />
+					<br />
+					<DialogContentText>Subject</DialogContentText>
+					<TextField
+						required
+						id="outlined-basic"
+						label=""
+						variant="outlined"
+						size="small"
+						fullWidth
+					/>
+					<br />
+					<br />
+					<DialogContentText>Address 1</DialogContentText>
+					<TextField
+						required
+						id="outlined-basic"
+						label=""
+						variant="outlined"
+						size="small"
+						fullWidth
+					/>
+					<br />
+					<br />
+					<DialogContentText>Address 2</DialogContentText>
+					<TextField
+						required
+						id="outlined-basic"
+						label=""
+						variant="outlined"
+						size="small"
+						fullWidth
+					/>
+					<br />
+					<br />
 					<Box
 						sx={{
 							width: 500,
-							height: 200,
+							height: 150,
+							display: "flex",
+							alignItems: "stretch",
+							"& > :not(style)": { m: 1 },
+						}}
+					>
+						<Box>
+							<DialogContentText>Town</DialogContentText>
+							<TextField label="" />
+						</Box>
+						<Box>
+							<DialogContentText>Country</DialogContentText>
+							<TextField
+								label="United Kingdom"
+								helperText="Please leave blank if current employment"
+							/>
+						</Box>
+					</Box>
+					<Box
+						sx={{
+							width: 500,
+							height: 150,
 							display: "flex",
 							alignItems: "center",
 							"& > :not(style)": { m: 1 },
 						}}
 					>
 						<Box>
-							<DialogContentText>
-								Start Date<span className="asterisk"> *</span>
-							</DialogContentText>
-							<LocalizationProvider dateAdapter={AdapterDateFns}>
-								<Stack spacing={2}>
-									<DesktopDatePicker
-										label=""
-										inputFormat="dd/MM/yyyy"
-										value={date}
-										onChange={handleChange}
-										renderInput={(params) => <TextField {...params} />}
-									/>
-								</Stack>
-							</LocalizationProvider>
+							<DialogContentText>Telephone</DialogContentText>
+							<TextField label="" type="number" />
 						</Box>
 						<Box>
-							<DialogContentText>End Date</DialogContentText>
-							<LocalizationProvider dateAdapter={AdapterDateFns}>
-								<Stack spacing={2}>
-									<DesktopDatePicker
-										label=""
-										inputFormat="dd/MM/yyyy"
-										value={date}
-										onChange={handleChange}
-										renderInput={(params) => <TextField {...params} />}
-									/>
-								</Stack>
-							</LocalizationProvider>
+							<DialogContentText>Mobile</DialogContentText>
+							<TextField label="" type="number" />
 						</Box>
 					</Box>
 					<DialogContentText>Responsibilities:</DialogContentText>
@@ -135,8 +138,9 @@ function EmploymentModal() {
 					/>
 					<br />
 					<br />
+					<br />
 					<DialogContentText>
-						Reason For Leaving / Explanation for Gap in Employment<span className="asterisk"> *</span>
+						Reason For Leaving / Explanation for Gap in Employment<span className="asterisk">*</span>
 					</DialogContentText>
 					<TextField
 						required
@@ -165,4 +169,4 @@ function EmploymentModal() {
 	);
 }
 
-export default EmploymentModal;
+export default EducationHistoryModal;
