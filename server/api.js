@@ -1,4 +1,7 @@
 import { Router } from "express";
+import "dotenv/config";
+import fetch from "node-fetch";
+import FormData from "form-data";
 import pool from "./db";
 
 const router = Router();
@@ -340,6 +343,68 @@ router.get("/:applicantId/applicantAllData", async (req, res) => {
 		result.rows.length>0&&allResult.push({ "Applications": result.rows });
 		res.status(201).json(allResult);
 	}).catch((error) => res.status(500).json(error));
+});
+
+//GITHUB LOGIN
+const clientId = process.env.GITHUB_CLIENT_ID;
+const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+
+
+router.get("/login/github", (req, res) => {
+	const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=http://localhost:3000/api/login/github/callback`;
+	res.redirect(url);
+});
+
+const getAccessToken = async (code) => {
+	try {
+		let data = new FormData();
+			data.append("client_id", clientId);
+		data.append("client_secret", clientSecret);
+		data.append("code", code);
+		const res = await fetch("https://github.com/login/oauth/access_token", {
+			method: "POST",
+			header: {
+				"Content-Type": "application/json",
+			},
+			body: data,
+		});
+		const response = await res.text();
+		const params = new URLSearchParams(response);
+		return params.get("access_token");
+	} catch(err) {
+		console.error(err);
+	}
+};
+
+const getGithubUser = async (access_token) => {
+	try {
+		const req = await fetch("https://api.github.com/user", {
+			headers: {
+				Authorization: `bearer ${access_token}`,
+			},
+		});
+		const data = await req.json();
+		return data;
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+router.get("/login/github/callback", async (req, res) => {
+	const code = req.query.code;
+	try {
+		const token = await getAccessToken(code);
+		const githubData = await getGithubUser(token);
+		// res.json(githubData);
+		if (githubData) {
+			res.redirect("/hmcview");
+
+		} else {
+			res.redirect("/");
+		}
+	} catch (err) {
+		console.error(err);
+	}
 });
 
 
