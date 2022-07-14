@@ -1,0 +1,8 @@
+.paragraphAndModalButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F5F4FB;
+    padding: 10px 15px;
+}

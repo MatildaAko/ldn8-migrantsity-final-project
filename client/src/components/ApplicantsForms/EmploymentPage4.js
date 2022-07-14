@@ -1,27 +1,37 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+
+import EmploymentModal from "../Modals/EmploymentModal";
 import EducationModal from "./EducationModal";
+import ProfessionalQualificationsModal from "../Modals/ProfessionalQualificationsModal";
+import LanguagesModal from "../Modals/LanguagesModal";
 
 import {
 	TextField,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Paper,
+	// Table,
+	// TableBody,
+	// TableCell,
+	// TableContainer,
+	// TableHead,
+	// TableRow,
+	// Paper,
 } from "@mui/material";
 
+// import { Button } from "bootstrap";
+// import ProfessionalQualificationsModal from "./ProfessionalQualificationsModal";
+
 function EmploymentPage4({ values, handleChange }) {
+	// function createData(language, spoken, written, degree_of_fluency) {
+	// 	return { language, spoken, written, degree_of_fluency };
+	// }
+	// const [professional, setProfessional] =
+	// 	useState[{ title: "", date: "", status: "" }];
 
-	function createData(language, spoken, written, degree_of_fluency) {
-		return { language, spoken, written, degree_of_fluency };
-	}
-
-	const rows = [createData("English", "Yes", "Yes", "---")];
-	const [education, setEducation] = useState([{ "id":1, "school":"Test School", "degree":80, "description": "Nothing" }]);
+	// const rows = [createData("English", "Yes", "Yes", "---")];
+	const [education, setEducation] = useState([
+		{ id: 1, school: "Test School", degree: 80, description: "Nothing" },
+	]);
 
 	const columns = [
 		{
@@ -54,7 +64,7 @@ function EmploymentPage4({ values, handleChange }) {
 			editable: false,
 		},
 	];
-	const eduRows = education.map((edu)=> {
+	const eduRows = education.map((edu) => {
 		// console.log("education: ",education);
 		// console.log("school: ",edu.school);
 		return {
@@ -64,22 +74,33 @@ function EmploymentPage4({ values, handleChange }) {
 			description: edu.description,
 		};
 	});
+
+	// const profRows = professional.map((prof) => {
+	// 	return {
+	// 		title: prof.title,
+	// 		date: prof.date,
+	// 		status: prof.status,
+	// 	};
+	// });
 	return (
 		<>
-			<h1>Employment, Education, Qualifications and Language History</h1>
+			<h1>Right to Work, Employment, Education, Qualification and Language History</h1>
 			<div>
-				<h3>Employment History</h3>
+				<h2>Employment History</h2>
 				<p>
 					We require information for the previous three years of your employment
 					history.
 				</p>
-				<p>
-					We require information for the previous three years of your employment
-					history.
-				</p>
+				<div className="paragraphAndModalButton">
+					<p>
+						Please click on the 'Add' button to add your employment history.
+						Click on the text highlighted in red to edit your entry.
+					</p>
+					<EmploymentModal />
+				</div>
 				<br />
 				<br />
-				<TextField
+				{/* <TextField
 					id="outlined-multiline-static"
 					label="Employment History"
 					multiline
@@ -87,12 +108,10 @@ function EmploymentPage4({ values, handleChange }) {
 					variant="outlined"
 					onChange={handleChange("employment_history")}
 					defaultValue={values.employment_history}
-				/>
-				<br />
-				<br />
+				/> */}
 			</div>
 			<div>
-				<h3>Education History</h3>
+				<h2>Education History</h2>
 				<p>
 					Please click on the 'Add' button to add schools / colleges /
 					universities or courses attended. Click to EDIT
@@ -110,7 +129,7 @@ function EmploymentPage4({ values, handleChange }) {
 				/>
 				<br />
 				<br />
-				<EducationModal setEducation = {setEducation} />
+				<EducationModal setEducation={setEducation} />
 				<DataGrid
 					getRowHeight={() => "auto"}
 					getEstimatedRowHeight={() => 10}
@@ -122,7 +141,7 @@ function EmploymentPage4({ values, handleChange }) {
 				/>
 			</div>
 			<div>
-				<h3>Exam History</h3>
+				<h2>Exam History</h2>
 				<p>
 					Please click on the 'Add' button to add exams. Click on the text
 					highlighted in red to edit your entry.
@@ -142,28 +161,37 @@ function EmploymentPage4({ values, handleChange }) {
 				<br />
 			</div>
 			<div>
-				<h3>Professional Qualifications</h3>
-				<p>
-					Please click on the 'Add' button to add exams. Click on the text
-					highlighted in red to edit your entry.
-				</p>
+				<h2>Professional Qualifications</h2>
+				<div className="paragraphAndModalButton">
+					<p>
+						Please click on the 'Add' button to add exams. Click on the text
+						highlighted in red to edit your entry.
+					</p>
+					<ProfessionalQualificationsModal />
+				</div>
 				<br />
 				<br />
-				<TextField
-					id="outlined-multiline-static"
-					label="Professional Qualifications"
-					multiline
-					rows={3}
-					variant="outlined"
-					onChange={handleChange("professional_qualifications")}
-					defaultValue={values.professional_qualifications}
-				/>
-				<br />
-				<br />
+				{/* <ProfessionalQualificationsModal setProfessional={setProfessional} />
+				<DataGrid
+					getRowHeight={() => "auto"}
+					getEstimatedRowHeight={() => 10}
+					rows={profRows}
+					columns={columns}
+					rowsPerPageOptions={[10, 25, 50, 100]}
+					checkboxSelection
+					disableSelectionOnClick
+				/> */}
 			</div>
 			<div>
-				<h3>Languages</h3>
-				<TableContainer component={Paper}>
+				<h2>Languages</h2>
+				<div className="paragraphAndModalButton">
+					<p>
+						Please click on the 'Add' button to add languages. Click on the text
+						highlighted in red to edit your entry.
+					</p>
+					<LanguagesModal />
+				</div>
+				{/* <TableContainer component={Paper}>
 					<Table aria-label="simple table">
 						<TableHead>
 							<TableRow>
@@ -187,7 +215,7 @@ function EmploymentPage4({ values, handleChange }) {
 							))}
 						</TableBody>
 					</Table>
-				</TableContainer>
+				</TableContainer> */}
 				<br />
 				<br />
 			</div>
