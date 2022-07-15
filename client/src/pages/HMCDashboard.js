@@ -16,7 +16,6 @@ const HMCDashboard = () => {
 				return res.json();
 			})
       .then((body) => {
-				console.log(body);
 				setApplications(body);
 			})
 			.catch((err) => {
