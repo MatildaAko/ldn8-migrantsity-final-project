@@ -7,6 +7,30 @@
     padding: 10px 15px;
 }
 
+.editList {
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+    justify-content: space-between;
+    background-color: #F5F4FB;
+    padding: 20px 0;
+}
+
 .asterisk{
     color: red;
+}
+
+.flex-space {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.flex-half {
+    width: 48%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
 }

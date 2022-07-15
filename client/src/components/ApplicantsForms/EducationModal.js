@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-// import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 
 const customStyles = {
@@ -21,19 +20,22 @@ const customStyles = {
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement("#yourAppElement");
 
-const EducationModal = ({ setEducation }) => {
-  const [id, setId] = useState(1);
-  const [school, setSchool] = useState("");
-  const [degree, setDegree] = useState("");
-  const [description, setDescription] = useState("");
+const EducationModal = ({ caption, editableEducation, education, setEducation }) => {
+  // console.log("editableEducation in modal:", editableEducation);
+  // console.log("education in modal:", education);
+  const [id, setId] = useState(education.id);
+  const [school, setSchool] = useState(education.school);
+  const [degree, setDegree] = useState(education.degree);
+  const [description, setDescription] = useState(education.description);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  const formTitle = "Add";
+  const formTitle = caption;
   function openModal() {
     setIsOpen(true);
   }
 
   function afterOpenModal() {
+    setId(education.length+1);
     // references are now sync'd and can be accessed.
   }
 
@@ -52,7 +54,7 @@ const EducationModal = ({ setEducation }) => {
     };
     // axios.post(path, newHotel).then(() => loadData());
     // console.log(newHotel);
-    setEducation([newEdu]);
+    setEducation([...education, newEdu]);
     console.log(newEdu);
     closeModal();
   };
