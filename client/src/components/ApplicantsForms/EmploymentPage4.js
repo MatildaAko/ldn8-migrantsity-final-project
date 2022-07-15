@@ -5,7 +5,7 @@ import { Box, IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-
+import { Applicant } from "../../models/applicant";
 import "../../styles/JobsHistory.css";
 
 import EmploymentModal from "../Modals/EmploymentModal";
@@ -15,6 +15,9 @@ import ProfessionalQualificationsModal from "../Modals/ProfessionalQualification
 import LanguagesModal from "../Modals/LanguagesModal";
 
 function EmploymentPage4(/*{ values, handleChange }*/) {
+	// const newApp = new Applicant();
+	// newApp.education.school = "The school";
+	// const newSchool = new Applicant.Ed
 	const [education, setEducation] = useState([
 		{ id: 1, school: "Test1 School", degree: 180, description: "Nothing1" },
 		{ id: 2, school: "Test2 School", degree: 280, description: "Nothing2" },
@@ -90,7 +93,7 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 			width: 100,
 			value: 1,
 			editable: false,
-			renderCell: (params) => (
+			renderCell: () => (
 				<>
 					<IconButton aria-label="delete">
 						<DeleteIcon />
