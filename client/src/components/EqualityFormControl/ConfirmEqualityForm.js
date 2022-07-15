@@ -15,9 +15,27 @@ function ConfirmEqualityForm({ values }) {
 		caring,
 	} = values;
 
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault();
+
+	// 	let data = { values };
+
+	// 	fetch("http://localhost:5000/applicantion", {
+	// 		method: "POST",
+	// 		body: JSON.stringify(data),
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 	})
+	// 		.then((response) => response.json())
+	// 		.then((response) => console.log("Success:", JSON.stringify(response)))
+	// 		.catch((error) => console.error("Error:", error));
+	// };
+
 	return (
 		<>
-			<h1>Check your information</h1>
+			<h1>Check your information: </h1>
+			<h3>Hackney Migrant Centre Equal Opportunities</h3>
 			<List>
 				<ListItem>
 					<ListItemText primary="Gender: " secondary={gender} />
@@ -40,7 +58,7 @@ function ConfirmEqualityForm({ values }) {
 				<ListItem>
 					<ListItemText
 						primary="Do you consider yourself to have a disability or health condition? "
-						secondary={disability}
+						secondary={disability ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>
@@ -75,6 +93,9 @@ function ConfirmEqualityForm({ values }) {
 					/>
 				</ListItem>
 			</List>
+			{/* <Button enabled={activeStep === steps?.length - 1} onClick={handleSubmit}>
+				Submit
+			</Button> */}
 		</>
 	);
 }

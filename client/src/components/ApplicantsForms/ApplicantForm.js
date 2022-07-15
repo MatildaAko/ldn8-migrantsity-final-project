@@ -7,8 +7,10 @@ import CVPage2 from "./CVPage2";
 import StatementPage3 from "./StatementPage3";
 import EmploymentPage4 from "./EmploymentPage4";
 import CriminalConvictionsPage5 from "./CriminalConvictionsPage5";
-import EqualOpportunintiesPage6 from "./EqualOpportunitiesPage6";
-import Confirm from "./ConfirmPage7";
+import EqualOpportunitiesPage6 from "./EqualOpportunitiesPage6";
+import EqualityForm from "../../pages/EqualityForm";
+import ConfirmPage7 from "./ConfirmPage7";
+import ConfirmEqualityForm from "../EqualityFormControl/ConfirmEqualityForm";
 import SubmitPage8 from "./SubmitPage8";
 
 function ApplicantsForm() {
@@ -23,7 +25,8 @@ function ApplicantsForm() {
 			"Employment, Education, Qualifications and Language History",
 			"Criminal Convictions",
 			"Equal Opportunities and Submission",
-			"Confirm",
+			"ConfirmPage7",
+			"ConfirmEqualityForm",
 		];
 	};
 	const steps = getSteps();
@@ -50,6 +53,8 @@ function ApplicantsForm() {
 		gender: "",
 		caring: "",
 	});
+
+	console.log(userDetails);
 
 	// Actions
 	// Proceed to next step
@@ -111,31 +116,56 @@ function ApplicantsForm() {
 							<CVPage2 values={userDetails} handleChange={handleChange} />
 						)}
 						{activeStep === 2 && (
-							<StatementPage3 values={userDetails} handleChange={handleChange} />
+							<StatementPage3
+								values={userDetails}
+								handleChange={handleChange}
+							/>
 						)}
 						{activeStep === 3 && (
-							<EmploymentPage4 values={userDetails} handleChange={handleChange} />
+							<EmploymentPage4
+								values={userDetails}
+								handleChange={handleChange}
+							/>
 						)}
 						{activeStep === 4 && (
-							<CriminalConvictionsPage5 values={userDetails} handleChange={handleChange} />
+							<CriminalConvictionsPage5
+								values={userDetails}
+								handleChange={handleChange}
+							/>
 						)}
 						{activeStep === 5 && (
-							<EqualOpportunintiesPage6 values={userDetails} handleChange={handleChange} />
+							<EqualOpportunitiesPage6
+								values={userDetails}
+								handleChange={handleChange}
+							/>
 						)}
-						{activeStep === 6 && <Confirm values={userDetails} />}
-						{activeStep === 7 && <SubmitPage8 />}
+						{activeStep === 6 && <ConfirmPage7 values={userDetails} />}
+						{activeStep === 7 && (
+							<EqualityForm values={userDetails} handleChange={handleChange} />
+						)}
+
+						{activeStep === 8 && <ConfirmEqualityForm />}
+						{activeStep === 9 && <SubmitPage8 />}
 					</div>
 					<div className="buttons">
-						<Button
-							disabled={activeStep === 0}
-							onClick={handleBack}
-							//   className={classes.backButton}
-						>
+						<Button disabled={activeStep === 0} onClick={handleBack}>
 							Back
 						</Button>
-						<Button variant="contained" color="primary" onClick={handleNext}>
-							{activeStep === steps.length - 1 ? "Submit" : "Next"}
-						</Button>
+						{activeStep !== steps.length - 1 ? (
+							<Button
+								// disabled={activeStep !== steps.length - 1}
+								onClick={handleNext}
+							>
+								Next
+							</Button>
+						) : (
+							<Button
+							// enabled={activeStep === steps.length - 1}
+							// onClick={handleSubmit}
+							>
+								Submit
+							</Button>
+						)}
 					</div>
 				</>
 			)}
