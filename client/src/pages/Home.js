@@ -2,8 +2,9 @@
 import { Link } from "react-router-dom";
 
 import "./Home.css";
-export function Home() {
+import Login from "./Login";
 
+const Home = () => {
 	return (
 		<main role="main">
 			<div>
@@ -11,13 +12,13 @@ export function Home() {
 				<h2 className="message" data-qa="message">
 					Hackney Migrant Center
 				</h2>
-        <br />
-				<Link to="/hmcview">HMC Dashboard</Link>
+				<br />
+				<Login />
 				<br />
 				<Link to="/application">Application</Link>
 			</div>
 		</main>
 	);
-}
+};
 
 export default Home;
