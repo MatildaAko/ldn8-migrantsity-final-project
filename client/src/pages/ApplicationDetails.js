@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 
 const ApplicationDetails = () => {
   let { id } = useParams();
+  console.log({ id });
   const [applications, setApplications] = useState([]);
   useEffect(() => {
    const fetchData = async () => {
