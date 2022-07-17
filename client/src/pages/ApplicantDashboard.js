@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Box, Button, Menu, MenuItem } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
-import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import ApplicantNavbar from "../components/ApplicantDashboard/ApplicantNavbar";
@@ -15,6 +12,7 @@ import DeleteModal from "../components/Modals/Delete";
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
 	const [applicant, setApplicant] = useState([]);
+	const [open, setOpen] = useState(false);
   useEffect(() => {
 		fetch(`/api/applications/${applicantId}`)
 			.then((res) => {
@@ -94,8 +92,8 @@ const ApplicantDashboard = ({ applicantId }) => {
 			renderCell: (params) => (
 				<>
 					<a href={`/applicationdetails/${params.id}`} id="detail" ><ListAltIcon  /></a>
-					<EditIcon id="edit" onClick={gridMenuAction} />
-					<DeleteModal id="delete" onClick={gridMenuAction} />
+					<EditIcon id="edit" onClick={handleEditClick} />
+					<DeleteModal id="delete" onClick={handleDeleteClick} />
 				</>
 			),
 		},
@@ -113,30 +111,17 @@ const ApplicantDashboard = ({ applicantId }) => {
 	});
 
 	// const handleAddClick = () => {
-	// 	setEduOpen(!eduOpen);
+	// 	setOpen(!open);
 	// };
 
-	// const handleEditClick = (params) => {
-	// 	console.log("Params : ", params.target.value);
-	// 	setEduOpen(!eduOpen);
-	// };
-
-	const [anchorEl, setAnchorEl] = useState(null);
-	const openMenu = Boolean(anchorEl);
-	const gridMenuClick = (event) => {
-		setAnchorEl(event.currentTarget);
-		console.log(event.currentTarget);
+	const handleEditClick = (params) => {
+		console.log("Params : ", params.target.value);
+		setOpen(!open);
 	};
-	const gridMenuAction = (event) => {
-		setAnchorEl(null);
-		// switch (event.currentTarget.id) {
-		// 	case "detail":{
-		// 		return <Link to={"/applicationdetails/2"} />
-		// 	}
-		// 	default:
-		// 		break;
-		// }
-		console.log("id: ", event.currentTarget.id);
+
+	const handleDeleteClick = (params) => {
+		console.log("Params : ", params.target.value);
+		setOpen(!open);
 	};
 
   return (
