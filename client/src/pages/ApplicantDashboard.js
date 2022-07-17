@@ -1,10 +1,14 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { Box, Button, GlobalStyles, Menu, MenuItem } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import ApplicantNavbar from "../components/ApplicantDashboard/ApplicantNavbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IconButton from "@mui/material/IconButton";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
@@ -79,9 +83,29 @@ const ApplicantDashboard = ({ applicantId }) => {
 			editable: false,
 		},
 		{
-			headerName: "Actions",
+			headerName: "Action",
 			width: 100,
+			value: 1,
 			editable: false,
+			renderCell: () => (
+				<>
+				<IconButton aria-label="Example" onClick={gridMenuClick}>
+				<FontAwesomeIcon icon={faEllipsisV} />
+				</IconButton>
+				<Menu
+						id="basic-menu"
+						anchorEl={anchorEl}
+						open={open}
+						onClose={gridMenuClick}
+						MenuListProps={{
+						'aria-labelledby': 'basic-button',
+						}}
+					>
+					<MenuItem onClick={gridMenuAction}><DeleteIcon /> Delete</MenuItem>
+					<MenuItem onClick={gridMenuAction}><EditIcon /> Edit</MenuItem>
+				</Menu>
+				</>
+			),
 		},
 	];
 	const rows = applications.map((application) => {
@@ -95,6 +119,24 @@ const ApplicantDashboard = ({ applicantId }) => {
 			cover: application.cover_letter,
 		};
 	});
+
+	// const handleAddClick = () => {
+	// 	setEduOpen(!eduOpen);
+	// };
+
+	// const handleEditClick = (params) => {
+	// 	console.log("Params : ", params.target.value);
+	// 	setEduOpen(!eduOpen);
+	// };
+
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
+	const gridMenuClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const gridMenuAction = () => {
+		setAnchorEl(null);
+	};
   return (
 		<Container fluid>
             <ApplicantNavbar applicant={applicant} />
