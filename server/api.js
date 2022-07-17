@@ -54,6 +54,9 @@ router
 
 //Equality Params
 router
+.get("/equality", equalityController.getEquality);
+
+router
 .get("/flexible_working", equalityController.getFlexibleWorking)
 .get("/working_pattern", equalityController.getWorkingPattern)
 .get("/genders", equalityController.getGenders)
