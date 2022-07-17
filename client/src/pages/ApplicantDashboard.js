@@ -10,6 +10,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconButton from "@mui/material/IconButton";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 
+
+
+import {
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector,
+} from "@mui/x-data-grid";
+
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
 	const [applicant, setApplicant] = useState([]);
@@ -96,7 +106,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 						id="basic-menu"
 						anchorEl={anchorEl}
 						open={open}
-						onClose={gridMenuClick}
+						onClose={gridMenuAction}
 						MenuListProps={{
 						'aria-labelledby': 'basic-button',
 						}}
@@ -137,6 +147,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 	const gridMenuAction = () => {
 		setAnchorEl(null);
 	};
+
   return (
 		<Container fluid>
             <ApplicantNavbar applicant={applicant} />
@@ -175,7 +186,6 @@ const ApplicantDashboard = ({ applicantId }) => {
 					/>
 			</Box>
 			</Box>
-
 		</Container>
 	);
 };
