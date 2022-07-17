@@ -1,10 +1,12 @@
 import { Button, Modal } from "@mui/material";
 import React, { useState } from "react";
 import Register from "./Register";
+import SignIn from "./SignIn"
 
 const Login = () => {
-	const [open, setOpen] = useState(false);
-	const openLogin = () => setOpen(true);
+  const [open, setOpen] = useState(false);
+  const [display, setDisplay] = useState("");
+  const openLogin = () => { setOpen(true); setDisplay("register")};
 	const closeLogin = () => setOpen(false);
 	return (
 		<div>
@@ -13,7 +15,7 @@ const Login = () => {
         open={open}
         onClose={closeLogin}
       >
-				<Register />
+        {display === "register" ? <Register setDisplay={setDisplay} /> : <SignIn setDisplay={setDisplay} /> }
 			</Modal>
 		</div>
 	);

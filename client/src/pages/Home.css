@@ -9,3 +9,27 @@
 .message:hover {
 	background-color: yellow;
 }
+
+.valid, .invalid {
+	display: block;
+}
+
+.valid {
+	color: green;
+}
+
+.invalid {
+	color: red;
+}
+
+.hide {
+	display: none;
+}
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
