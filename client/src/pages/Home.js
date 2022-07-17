@@ -1,6 +1,5 @@
 
 import { Link } from "react-router-dom";
-import Login from "./Login";
 
 import "./Home.css";
 export function Home() {
@@ -13,7 +12,7 @@ export function Home() {
 					Hackney Migrant Center
 				</h2>
         <br />
-				<Login />
+				<Link to="/hmcview">HMC Dashboard</Link>
 				<br />
 				<Link to="/application">Application</Link>
 			</div>
