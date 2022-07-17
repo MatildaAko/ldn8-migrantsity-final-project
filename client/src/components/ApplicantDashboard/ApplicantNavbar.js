@@ -7,6 +7,16 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { cyan } from "@mui/material/colors";
+
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: cyan[500],
+    },
+  },
+});
 
 const styles = {
   root: {
@@ -25,8 +35,9 @@ function ApplicantNavbar(props) {
   console.log('props:',props);
   const { classes } = props;
   return (
+    <ThemeProvider theme={theme}>
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
@@ -41,6 +52,7 @@ function ApplicantNavbar(props) {
         </Toolbar>
       </AppBar>
     </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Box, Button, GlobalStyles, Menu, MenuItem } from "@mui/material";
+import { Box, Button, Menu, MenuItem } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import ApplicantNavbar from "../components/ApplicantDashboard/ApplicantNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import ApplicantNavbar from "../components/ApplicantDashboard/ApplicantNavbar";
 
-
-
-import {
-  GridToolbarContainer,
-  GridToolbarColumnsButton,
-  GridToolbarFilterButton,
-  GridToolbarExport,
-  GridToolbarDensitySelector,
-} from "@mui/x-data-grid";
+import DeleteModal from "../components/Modals/Delete";
 
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
@@ -32,7 +24,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 				return res.json();
 			})
       .then((data) => {
-				console.log(data);
+				// console.log(data);
 				setApplications(data);
 			})
 			.catch((error) => {
@@ -49,7 +41,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 				return res.json();
 			})
       .then((data) => {
-				console.log(data);
+				// console.log(data);
 				setApplicant(data[0]);
 			})
 			.catch((error) => {
@@ -93,27 +85,17 @@ const ApplicantDashboard = ({ applicantId }) => {
 			editable: false,
 		},
 		{
-			headerName: "Action",
-			width: 100,
+			field: "actions",
+			headerName: "Actions",
+			width: 90,
 			value: 1,
 			editable: false,
-			renderCell: () => (
+			align: "right",
+			renderCell: (params) => (
 				<>
-				<IconButton aria-label="Example" onClick={gridMenuClick}>
-				<FontAwesomeIcon icon={faEllipsisV} />
-				</IconButton>
-				<Menu
-						id="basic-menu"
-						anchorEl={anchorEl}
-						open={open}
-						onClose={gridMenuAction}
-						MenuListProps={{
-						'aria-labelledby': 'basic-button',
-						}}
-					>
-					<MenuItem onClick={gridMenuAction}><DeleteIcon /> Delete</MenuItem>
-					<MenuItem onClick={gridMenuAction}><EditIcon /> Edit</MenuItem>
-				</Menu>
+					<a href={`/applicationdetails/${params.id}`} id="detail" ><ListAltIcon  /></a>
+					<EditIcon id="edit" onClick={gridMenuAction} />
+					<DeleteModal id="delete" onClick={gridMenuAction} />
 				</>
 			),
 		},
@@ -140,12 +122,21 @@ const ApplicantDashboard = ({ applicantId }) => {
 	// };
 
 	const [anchorEl, setAnchorEl] = useState(null);
-	const open = Boolean(anchorEl);
+	const openMenu = Boolean(anchorEl);
 	const gridMenuClick = (event) => {
 		setAnchorEl(event.currentTarget);
+		console.log(event.currentTarget);
 	};
-	const gridMenuAction = () => {
+	const gridMenuAction = (event) => {
 		setAnchorEl(null);
+		// switch (event.currentTarget.id) {
+		// 	case "detail":{
+		// 		return <Link to={"/applicationdetails/2"} />
+		// 	}
+		// 	default:
+		// 		break;
+		// }
+		console.log("id: ", event.currentTarget.id);
 	};
 
   return (
@@ -159,8 +150,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 					width="80%"
 					height="10vh"
 					>
-
-</Box>
+				</Box>
 				<Box
 					container
 					display="flex"
