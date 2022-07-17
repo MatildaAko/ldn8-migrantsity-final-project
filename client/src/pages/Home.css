@@ -1,13 +1,10 @@
-.logo {
-	width: 100px;
+main {
+	display: flex;
 }
 
-.message {
-	color: blue;
-}
-
-.message:hover {
-	background-color: yellow;
+.MuiBox-root {
+	margin: auto;
+	margin-top: 50px;
 }
 
 .valid, .invalid {

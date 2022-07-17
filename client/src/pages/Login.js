@@ -11,11 +11,12 @@ const Login = () => {
 	return (
 		<div>
 			<Button onClick={openLogin}>Login</Button>
-      <Modal
-        open={open}
-        onClose={closeLogin}
-      >
-        {display === "register" ? <Register setDisplay={setDisplay} /> : <SignIn setDisplay={setDisplay} /> }
+			<Modal open={open} onClose={closeLogin}>
+				{display === "register" ? (
+					<Register setDisplay={setDisplay} closeLogin={closeLogin} />
+				) : (
+					<SignIn setDisplay={setDisplay} closeLogin={closeLogin} />
+				)}
 			</Modal>
 		</div>
 	);

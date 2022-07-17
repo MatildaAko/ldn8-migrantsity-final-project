@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Check, Close, Info } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import "./Home.css";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,25}$/;
 const PASSWORD_REGEX =
 	/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,30}$/;
-const Register = ({ setDisplay }) => {
+const Register = ({ setDisplay, closeLogin }) => {
 	const userRef = useRef();
 	const errRef = useRef();
 
@@ -50,10 +50,25 @@ const Register = ({ setDisplay }) => {
 			setErrMsg("Invalid attempt to enter");
 			return;
 		}
-		setSuccess(true);
+		// try {
+		// 	const req = await fetch("/api/register", {
+		// 		method: "POST",
+		// 	});
+		// 	const data = await req.json();
+		// 	return data;
+		// } catch (err) {
+		// 	console.error(err);
+		// }
 	};
 	return (
-		<Box>
+		<Box
+			sx={{
+				width: 350,
+				height: "auto",
+				backgroundColor: "#9dd50f",
+				padding: "50px",
+			}}
+		>
 			{success ? (
 				<section>
 					<h1>Success!</h1>
@@ -101,6 +116,7 @@ const Register = ({ setDisplay }) => {
 							onFocus={() => setUserFocus(true)}
 							onBlur={() => setUserFocus(false)}
 						/>
+
 						<p
 							id="uidnote"
 							className={
@@ -114,6 +130,7 @@ const Register = ({ setDisplay }) => {
 							<br />
 							Letters, numbers, underscores, hyphens allowed
 						</p>
+						<br />
 						<label htmlFor="password">
 							Password:
 							<span className={validPassword ? "valid" : "hide"}>
@@ -133,6 +150,7 @@ const Register = ({ setDisplay }) => {
 							onFocus={() => setPasswordFocus(true)}
 							onBlur={() => setPasswordFocus(false)}
 						/>
+
 						<p
 							id="passwordNote"
 							className={
@@ -152,6 +170,7 @@ const Register = ({ setDisplay }) => {
 							<span aria-label="dollar sign">$</span>
 							<span aria-label="percent">%</span>
 						</p>
+						<br />
 						<label htmlFor="confirm_password">
 							Confirm Password:
 							<span className={validMatch && matchPassword ? "valid" : "hide"}>
@@ -182,24 +201,26 @@ const Register = ({ setDisplay }) => {
 							<Info />
 							Password does not match.
 						</p>
-						<button
+						<br />
+						<Button
 							disabled={
 								!validName || !validPassword || !validMatch ? true : false
 							}
 						>
 							Sign Up
-						</button>
+						</Button>
 					</form>
 					<p>
 						Already registered? <br />
 						<span className="line">
-							<button
+							<Button
 								onClick={() => {
 									setDisplay("signIn");
 								}}
 							>
 								Sign In
-							</button>
+							</Button>
+							<Button onClick={closeLogin}>Cancel</Button>
 						</span>
 					</p>
 				</section>
