@@ -60,7 +60,8 @@ router
 .get("/sex_orientations", equalityController.getSexOrientations)
 .get("/age_bands", equalityController.getAgeBands)
 .get("/religions",  equalityController.getReligions)
-.get("/ethnic_groups",  equalityController.getEthnicGroups);
+.get("/ethnic_groups",  equalityController.getEthnicGroups)
+.get("/equality",  equalityController.getEquality);
 
 //Applications
 router

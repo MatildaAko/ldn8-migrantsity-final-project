@@ -1,0 +1,24 @@
+                  List of relations
+ Schema |        Name        | Type  |     Owner      
+--------+--------------------+-------+----------------
+ public | age_bands          | table | wuzqkufjkvbfnt
+ public | applicants         | table | wuzqkufjkvbfnt
+ public | application_status | table | wuzqkufjkvbfnt
+ public | applications       | table | wuzqkufjkvbfnt
+ public | cities             | table | wuzqkufjkvbfnt
+ public | education          | table | wuzqkufjkvbfnt
+ public | ethnic_groups      | table | wuzqkufjkvbfnt
+ public | exams              | table | wuzqkufjkvbfnt
+ public | flexible_working   | table | wuzqkufjkvbfnt
+ public | genders            | table | wuzqkufjkvbfnt
+ public | jobs               | table | wuzqkufjkvbfnt
+ public | languages          | table | wuzqkufjkvbfnt
+ public | qualifications     | table | wuzqkufjkvbfnt
+ public | religions          | table | wuzqkufjkvbfnt
+ public | roles              | table | wuzqkufjkvbfnt
+ public | sex_orientations   | table | wuzqkufjkvbfnt
+ public | user_types         | table | wuzqkufjkvbfnt
+ public | users              | table | wuzqkufjkvbfnt
+ public | working_pattern    | table | wuzqkufjkvbfnt
+(19 rows)
+
