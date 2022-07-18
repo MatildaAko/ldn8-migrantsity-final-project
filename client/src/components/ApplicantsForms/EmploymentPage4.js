@@ -30,6 +30,8 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 	const [school, setSchool] = useState(education.school);
 	const [degree, setDegree] = useState(education.degree);
 	const [description, setDescription] = useState(education.description);
+	const [employmentInfo, setEmploymentInfo] = useState([]);
+	console.log(employmentInfo);
 	const createNewEdu = () => {
 		const newEdu = {
 			id: id,
@@ -135,8 +137,27 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 						Please click on the 'Add' button to add your employment history.
 						Click on the text highlighted in red to edit your entry.
 					</p>
-					<EmploymentModal />
+					<EmploymentModal
+						setEmploymentInfo={setEmploymentInfo}
+						employmentInfo={employmentInfo}
+					/>
 				</div>
+				{employmentInfo.map((employment, index) => {
+
+					return (
+						<div key={index}>
+							<ul>
+								<li>{employment.position}</li>
+								<li>{employment.employer}</li>
+								<li>{employment.currentlyWorking ? "yes" : "no"}</li>
+								<li>{JSON.stringify(employment.startDate.toLocaleString())}</li>
+								<li>{JSON.stringify(employment.endDate)}</li>
+								<li>{employment.responsibilities}</li>
+								<li>{employment.leavingReason}</li>
+							</ul>
+						</div>
+					);
+				})}
 				<br />
 				<br />
 				{/* <TextField

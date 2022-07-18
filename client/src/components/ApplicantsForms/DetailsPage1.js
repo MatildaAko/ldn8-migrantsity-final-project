@@ -14,6 +14,7 @@ import {
 
 function DetailsPage1({ values, handleChange }) {
 
+	console.log(values);
 	return (
 		<div>
 			<Paper>
@@ -31,7 +32,7 @@ function DetailsPage1({ values, handleChange }) {
 							<RadioGroup
 								required
 								aria-label="currently-work"
-								value={values.currently_work}
+								name="currently-work"
 								onChange={handleChange("currently_work")}
 								sx={{
 									width: 420,
@@ -41,8 +42,8 @@ function DetailsPage1({ values, handleChange }) {
 									justifyContent: "flexStart",
 								}}
 							>
-								<FormControlLabel control={<Radio />} label="Yes" value="Yes" />
-								<FormControlLabel control={<Radio />} label="No" value="No" />
+								<FormControlLabel control={<Radio />} label="Yes" value={true} />
+								<FormControlLabel control={<Radio />} label="No" value={false} />
 							</RadioGroup>
 						</FormControl>
 					</Box>
@@ -56,7 +57,7 @@ function DetailsPage1({ values, handleChange }) {
 							<RadioGroup
 								required
 								aria-label="right-to-work"
-								value={values.right_to_work}
+								name="right-to-work"
 								onChange={handleChange("right_to_work")}
 								sx={{
 									width: 420,
@@ -66,8 +67,8 @@ function DetailsPage1({ values, handleChange }) {
 									justifyContent: "flexStart",
 								}}
 							>
-								<FormControlLabel control={<Radio />} label="Yes" value="Yes" />
-								<FormControlLabel control={<Radio />} label="No" value="No" />
+								<FormControlLabel control={<Radio />} label="Yes" value={true} />
+								<FormControlLabel control={<Radio />} label="No" value={false} />
 							</RadioGroup>
 						</FormControl>
 					</Box>

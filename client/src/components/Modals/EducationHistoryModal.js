@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Box from "@mui/material/Box";
 
-function EducationHistoryModal({setEduOpen}) {
+function EducationHistoryModal({ setEduOpen }) {
 
 	const handleClose = () => {
 		setEduOpen(false);
