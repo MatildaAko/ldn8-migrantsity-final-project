@@ -1,7 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Box, Button } from "@mui/material";
+import AuthContext from "../context/AuthProvider";
+import axios from "axios";
 
 const SignIn = ({ setDisplay, closeLogin }) => {
+  const { setAuth } = useContext(AuthContext);
 	const userRef = useRef();
 	const errRef = useRef();
 
@@ -15,7 +18,13 @@ const SignIn = ({ setDisplay, closeLogin }) => {
 
 	useEffect(() => {
 		setErrMsg("");
-	}, [user, password]);
+  }, [user, password]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUser("");
+    setPassword("");
+  };
 
 	return (
 		<Box
@@ -34,7 +43,7 @@ const SignIn = ({ setDisplay, closeLogin }) => {
 				{errMsg}
 			</p>
 			<h1>Sign In</h1>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<label htmlFor="username">Username:</label>
 				<input
 					type="text"

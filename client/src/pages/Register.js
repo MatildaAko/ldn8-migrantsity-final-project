@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Check, Close, Info } from "@mui/icons-material";
 import { Box, Button } from "@mui/material";
+import axios from "../axios";
 import "./Home.css";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,25}$/;
@@ -35,8 +36,7 @@ const Register = ({ setDisplay, closeLogin }) => {
 
 	useEffect(() => {
 		setValidPassword(PASSWORD_REGEX.test(password));
-		const match = password === matchPassword;
-		setValidMatch(match);
+		setValidMatch(password === matchPassword);
 	}, [password, matchPassword]);
 
 	useEffect(() => {
@@ -46,19 +46,40 @@ const Register = ({ setDisplay, closeLogin }) => {
 		e.preventDefault();
 		const username = USER_REGEX.test(user);
 		const passWord = PASSWORD_REGEX.test(password);
+		console.log(passWord);
 		if (!username || !passWord) {
 			setErrMsg("Invalid attempt to enter");
 			return;
 		}
-		// try {
-		// 	const req = await fetch("/api/register", {
-		// 		method: "POST",
-		// 	});
-		// 	const data = await req.json();
-		// 	return data;
-		// } catch (err) {
-		// 	console.error(err);
-		// }
+		try {
+			const response = await axios.post(
+				"/api/register",
+				JSON.stringify({ user, passWord }),
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					withCredentials: true,
+				}
+			);
+			console.log(response?.data);
+			console.log(response?.accessToken);
+			console.log(JSON.stringify(response));
+			setSuccess(true);
+			setUser("");
+			setPassword("");
+			setMatchPassword("");
+		} catch (err) {
+			console.error(err);
+			if (!err?.response) {
+				setErrMsg("No server response");
+			} else if (err.response?.status === 409) {
+				setErrMsg("Username taken");
+			} else {
+				setErrMsg("Registration failed");
+			}
+			errRef.current.focus();
+		}
 	};
 	return (
 		<Box
@@ -110,13 +131,13 @@ const Register = ({ setDisplay, closeLogin }) => {
 							ref={userRef}
 							autoComplete="off"
 							required
+							value={user}
 							onChange={(e) => setUser(e.target.value)}
 							aria-invalid={validName ? "false" : "true"}
 							aria-describedby="uidnote"
 							onFocus={() => setUserFocus(true)}
 							onBlur={() => setUserFocus(false)}
 						/>
-
 						<p
 							id="uidnote"
 							className={
@@ -150,7 +171,6 @@ const Register = ({ setDisplay, closeLogin }) => {
 							onFocus={() => setPasswordFocus(true)}
 							onBlur={() => setPasswordFocus(false)}
 						/>
-
 						<p
 							id="passwordNote"
 							className={
