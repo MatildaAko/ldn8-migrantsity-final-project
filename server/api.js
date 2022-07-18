@@ -436,7 +436,9 @@ router.get("/:applicantId/applicantAllData", async (req, res) => {
 //Login
 router.post("/register", async (req, res) => {
 	const { user, password } = req.body;
+	console.log(req.body);
 	console.log({ user, password });
+	return 
 }
 );
 
