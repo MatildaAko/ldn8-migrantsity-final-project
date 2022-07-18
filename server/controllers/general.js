@@ -17,12 +17,12 @@ const appOnlyQueryString = `Select id, applicant_id, gap_reasons, job_id, job_ti
 
 const applicantsSelect = "Select * From applicants Where id = $1";
 const applicantsQueryString = `		
-	Select * from (Select applicants.*, genders.gender,
+	Select * from (Select applicants.*, role_name, genders.gender,
 		sex_orientations.sex_orientation, cities.city, age_bands.age_band, 
 		ethnic_groups.ethnic_group, religions.religion
 	From applicants
 	Inner join users on users.id = user_id
-	Inner join user_types on user_types.id = type_id
+	Inner join roles on roles.role_id = users.role_id
 	Inner join genders on genders.id = gender_id
 	Inner join sex_orientations on sex_orientations.id = sex_orient_id
 	Inner join cities on cities.id = city_id

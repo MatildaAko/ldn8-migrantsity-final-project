@@ -1,26 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { cyan } from "@mui/material/colors";
-
-const theme = createTheme({
-  palette: {
-    secondary: {
-      main: cyan[500],
-    },
-  },
-});
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Box } from "@mui/material";
 
 const styles = {
   root: {
     flexGrow: 1,
+  },
+  bar: {
+    margin: 60,
   },
   grow: {
     flexGrow: 1,
@@ -35,24 +26,20 @@ function ApplicantNavbar(props) {
   console.log('props:',props);
   const { classes } = props;
   return (
-    <ThemeProvider theme={theme}>
     <div className={classes.root}>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+        <Toolbar className={classes.bar}>
+          <Typography variant="h3" color="inherit" className={classes.grow}>
             Dashboard
           </Typography>
-          <Typography variant="subtitle1" color="inherit" className={classes.detailTitle}>
-           {props.applicant.first_name} {props.applicant.surname} |
+        <Box sx={{ display:"flex", alignItems: "end", flexDirection: "column" }}>
+            <SettingsIcon />
+          <Typography variant="h5" color="inherit" className={classes.detailTitle}>
+           Hi {props.applicant.first_name}!
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <a href="/logout">Log out</a>
+        </Box>
         </Toolbar>
-      </AppBar>
     </div>
-    </ThemeProvider>
   );
 }
 

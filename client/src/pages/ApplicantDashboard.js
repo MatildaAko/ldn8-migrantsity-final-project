@@ -132,7 +132,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 					display="flex"
 					justifyContent="start"
 					alignItems="center"
-					width="80%"
+					width="100%"
 					height="10vh"
 					>
 				</Box>
@@ -141,11 +141,11 @@ const ApplicantDashboard = ({ applicantId }) => {
 					display="flex"
 					alignItems="center"
 					justifyContent="center"
-					width="100%"
-					height="80vh"
+					height="20vh"
+					padding= "84px"
 					>
 				<Box
-					width="80%"
+					width="100%"
 					direction="column"
 					height="50vh"
 					>
