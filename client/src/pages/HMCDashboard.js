@@ -4,11 +4,12 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import  Loading from "../components/Auth0Login/Loading"
 
 const HMCDashboard = () => {
-	// const { user } = useAuth0();
-	// const { name, picture, email } = user;
+	const { user } = useAuth0();
+	const { name, picture, email } = user;
 	const [applications, setApplications] = useState([]);
   useEffect(() => {
 		fetch("/api/applications")
@@ -89,7 +90,7 @@ const HMCDashboard = () => {
 	return (
 		<>
 			<div>
-				<p>Hello </p>
+				<p>Hello {name}</p>
 			</div>
 			<Container fluid>
 				<Box sx={{ height: 400, width: "100%" }}>
@@ -108,5 +109,6 @@ const HMCDashboard = () => {
 	);
 };
 
-export default HMCDashboard;
-
+export default withAuthenticationRequired(HMCDashboard, {
+	onRedirecting: () => <Loading />,
+});

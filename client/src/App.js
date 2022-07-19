@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import ApplicantForm from "./components/ApplicantsForms/ApplicantForm";
-import Loading from "./components/Auth0Login/loading";
+import Loading from "./components/Auth0Login/Loading";
 import { useAuth0 } from "@auth0/auth0-react";
 import Home from "./pages/Home";
 
