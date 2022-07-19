@@ -31,13 +31,13 @@ function Confirm({ values }) {
 				<ListItem>
 					<ListItemText
 						primary="Do you currently work/ volunteer for Hackney Migrant Centre?"
-						secondary={currently_work}
+						secondary={currently_work ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>
 					<ListItemText
 						primary="Do you have the Right to Work in the UK?"
-						secondary={right_to_work}
+						secondary={right_to_work ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>
@@ -77,20 +77,20 @@ function Confirm({ values }) {
 					<ListItemText
 						primary="Is there any reason why you could not work with vulnerable adults or children?
 "
-						secondary={dbs_work}
+						secondary={dbs_work ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>
 					<ListItemText
 						primary="Do you have any convictions, cautions, reprimands or final warnings (spent and unspent)?
 "
-						secondary={dbs_convictions}
+						secondary={dbs_convictions ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>
 					<ListItemText
 						primary="Do you consider yourself to have a disability?"
-						secondary={disability}
+						secondary={disability ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>
