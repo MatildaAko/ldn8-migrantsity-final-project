@@ -4,9 +4,11 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import HMCNavbar from "../components/ApplicantDashboard/HMCNavbar";
 
 const HMCDashboard = () => {
 	const [applications, setApplications] = useState([]);
+	const [user, setUser] = useState({ username: "Dilara" });
   useEffect(() => {
 		fetch("/api/applications")
 			.then((res) => {
@@ -84,19 +86,43 @@ const HMCDashboard = () => {
 		};
 	});
   return (
-		<Container fluid>
-			<Box sx={{ height: 400, width: "100%" }}>
-				<DataGrid
-					getRowHeight={() => "auto"}
-					getEstimatedRowHeight={() => 10}
-					rows={rows}
-					columns={columns}
-					rowsPerPageOptions={[10, 25, 50, 100]}
-					checkboxSelection
-					disableSelectionOnClick
-				/>
-			</Box>
-		</Container>
+	<Container fluid>
+		<HMCNavbar user={user} />
+		<Box
+			container
+			display="flex"
+			justifyContent="start"
+			alignItems="center"
+			width="100%"
+			height="10vh"
+			>
+		</Box>
+		<Box
+			container
+			display="flex"
+			alignItems="center"
+			justifyContent="center"
+			height="20vh"
+			padding= "84px"
+			>
+		<Box
+			width="100%"
+			direction="column"
+			height="50vh"
+		>
+			<div><h3>Applications</h3></div>
+			<DataGrid
+				getRowHeight={() => "auto"}
+				getEstimatedRowHeight={() => 10}
+				rows={rows}
+				columns={columns}
+				rowsPerPageOptions={[10, 25, 50, 100]}
+				checkboxSelection
+				disableSelectionOnClick
+			/>
+		</Box>
+		</Box>
+	</Container>
 	);
 };
 
