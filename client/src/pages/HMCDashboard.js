@@ -26,51 +26,51 @@ const HMCDashboard = () => {
 			});
 	}, []);
 	const columns = [
+		// {
+		// 	field: "id",
+		// 	headerName: "Application ID",
+		// 	width: 120,
+		// 	renderCell: (params) => (
+		// 		<Link to={`/applicationdetails/${params.id}`}>
+		// 			<Button>{params.id}</Button>
+		// 		</Link>
+		// 	),
+		// },
 		{
-			field: "id",
-			headerName: "Application ID",
-			width: 120,
-			renderCell: (params) => (
-				<Link to={`/applicationdetails/${params.id}`}>
-					<Button>{params.id}</Button>
-				</Link>
-			),
-		},
-		{
-			field: "jobTitle",
-			headerName: "Job Title",
+			field: "fullname",
+			headerName: "Name",
 			width: 150,
 			editable: false,
 		},
 		{
-			field: "currentlyWork",
-			headerName: "Current Employee",
-			width: 150,
+			field: "jobTitle",
+			headerName: "Job Title",
+			width: 250,
+			editable: false,
+		},
+		{
+			field: "status",
+			headerName: "STATUS",
+			width: 120,
+			editable: false,
+		},
+		{
+			field: "city",
+			headerName: "City",
+			width: 130,
+			editable: false,
+		},
+		{
+			field: "notes",
+			headerName: "Notes",
+			width: 300,
 			editable: false,
 		},
 		{
 			field: "rightToWork",
 			headerName: "Right to Work",
 			description: "This column has a value getter and is not sortable.",
-			width: 160,
-			editable: false,
-		},
-		{
-			field: "skills",
-			headerName: "Skills",
-			width: 200,
-			editable: false,
-		},
-		{
-			field: "hasGap",
-			headerName: "Gap",
-			width: 200,
-			editable: false,
-		},
-		{
-			field: "cover",
-			headerName: "Cover Letter",
-			width: 200,
+			width: 100,
 			editable: false,
 		},
 	];
@@ -79,10 +79,10 @@ const HMCDashboard = () => {
 			id: application.id,
 			jobTitle: application.job_title,
 			rightToWork: `${application.right_to_work ? "Yes" : "No"}`,
-			currentlyWork: `${application.currently_work ? "Yes" : "No"}`,
-			skills: application.skills.split(",").join("\n"),
-			hasGap: application.gap_reasons,
-			cover: application.cover_letter,
+			notes: application.notes,
+			status: application.status,
+			fullname: application.fullname,
+			city: application.city,
 		};
 	});
   return (
@@ -110,7 +110,6 @@ const HMCDashboard = () => {
 			direction="column"
 			height="50vh"
 		>
-			<div><h3>Applications</h3></div>
 			<DataGrid
 				getRowHeight={() => "auto"}
 				getEstimatedRowHeight={() => 10}
@@ -119,7 +118,7 @@ const HMCDashboard = () => {
 				rowsPerPageOptions={[10, 25, 50, 100]}
 				checkboxSelection
 				disableSelectionOnClick
-			/>
+				/>
 		</Box>
 		</Box>
 	</Container>
