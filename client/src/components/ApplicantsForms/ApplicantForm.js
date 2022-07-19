@@ -13,13 +13,9 @@ import ConfirmPage7 from "./ConfirmPage7";
 import ConfirmEqualityForm from "../EqualityFormControl/ConfirmEqualityForm";
 import SubmitPage8 from "./SubmitPage8";
 
-// const API = "https://ldn8-migrantsity-final-project.herokuapp.com/api/";
-// const API = "http://localhost:5000/api/applications";
-
 function ApplicantsForm() {
 	// Steps
 	const [activeStep, setActiveStep] = useState(0);
-	// const [data, setData] = useState()
 
 	const getSteps = () => {
 		return [
@@ -41,11 +37,10 @@ function ApplicantsForm() {
 		right_to_work: Boolean,
 		cv: "",
 		supp_statement: "",
-		employment_history: "",
-		education_history: "",
-		exam_history: "",
-		professional_qualifications: "",
-		languages: "",
+		employment_history: [],
+		education_history: [],
+		professional_qualifications: [],
+		languages: [],
 		dbs_work: Boolean,
 		dbs_convictions: Boolean,
 		disability: Boolean,
@@ -73,15 +68,14 @@ function ApplicantsForm() {
 
 	const handleReset = () => {
 		setUserDetails({
-			currently_work: Boolean,
+			currently_work: false,
 			right_to_work: Boolean,
 			cv: "",
 			supp_statement: "",
-			employment_history: "",
-			education_history: "",
-			exam_history: "",
-			professional_qualifications: "",
-			languages: "",
+			employment_history: [],
+			education_history: [],
+			professional_qualifications: [],
+			languages: [],
 			dbs_work: Boolean,
 			dbs_convictions: Boolean,
 			disability: Boolean,
@@ -99,33 +93,7 @@ function ApplicantsForm() {
 	// Handle fields change
 	const handleChange = (input) => (e) => {
 		setUserDetails({ ...userDetails, [input]: e.target.value });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		try {
-			const newData = userDetails;
-
-			const response = await fetch("http://localhost:3100/api/applicants", {
-				method: "POST",
-				// mode: "cors",
-				body: JSON.stringify(newData),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			console.log(response);
-			//   setData((prevState) => [...prevState, newData]);
-
-			setUserDetails("");
-
-			// console.log(title);
-			console.log("Enviou");
-			console.log(newData);
-		} catch (error) {
-			console.error(error.message);
-		}
+		// console.log(userDetails);
 	};
 
 	return (
@@ -192,7 +160,7 @@ function ApplicantsForm() {
 						) : (
 							<Button
 							// enabled={activeStep === steps.length - 1}
-							onClick={handleSubmit}
+							// onClick={handleSubmit}
 							>
 								Submit
 							</Button>

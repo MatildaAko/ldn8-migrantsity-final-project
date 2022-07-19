@@ -1,27 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../../styles/ProfessionalQualifications.css";
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	Radio,
+	RadioGroup,
+	FormControlLabel,
+	FormLabel,
+} from "@mui/material";
 
-function LanguagesModal() {
-	const [open, setOpen] = React.useState(false);
-	const [languages, setLanguages] = React.useState("");
-	const [degree, setDegree] = React.useState("");
-	const [radioSpoken, setRadioSpoken] = React.useState(Boolean);
-	const [radioWritten, setRadioWritten] = React.useState(Boolean);
+function LanguagesModal({ setLanguageInfo }) {
+	const [open, setOpen] = useState(false);
+
+	const [languageDetails, setLanguageDetails] = useState({
+		language: "",
+		degreeOfFluency: "",
+		spoken: Boolean,
+		written: Boolean,
+	});
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -31,21 +36,15 @@ function LanguagesModal() {
 		setOpen(false);
 	};
 
-	const handleChangeLanguage = (event) => {
-		setLanguages(event.target.value);
+	const addLanguage = (input) => (e) => {
+		setLanguageDetails({ ...languageDetails, [input]: e.target.value });
 	};
 
-	const handleChangeDegree = (event) => {
-		setDegree(event.target.value);
+	const addLanguageToPage = () => {
+		setLanguageInfo((info) => [...info, languageDetails]);
 	};
 
-	const handleChangeSpoken = (event) => {
-		setRadioSpoken(event.target.value);
-	};
-
-	const handleChangeWritten = (event) => {
-		setRadioWritten(event.target.value);
-	};
+	console.log(languageDetails);
 
 	return (
 		<div>
@@ -64,7 +63,9 @@ function LanguagesModal() {
 						}}
 					>
 						<Box>
-							<DialogContentText>Language<span className="asterisk"> *</span></DialogContentText>
+							<DialogContentText>
+								Language<span className="asterisk"> *</span>
+							</DialogContentText>
 							<FormControl
 								variant="standard"
 								sx={{ m: 1, minWidth: 200 }}
@@ -72,9 +73,8 @@ function LanguagesModal() {
 							>
 								<Select
 									labelId="demo-select-small"
-									value={languages}
-									label=""
-									onChange={handleChangeLanguage}
+									value={languageDetails.language}
+									onChange={addLanguage("language")}
 									variant="outlined"
 								>
 									<MenuItem value="">
@@ -105,15 +105,15 @@ function LanguagesModal() {
 						<Box>
 							<DialogContentText>Degree of Fluency*</DialogContentText>
 							<FormControl
-								variant="container"
+								variant="standard"
 								sx={{ m: 1, minWidth: 220 }}
 								size="small"
 							>
 								<Select
 									labelId="demo-select-small"
-									value={degree}
+									value={languageDetails.degreeOfFluency}
 									label=""
-									onChange={handleChangeDegree}
+									onChange={addLanguage("degreeOfFluency")}
 									variant="outlined"
 								>
 									<MenuItem value="">
@@ -143,7 +143,7 @@ function LanguagesModal() {
 							height: 100,
 							display: "flex",
 							alignItems: "center",
-                            justifyContent: "space-between",
+							justifyContent: "space-between",
 							"& > :not(style)": { m: 1 },
 						}}
 					>
@@ -156,15 +156,19 @@ function LanguagesModal() {
 									sx={{ display: "flex", flexDirection: "row" }}
 									aria-label="demo-controlled-radio-buttons-group"
 									name="controlled-radio-buttons-group"
-									value={radioSpoken}
-									onChange={handleChangeSpoken}
+									value={languageDetails.spoken}
+									onChange={addLanguage("spoken")}
 								>
 									<FormControlLabel
-										value="Yes"
+										value={true}
 										control={<Radio />}
 										label="Yes"
 									/>
-									<FormControlLabel value="No" control={<Radio />} label="No" />
+									<FormControlLabel
+										value={false}
+										control={<Radio />}
+										label="No"
+									/>
 								</RadioGroup>
 							</FormControl>
 						</Box>
@@ -177,15 +181,19 @@ function LanguagesModal() {
 									sx={{ display: "flex", flexDirection: "row" }}
 									aria-label="demo-controlled-radio-buttons-group"
 									name="controlled-radio-buttons-group"
-									value={radioWritten}
-									onChange={handleChangeWritten}
+									value={languageDetails.written}
+									onChange={addLanguage("written")}
 								>
 									<FormControlLabel
-										value="Yes"
+										value={true}
 										control={<Radio />}
 										label="Yes"
 									/>
-									<FormControlLabel value="No" control={<Radio />} label="No" />
+									<FormControlLabel
+										value={false}
+										control={<Radio />}
+										label="No"
+									/>
 								</RadioGroup>
 							</FormControl>
 						</Box>
@@ -196,7 +204,7 @@ function LanguagesModal() {
 					<Button variant="contained" onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button variant="contained" onClick={handleClose}>
+					<Button variant="contained" onClick={addLanguageToPage}>
 						Save
 					</Button>
 				</DialogActions>
