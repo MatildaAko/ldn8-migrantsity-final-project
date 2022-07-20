@@ -1,47 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "../../styles/ProfessionalQualifications.css";
 
-import {
-	Button,
-	TextField,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	Box,
-	Stack,
-} from "@mui/material";
-
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import Box from "@mui/material/Box";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import Stack from "@mui/material/Stack";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
-function ProfessionalQualificationsModal({ setProfessionalInfo }) {
-	const [open, setOpen] = useState(false);
-	const [date, setDate] = useState(null);
-
-	const [professionalDetails, setProfessionalDetails] = useState({
-		title: "",
-		date: "",
-		status: "",
-	});
-
-	const addProfessional = (input) => (e) => {
-		setProfessionalDetails({ ...professionalDetails, [input]: e.target.value });
-	};
-
-	const changeDate = (e) => {
-		setDate(e);
-		setProfessionalDetails({
-			...professionalDetails,
-			["date"]: e,
-		});
-	};
-
-	const addProfessionalToPage = () => {
-		setProfessionalInfo((info) => [...info, professionalDetails]);
-	};
+function ProfessionalQualificationsModal() {
+	const [open, setOpen] = React.useState(false);
+	const [date, setDate] = React.useState(new Date());
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -51,7 +26,9 @@ function ProfessionalQualificationsModal({ setProfessionalInfo }) {
 		setOpen(false);
 	};
 
-	console.log(professionalDetails);
+	const handleChange = (newDate) => {
+		setDate(newDate);
+	};
 
 	return (
 		<div>
@@ -70,7 +47,6 @@ function ProfessionalQualificationsModal({ setProfessionalInfo }) {
 						variant="outlined"
 						size="small"
 						fullWidth
-						onChange={addProfessional("title")}
 					/>
 					<Box
 						sx={{
@@ -88,9 +64,10 @@ function ProfessionalQualificationsModal({ setProfessionalInfo }) {
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>
 									<DesktopDatePicker
+										label=""
 										inputFormat="dd/MM/yyyy"
 										value={date}
-										onChange={changeDate}
+										onChange={handleChange}
 										renderInput={(params) => <TextField {...params} />}
 									/>
 								</Stack>
@@ -98,17 +75,13 @@ function ProfessionalQualificationsModal({ setProfessionalInfo }) {
 						</Box>
 						<Box>
 							<DialogContentText>Status</DialogContentText>
-							<TextField onChange={addProfessional("status")} />
+							<TextField label="" />
 						</Box>
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button variant="contained" onClick={handleClose}>
-						Cancel
-					</Button>
-					<Button variant="contained" onClick={addProfessionalToPage}>
-						Save
-					</Button>
+					<Button variant="contained" onClick={handleClose}>Cancel</Button>
+					<Button variant="contained" onClick={handleClose}>Save</Button>
 				</DialogActions>
 			</Dialog>
 		</div>
