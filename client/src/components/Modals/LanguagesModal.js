@@ -15,13 +15,21 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import { useState } from "react";
+import e from "express";
 
-function LanguagesModal() {
-	const [open, setOpen] = React.useState(false);
-	const [languages, setLanguages] = React.useState("");
-	const [degree, setDegree] = React.useState("");
-	const [radioSpoken, setRadioSpoken] = React.useState(Boolean);
-	const [radioWritten, setRadioWritten] = React.useState(Boolean);
+function LanguagesModal({setLanguageInfo}) {
+	const [open, setOpen] = useState(false);
+	const [languages, setLanguages] = useState("");
+	const [degree, setDegree] = useState("");
+	const [radioSpoken, setRadioSpoken] = useState();
+	const [radioWritten, setRadioWritten] = useState();
+	const [languageDetails, setLanguageDetails] = useState({
+		language: "",
+		fluency: "",
+		spoken: null,
+		written: null
+	})
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -33,6 +41,8 @@ function LanguagesModal() {
 
 	const handleChangeLanguage = (event) => {
 		setLanguages(event.target.value);
+		setLanguageDetails({ ...languageDetails, [language]: e.target.value });
+		console.log(languageDetails)
 	};
 
 	const handleChangeDegree = (event) => {
@@ -64,14 +74,16 @@ function LanguagesModal() {
 						}}
 					>
 						<Box>
-							<DialogContentText>Language<span className="asterisk"> *</span></DialogContentText>
+							<DialogContentText>
+								Language<span className="asterisk"> *</span>
+							</DialogContentText>
 							<FormControl
 								variant="standard"
 								sx={{ m: 1, minWidth: 200 }}
 								size="small"
 							>
 								<Select
-									labelId="demo-select-small"
+									labelId="languages"
 									value={languages}
 									label=""
 									onChange={handleChangeLanguage}
@@ -143,7 +155,7 @@ function LanguagesModal() {
 							height: 100,
 							display: "flex",
 							alignItems: "center",
-                            justifyContent: "space-between",
+							justifyContent: "space-between",
 							"& > :not(style)": { m: 1 },
 						}}
 					>

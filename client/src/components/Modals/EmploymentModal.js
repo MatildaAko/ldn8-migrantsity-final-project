@@ -69,7 +69,20 @@ function EmploymentModal({ setEmploymentInfo }) {
 	};
 
 	const addEmploymentToPage = () => {
-		setEmploymentInfo((info) => [...info, employmentDetails]);
+			setEmploymentInfo((info) => [...info, employmentDetails]);
+		setEmploymentDetails({
+			...employmentDetails,
+			["position"]: "",
+			["employer"]: "",
+			["currentlyWorking"]: false,
+			["startDate"]: "",
+			["endDate"]: "",
+			["responsibilities"]: "",
+			["leavingReason"]: "",
+		});
+		setStartDate(null);
+		setEndDate(null);
+		handleClose();
 	};
 
 	console.log(employmentDetails);
@@ -79,7 +92,6 @@ function EmploymentModal({ setEmploymentInfo }) {
 			<Button variant="contained" onClick={handleClickOpen}>
 				+Add
 			</Button>
-
 			<Dialog open={open} onClose={handleClose}>
 				<DialogContent>
 					<DialogContentText>
@@ -93,8 +105,6 @@ function EmploymentModal({ setEmploymentInfo }) {
 						fullWidth
 						onChange={addEmployment("position")}
 					/>
-					<br />
-					<br />
 					<DialogContentText>
 						Employer/Gap<span className="asterisk"> *</span>
 					</DialogContentText>
@@ -169,7 +179,6 @@ function EmploymentModal({ setEmploymentInfo }) {
 						required
 						multiline
 						id="responsibilities"
-						label=""
 						variant="outlined"
 						size="small"
 						rows={4}
@@ -186,14 +195,13 @@ function EmploymentModal({ setEmploymentInfo }) {
 						required
 						multiline
 						id="leavingReason"
-						label=""
 						variant="outlined"
 						size="small"
 						rows={4}
 						onChange={addEmployment("leavingReason")}
 						helperText="Please enter N/A if you are still employed or had no gaps in employment."
 						fullWidth
-					/>
+						/>
 				</DialogContent>
 				<br />
 				<br />

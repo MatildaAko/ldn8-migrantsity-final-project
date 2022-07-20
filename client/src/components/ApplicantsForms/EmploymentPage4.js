@@ -1,8 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, IconButton } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Box, IconButton, Stack, styled, Button, Paper } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { Applicant } from "../../models/applicant";
@@ -18,12 +17,6 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 	// const newApp = new Applicant();
 	// newApp.education.school = "The school";
 	// const newSchool = new Applicant.Ed
-	const [education, setEducation] = useState([
-		{ id: 1, school: "Test1 School", degree: 180, description: "Nothing1" },
-		{ id: 2, school: "Test2 School", degree: 280, description: "Nothing2" },
-		{ id: 3, school: "Test3 School", degree: 380, description: "Nothing3" },
-		{ id: 4, school: "Test4 School", degree: 480, description: "Nothing4" },
-	]);
 
 	const [eduOpen, setEduOpen] = useState(false);
 	const [id, setId] = useState(1);
@@ -31,7 +24,18 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 	const [degree, setDegree] = useState(education.degree);
 	const [description, setDescription] = useState(education.description);
 	const [employmentInfo, setEmploymentInfo] = useState([]);
-	console.log(employmentInfo);
+	const [educationInfo, setEducationInfo] = useState([]);
+	const [qualificationInfo, setQualificationInfo] = useState([]);
+	const [languageInfo, setLanguageInfo] = useState([])
+	console.log(educationInfo);
+
+	const Item = styled(Paper)(({ theme }) => ({
+		backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+		...theme.typography.body2,
+		padding: theme.spacing(1),
+		textAlign: "center",
+		color: theme.palette.text.secondary,
+	}));
 	const createNewEdu = () => {
 		const newEdu = {
 			id: id,
@@ -47,15 +51,6 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 		setDescription("");
 	};
 
-	// const handleSubmitEvent = (submitEvent) => {
-	// 	submitEvent.preventDefault();
-	// 	setEduOpen(!eduOpen);
-	// 	setId(Math.floor(Math.random()*10));
-	// 	setId(Math.floor(Math.random()*10));
-	// 	setEducation([...education, createNewEdu()]);
-	// 	setFieldsEmpty();
-	// };
-
 	const handleAddClick = () => {
 		setEduOpen(!eduOpen);
 	};
@@ -64,62 +59,6 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 		console.log("Params : ", params.target.value);
 		setEduOpen(!eduOpen);
 	};
-
-	const columns = [
-		{
-			field: "id",
-			headerName: "Education ID",
-			width: 120,
-		},
-		{
-			field: "school",
-			headerName: "School",
-			width: 150,
-			editable: false,
-		},
-		{
-			field: "degree",
-			headerName: "Degree",
-			width: 150,
-			editable: false,
-		},
-		{
-			field: "description",
-			headerName: "Description",
-			description: "",
-			width: 300,
-			editable: false,
-		},
-		{
-			headerName: "Action",
-			width: 100,
-			value: 1,
-			editable: false,
-			renderCell: () => (
-				<>
-					<IconButton aria-label="delete">
-						<DeleteIcon />
-					</IconButton>
-					<IconButton
-						aria-label="edit"
-						variant="contained"
-						onClick={handleEditClick}
-					>
-						<EditIcon />
-					</IconButton>
-				</>
-			),
-		},
-	];
-
-	const eduRows = education.map((edu) => {
-		return {
-			id: edu.id,
-			school: edu.school,
-			degree: edu.degree,
-			description: edu.description,
-		};
-	});
 
 	return (
 		<>
@@ -139,36 +78,26 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 					</p>
 					<EmploymentModal
 						setEmploymentInfo={setEmploymentInfo}
-						employmentInfo={employmentInfo}
 					/>
 				</div>
-				{employmentInfo.map((employment, index) => {
-
-					return (
-						<div key={index}>
-							<ul>
-								<li>{employment.position}</li>
-								<li>{employment.employer}</li>
-								<li>{employment.currentlyWorking ? "yes" : "no"}</li>
-								<li>{JSON.stringify(employment.startDate.toLocaleString())}</li>
-								<li>{JSON.stringify(employment.endDate)}</li>
-								<li>{employment.responsibilities}</li>
-								<li>{employment.leavingReason}</li>
-							</ul>
-						</div>
-					);
-				})}
+				<Stack spacing={2}>
+					{employmentInfo.map((employment, index) => {
+						return (
+							//need to fix this layout
+							<Item>
+								{employment.position}
+								{employment.employer}
+								{employment.currentlyWorking ? "yes" : "no"}
+								{JSON.stringify(employment.startDate.toLocaleString())}
+								{JSON.stringify(employment.endDate)}
+								{employment.responsibilities}
+								{employment.leavingReason}
+							</Item>
+						);
+					})}
+				</Stack>
 				<br />
 				<br />
-				{/* <TextField
-					id="outlined-multiline-static"
-					label="Employment History"
-					multiline
-					rows={3}
-					variant="outlined"
-					onChange={handleChange("employment_history")}
-					defaultValue={values.employment_history}
-				/> */}
 			</div>
 			<div className="featureJobs">
 				<h2>Education History</h2>
@@ -182,34 +111,10 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 							Please click on the 'Add' button to add your education history.
 							Click on the text highlighted in red to edit your entry.
 						</p>
-						<Button variant="contained" onClick={handleAddClick}>
-							+Add
-						</Button>
+						<EducationHistoryModal setEducationInfo={setEducationInfo} />
 					</div>
-					{eduOpen && <EducationHistoryModal setEduOpen={setEduOpen} />}
 				</div>
-				{/* <TextField
-					id="outlined-multiline-static"
-					label="Employment Education History"
-					multiline
-					rows={3}
-					variant="outlined"
-					onChange={handleChange("education_history")}
-					defaultValue={values.education_history}
-				/> */}
 				<br />
-				{/* <EducationModal education={education} setEducation={setEducation} /> */}
-				<Box sx={{ height: 400, width: "100%" }}>
-					<DataGrid
-						getRowHeight={() => "auto"}
-						getEstimatedRowHeight={() => 10}
-						rows={eduRows}
-						columns={columns}
-						rowsPerPageOptions={[10, 25, 50, 100]}
-						checkboxSelection
-						disableSelectionOnClick
-					/>
-				</Box>
 			</div>
 			<div className="featureJobs">
 				<h2>Professional Qualifications</h2>
@@ -218,7 +123,9 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 						Please click on the 'Add' button to add exams. Click on the text
 						highlighted in red to edit your entry.
 					</p>
-					<ProfessionalQualificationsModal />
+					<ProfessionalQualificationsModal
+						setQualificationInfo={setQualificationInfo}
+					/>
 				</div>
 				<br />
 				<br />
@@ -230,7 +137,7 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 						Please click on the 'Add' button to add languages. Click on the text
 						highlighted in red to edit your entry.
 					</p>
-					<LanguagesModal />
+					<LanguagesModal setLanguageInfo={setLanguageInfo} />
 				</div>
 				<br />
 				<br />
