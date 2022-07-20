@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../../styles/ProfessionalQualifications.css";
 
@@ -17,11 +17,17 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 
 function LanguagesModal() {
-	const [open, setOpen] = React.useState(false);
-	const [languages, setLanguages] = React.useState("");
-	const [degree, setDegree] = React.useState("");
-	const [radioSpoken, setRadioSpoken] = React.useState(Boolean);
-	const [radioWritten, setRadioWritten] = React.useState(Boolean);
+	const [open, setOpen] = useState(false);
+	const [languages, setLanguages] = useState("");
+	const [degree, setDegree] = useState("");
+	const [radioSpoken, setRadioSpoken] = useState(Boolean);
+	const [radioWritten, setRadioWritten] = useState(Boolean);
+	const [languageDetails, setLanguageDetails] = useState({
+		language: "",
+		fluency: "",
+		spoken: null,
+		written: null,
+	});
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -31,8 +37,10 @@ function LanguagesModal() {
 		setOpen(false);
 	};
 
-	const handleChangeLanguage = (event) => {
+	const handleChangeLanguage = (e) => {
 		setLanguages(event.target.value);
+		setLanguageDetails({ ...languageDetails, ["language"]: e.target.value });
+		console.log(languageDetails);
 	};
 
 	const handleChangeDegree = (event) => {
@@ -46,7 +54,6 @@ function LanguagesModal() {
 	const handleChangeWritten = (event) => {
 		setRadioWritten(event.target.value);
 	};
-
 	return (
 		<div>
 			<Button variant="contained" onClick={handleClickOpen}>
@@ -71,7 +78,7 @@ function LanguagesModal() {
 								size="small"
 							>
 								<Select
-									labelId="demo-select-small"
+									labelId="languages"
 									value={languages}
 									label=""
 									onChange={handleChangeLanguage}
