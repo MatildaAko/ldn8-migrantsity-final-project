@@ -27,17 +27,6 @@ const getEquality = (req, res) => {
 	.catch((error) => res.status(500).json(error));
 };
 
-const getEquality = (req, res) => {
-    const queryString = `select * from (
-    Select 'cities' as tableName, id, city as title, country as group From cities union
-    Select 'genders', id, gender, null From genders 
-    ) as allTables
-    order by tableName, id
-    `;
-	pool.query(queryString)
-	.then((result) => res.status(201).json(result.rows))
-	.catch((error) => res.status(500).json(error));
-};
 
 module.exports = {
     getFlexibleWorking,

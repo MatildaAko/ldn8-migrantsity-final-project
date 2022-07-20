@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ApplicantForm from "./components/ApplicantsForms/ApplicantForm";
 import About from "./pages/About";
 import Home from "./pages/Home";
-
+import EqualityForm from "./pages/EqualityForm";
 import HMCDashboard from "./pages/HMCDashboard";
 import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
