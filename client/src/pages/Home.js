@@ -15,6 +15,10 @@ export function Home() {
 				<Link to="/hmcview">HMC Dashboard</Link>
 				<br />
 				<Link to="/application">Application</Link>
+        <br />
+				<Link to="/applicantdashboard">Applicant Dashboard</Link>
+        <br />
+				<Link to="/equality">Equality Form</Link>
 			</div>
 		</main>
 	);
