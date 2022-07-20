@@ -1,40 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "../../styles/ProfessionalQualifications.css";
 
-import {
-	Button,
-	TextField,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	Box,
-	Stack,
-	FormGroup,
-	FormControlLabel,
-	Checkbox,
-} from "@mui/material";
-
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import Box from "@mui/material/Box";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import Stack from "@mui/material/Stack";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal({ setEmploymentInfo }) {
-	const [open, setOpen] = useState(false);
-	const [startDate, setStartDate] = useState(null);
-	const [endDate, setEndDate] = useState(null);
-
-	const [checked, setChecked] = useState(false);
-	const [employmentDetails, setEmploymentDetails] = useState({
-		position: "",
-		employer: "",
-		currentlyWorking: false,
-		startDate: "",
-		endDate: "",
-		responsibilities: "",
-		leavingReason: "",
-	});
+function EmploymentModal() {
+	const [open, setOpen] = React.useState(false);
+	const [date, setDate] = React.useState(new Date());
+	const [checked, setChecked] = React.useState(false);
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -44,38 +30,13 @@ function EmploymentModal({ setEmploymentInfo }) {
 		setOpen(false);
 	};
 
-	const addEmployment = (input) => (e) => {
-		setEmploymentDetails({ ...employmentDetails, [input]: e.target.value });
+	const handleChange = (newDate) => {
+		setDate(newDate);
 	};
 
-	const stillWorkingCheck = (e) => {
-		setChecked(e.target.checked);
-		setEmploymentDetails({
-			...employmentDetails,
-			["currentlyWorking"]: e.target.checked,
-			["endDate"]: e.target.checked ? "Currently working" : "",
-		});
+	const handleChangeCheck = (event) => {
+		setChecked(event.target.checked);
 	};
-	const changeStartDate = (e) => {
-		setStartDate(e);
-		setEmploymentDetails({
-			...employmentDetails,
-			["startDate"]: e,
-		});
-	};
-	const changeEndDate = (e) => {
-		setEndDate(e);
-		setEmploymentDetails({
-			...employmentDetails,
-			["endDate"]: e,
-		});
-	};
-
-	const addEmploymentToPage = () => {
-		setEmploymentInfo((info) => [...info, employmentDetails]);
-	};
-
-	console.log(employmentDetails);
 
 	return (
 		<div>
@@ -90,11 +51,11 @@ function EmploymentModal({ setEmploymentInfo }) {
 					</DialogContentText>
 					<TextField
 						required
-						id="position"
+						id="outlined-basic"
+						label=""
 						variant="outlined"
 						size="small"
 						fullWidth
-						onChange={addEmployment("position")}
 					/>
 					<br />
 					<br />
@@ -103,27 +64,24 @@ function EmploymentModal({ setEmploymentInfo }) {
 					</DialogContentText>
 					<TextField
 						required
-						id="employer"
+						id="outlined-basic"
 						label=""
 						variant="outlined"
 						size="small"
 						fullWidth
-						onChange={addEmployment("employer")}
 					/>
 					<FormGroup>
 						<FormControlLabel
-							id="currentlyWorking"
 							control={
 								<Checkbox
-									value={checked}
-									onChange={stillWorkingCheck}
+									defaultChecked
 									checked={checked}
+									onChange={handleChangeCheck}
 								/>
 							}
 							label="I am currently working in this role"
 						/>
 					</FormGroup>
-
 					<Box
 						sx={{
 							width: 500,
@@ -140,10 +98,10 @@ function EmploymentModal({ setEmploymentInfo }) {
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>
 									<DesktopDatePicker
-										required
+										label=""
 										inputFormat="dd/MM/yyyy"
-										value={startDate}
-										onChange={changeStartDate}
+										value={date}
+										onChange={handleChange}
 										renderInput={(params) => <TextField {...params} />}
 									/>
 								</Stack>
@@ -154,13 +112,10 @@ function EmploymentModal({ setEmploymentInfo }) {
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>
 									<DesktopDatePicker
+										label=""
 										inputFormat="dd/MM/yyyy"
-										value={endDate}
-										maxDate={new Date()}
-										minDate={startDate}
-										onChange={changeEndDate}
-										disabled={checked ? true : false}
-										required={checked ? false : true}
+										value={date}
+										onChange={handleChange}
 										renderInput={(params) => <TextField {...params} />}
 									/>
 								</Stack>
@@ -171,29 +126,26 @@ function EmploymentModal({ setEmploymentInfo }) {
 					<TextField
 						required
 						multiline
-						id="responsibilities"
+						id="outlined-basic"
 						label=""
 						variant="outlined"
 						size="small"
 						rows={4}
 						fullWidth
-						onChange={addEmployment("responsibilities")}
 					/>
 					<br />
 					<br />
 					<DialogContentText>
-						Reason For Leaving / Explanation for Gap in Employment
-						<span className="asterisk"> *</span>
+						Reason For Leaving / Explanation for Gap in Employment<span className="asterisk"> *</span>
 					</DialogContentText>
 					<TextField
 						required
 						multiline
-						id="leavingReason"
+						id="outlined-basic"
 						label=""
 						variant="outlined"
 						size="small"
 						rows={4}
-						onChange={addEmployment("leavingReason")}
 						helperText="Please enter N/A if you are still employed or had no gaps in employment."
 						fullWidth
 					/>
@@ -204,7 +156,7 @@ function EmploymentModal({ setEmploymentInfo }) {
 					<Button variant="contained" onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button variant="contained" onClick={addEmploymentToPage}>
+					<Button variant="contained" onClick={handleClose}>
 						Save
 					</Button>
 				</DialogActions>
