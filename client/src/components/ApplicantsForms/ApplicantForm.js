@@ -37,11 +37,10 @@ function ApplicantsForm() {
 		right_to_work: Boolean,
 		cv: "",
 		supp_statement: "",
-		employment_history: "",
-		education_history: "",
-		exam_history: "",
-		professional_qualifications: "",
-		languages: "",
+		employment_history: [],
+		education_history: [],
+		professional_qualifications: [],
+		languages: [],
 		dbs_work: Boolean,
 		dbs_convictions: Boolean,
 		disability: Boolean,
@@ -69,15 +68,14 @@ function ApplicantsForm() {
 
 	const handleReset = () => {
 		setUserDetails({
-			currently_work: Boolean,
+			currently_work: false,
 			right_to_work: Boolean,
 			cv: "",
 			supp_statement: "",
-			employment_history: "",
-			education_history: "",
-			exam_history: "",
-			professional_qualifications: "",
-			languages: "",
+			employment_history: [],
+			education_history: [],
+			professional_qualifications: [],
+			languages: [],
 			dbs_work: Boolean,
 			dbs_convictions: Boolean,
 			disability: Boolean,
@@ -95,6 +93,7 @@ function ApplicantsForm() {
 	// Handle fields change
 	const handleChange = (input) => (e) => {
 		setUserDetails({ ...userDetails, [input]: e.target.value });
+		// console.log(userDetails);
 	};
 
 	return (

@@ -1,7 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 
-import { TextField, Box, InputLabel, Select } from "@mui/material";
+import {
+	TextField,
+	Box,
+	InputLabel,
+	Select,
+} from "@mui/material";
 
 function SubmissionPage6({ values, handleChange }) {
 	return (
@@ -56,14 +61,17 @@ function SubmissionPage6({ values, handleChange }) {
 					<option aria-label="Please Select" value="">
 						Please Select
 					</option>
-					<option value="18-25">18-25</option>
-					<option value="26-33">26-33</option>
-					<option value="34-41">34-41</option>
-					<option value="42-49">42-49</option>
-					<option value="50-57">50-57</option>
-					<option value="58-64">58-64</option>
-					<option value="65+">65+</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					<option value="1">16-24</option>
+					<option value="2">25-29</option>
+					<option value="3">30-34</option>
+					<option value="4">35-39</option>
+					<option value="5">40-44</option>
+					<option value="6">45-49</option>
+					<option value="7">50-54</option>
+					<option value="8">55-59</option>
+					<option value="9">60-64</option>
+					<option value="10">65+</option>
+					<option value="11">Prefer not to say</option>
 				</Select>
 			</Box>
 			<br />
@@ -76,6 +84,9 @@ function SubmissionPage6({ values, handleChange }) {
 					value={values.ethnic_group}
 					onChange={handleChange("ethnic_group")}
 				>
+					<option aria-label="Please Select" value="">
+						Please Select
+					</option>
 					<option aria-label="Other ethnic Group" value="Other ethnic Group">
 						Other ethnic Group
 					</option>
