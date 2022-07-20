@@ -93,7 +93,6 @@ function ApplicantsForm() {
 	// Handle fields change
 	const handleChange = (input) => (e) => {
 		setUserDetails({ ...userDetails, [input]: e.target.value });
-		// console.log(userDetails);
 	};
 
 	return (
@@ -124,6 +123,12 @@ function ApplicantsForm() {
 							<EmploymentPage4
 								values={userDetails}
 								handleChange={handleChange}
+								setUserDetails={setUserDetails}
+								userDetails={userDetails}
+								employment_history={userDetails.employment_history}
+								education_history={userDetails.education_history}
+									professional_qualifications={userDetails.professional_qualifications}
+									languages={userDetails.languages}
 							/>
 						)}
 						{activeStep === 4 && (

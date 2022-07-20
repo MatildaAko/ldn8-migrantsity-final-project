@@ -12,8 +12,7 @@ import {
 	Paper,
 } from "@mui/material";
 
-function DetailsPage1({ values, handleChange }) {
-	console.log(values);
+function DetailsPage1({ handleChange }) {
 	return (
 		<div>
 			<Paper>

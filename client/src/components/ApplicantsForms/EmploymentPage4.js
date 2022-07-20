@@ -1,33 +1,25 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { Box, IconButton, Stack, styled, Button, Paper } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import { Applicant } from "../../models/applicant";
+import { Stack, styled, Paper } from "@mui/material";
 import "../../styles/JobsHistory.css";
 
 import EmploymentModal from "../Modals/EmploymentModal";
 import EducationHistoryModal from "../Modals/EducationHistoryModal";
-import EducationModal from "./EducationModal";
 import ProfessionalQualificationsModal from "../Modals/ProfessionalQualificationsModal";
 import LanguagesModal from "../Modals/LanguagesModal";
 
-function EmploymentPage4(/*{ values, handleChange }*/) {
-	// const newApp = new Applicant();
-	// newApp.education.school = "The school";
-	// const newSchool = new Applicant.Ed
-
-	const [eduOpen, setEduOpen] = useState(false);
-	const [id, setId] = useState(1);
-	// const [school, setSchool] = useState(education.school);
-	// const [degree, setDegree] = useState(education.degree);
-	// const [description, setDescription] = useState(education.description);
+function EmploymentPage4({
+	setUserDetails,
+	userDetails,
+	employment_history,
+	education_history,
+	professional_qualifications,
+	languages,
+}) {
 	const [employmentInfo, setEmploymentInfo] = useState([]);
 	const [educationInfo, setEducationInfo] = useState([]);
 	const [qualificationInfo, setQualificationInfo] = useState([]);
 	const [languageInfo, setLanguageInfo] = useState([]);
-	console.log(educationInfo);
 
 	const Item = styled(Paper)(({ theme }) => ({
 		backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -36,29 +28,6 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 		textAlign: "center",
 		color: theme.palette.text.secondary,
 	}));
-	const createNewEdu = () => {
-		const newEdu = {
-			id: id,
-			school: school,
-			degree: degree,
-			description: description,
-		};
-		return newEdu;
-	};
-	const setFieldsEmpty = () => {
-		setSchool("");
-		setDegree("");
-		setDescription("");
-	};
-
-	const handleAddClick = () => {
-		setEduOpen(!eduOpen);
-	};
-
-	const handleEditClick = (params) => {
-		console.log("Params : ", params.target.value);
-		setEduOpen(!eduOpen);
-	};
 
 	return (
 		<>
@@ -76,20 +45,25 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 						Please click on the 'Add' button to add your employment history.
 						Click on the text highlighted in red to edit your entry.
 					</p>
-					<EmploymentModal setEmploymentInfo={setEmploymentInfo} />
+					<EmploymentModal
+						setEmploymentInfo={setEmploymentInfo}
+						setUserDetails={setUserDetails}
+						userDetails={userDetails}
+						employment_history={employment_history}
+					/>
 				</div>
 				<Stack spacing={2}>
 					{employmentInfo.map((employment, index) => {
 						return (
 							//need to fix this layout
 							<Item key={index}>
-								{employment.position}
-								{employment.employer}
-								{employment.currentlyWorking ? "yes" : "no"}
-								{JSON.stringify(employment.startDate.toLocaleString())}
-								{JSON.stringify(employment.endDate)}
-								{employment.responsibilities}
-								{employment.leavingReason}
+								Position: {employment.position}, Employer: {employment.employer}
+								, Still Employed there:{" "}
+								{employment.currentlyWorking ? "yes" : "no"}, Start Date:{" "}
+								{JSON.stringify(employment.startDate.toLocaleString())}, End
+								Date: {JSON.stringify(employment.endDate.toLocaleString())},
+								Responsibilities: {employment.responsibilities}, Leaving/Gap
+								Reason: {employment.leavingReason}
 							</Item>
 						);
 					})}
@@ -109,8 +83,27 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 							Please click on the 'Add' button to add your education history.
 							Click on the text highlighted in red to edit your entry.
 						</p>
-						<EducationHistoryModal setEducationInfo={setEducationInfo} />
+						<EducationHistoryModal
+							setEducationInfo={setEducationInfo}
+							setUserDetails={setUserDetails}
+							userDetails={userDetails}
+							education_history={education_history}
+						/>
 					</div>
+					<Stack spacing={2}>
+						{educationInfo.map((education, index) => {
+							return (
+								//need to fix this layout
+								<Item key={index}>
+									School: {education.schoolName}, Course: {education.courseName}
+									, Mobile: {education.mobile}, Grades: {education.grades},
+									Telephone: {education.telephone}, Address1:{" "}
+									{education.address1}, Address2: {education.address2}, Subject:{" "}
+									{education.subject}, Town: {education.town},
+								</Item>
+							);
+						})}
+					</Stack>
 				</div>
 				<br />
 			</div>
@@ -123,8 +116,23 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 					</p>
 					<ProfessionalQualificationsModal
 						setQualificationInfo={setQualificationInfo}
+						professional_qualifications={professional_qualifications}
+						setUserDetails={setUserDetails}
+						userDetails={userDetails}
 					/>
 				</div>
+				<Stack spacing={2}>
+					{qualificationInfo.map((qualification, index) => {
+						return (
+							//need to fix this layout
+							<Item key={index}>
+								Qualification: {qualification.title}, Date:{" "}
+								{JSON.stringify(qualification.date.toLocaleString())}, Status:{" "}
+								{qualification.status},
+							</Item>
+						);
+					})}
+				</Stack>
 				<br />
 				<br />
 			</div>
@@ -135,8 +143,24 @@ function EmploymentPage4(/*{ values, handleChange }*/) {
 						Please click on the 'Add' button to add languages. Click on the text
 						highlighted in red to edit your entry.
 					</p>
-					<LanguagesModal setLanguageInfo={setLanguageInfo} />
+					<LanguagesModal
+						setLanguageInfo={setLanguageInfo}
+						setUserDetails={setUserDetails}
+						userDetails={userDetails}
+						languages={languages}
+					/>
 				</div>
+				<Stack spacing={2}>
+					{languageInfo.map((language, index) => {
+						return (
+							//need to fix this layout
+							<Item key={index}>
+								Language: {language.language}, Fluency: {language.fluency},
+								Spoken: {language.spoken}, Written: {language.written},
+							</Item>
+						);
+					})}
+				</Stack>
 				<br />
 				<br />
 			</div>

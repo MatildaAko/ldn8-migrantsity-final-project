@@ -17,7 +17,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal({ setEmploymentInfo }) {
+function EmploymentModal({ setUserDetails, userDetails, employment_history, setEmploymentInfo }) {
 	const [open, setOpen] = useState(false);
 	const [startDate, setStartDate] = useState(null);
 	const [endDate, setEndDate] = useState(null);
@@ -32,7 +32,6 @@ function EmploymentModal({ setEmploymentInfo }) {
 		responsibilities: "",
 		leavingReason: "",
 	});
-
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -67,9 +66,7 @@ function EmploymentModal({ setEmploymentInfo }) {
 			["endDate"]: e,
 		});
 	};
-
-	const addEmploymentToPage = () => {
-		setEmploymentInfo((info) => [...info, employmentDetails]);
+	const resetEmployment = () => {
 		setEmploymentDetails({
 			...employmentDetails,
 			["position"]: "",
@@ -82,10 +79,18 @@ function EmploymentModal({ setEmploymentInfo }) {
 		});
 		setStartDate(null);
 		setEndDate(null);
-		handleClose();
+		setChecked(false);
 	};
 
-	console.log(employmentDetails);
+	const addEmploymentToPage = () => {
+		setEmploymentInfo((info) => [...info, employmentDetails]);
+		setUserDetails({
+			...userDetails,
+			["employment_history"]: employment_history.concat( employmentDetails ),
+		});
+		resetEmployment();
+		handleClose();
+	};
 
 	return (
 		<div>

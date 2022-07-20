@@ -14,7 +14,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Stack from "@mui/material/Stack";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
-function ProfessionalQualificationsModal(setQualificationInfo) {
+function ProfessionalQualificationsModal({
+	setQualificationInfo,
+	professional_qualifications,
+	setUserDetails,
+	userDetails,
+}) {
 	const [open, setOpen] = useState(false);
 	const [date, setDate] = useState(null);
 	const [qualificationDetails, setQualificationDetails] = useState({
@@ -46,8 +51,7 @@ function ProfessionalQualificationsModal(setQualificationInfo) {
 		});
 	};
 
-	const addQualificationsToPage = () => {
-		setQualificationInfo((info) => [...info, qualificationDetails]);
+	const resetQualifications = () => {
 		setQualificationDetails({
 			...qualificationDetails,
 			["title"]: "",
@@ -57,7 +61,17 @@ function ProfessionalQualificationsModal(setQualificationInfo) {
 		setDate(null);
 	};
 
-	console.log(qualificationDetails);
+	const addQualificationsToPage = () => {
+		setQualificationInfo((info) => [...info, qualificationDetails]);
+		setUserDetails({
+			...userDetails,
+			["professional_qualifications"]:
+				professional_qualifications.concat(qualificationDetails),
+		});
+		resetQualifications();
+		handleClose();
+	};
+
 
 	return (
 		<div>

@@ -10,7 +10,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Box from "@mui/material/Box";
 
-function EducationHistoryModal({ setEducationInfo }) {
+function EducationHistoryModal({
+	setEducationInfo,
+	setUserDetails,
+	userDetails,
+	education_history,
+}) {
 	const [eduOpen, setEduOpen] = useState(false);
 	const [educationDetails, setEducationDetails] = useState({
 		schoolName: "",
@@ -36,9 +41,7 @@ function EducationHistoryModal({ setEducationInfo }) {
 	const addEducation = (input) => (e) => {
 		setEducationDetails({ ...educationDetails, [input]: e.target.value });
 	};
-
-	const addEducationToPage = () => {
-		setEducationInfo((info) => [...info, educationDetails]);
+	const resetEducation = () => {
 		setEducationDetails({
 			...educationDetails,
 			["schoolName"]: "",
@@ -52,10 +55,17 @@ function EducationHistoryModal({ setEducationInfo }) {
 			["mobile"]: "",
 			["grades"]: "",
 		});
-		handleClose();
 	};
 
-	console.log(educationDetails);
+	const addEducationToPage = () => {
+		setEducationInfo((info) => [...info, educationDetails]);
+		setUserDetails({
+			...userDetails,
+			["education_history"]: education_history.concat(educationDetails),
+		});
+		resetEducation();
+		handleClose();
+	};
 
 	return (
 		<div>

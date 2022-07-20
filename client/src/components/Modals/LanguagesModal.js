@@ -15,10 +15,12 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import { InputLabel } from "@mui/material";
+import { commonLanguages } from "../ApplicantsForms/LanguageOptions";
 
-function LanguagesModal() {
+function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, languages }) {
 	const [open, setOpen] = useState(false);
-	const [languages, setLanguages] = useState("");
+	const [knownLanguages, setKnownLanguages] = useState("");
 	const [degree, setDegree] = useState("");
 	const [radioSpoken, setRadioSpoken] = useState(Boolean);
 	const [radioWritten, setRadioWritten] = useState(Boolean);
@@ -37,22 +39,50 @@ function LanguagesModal() {
 		setOpen(false);
 	};
 
-	const handleChangeLanguage = (e) => {
-		setLanguages(event.target.value);
-		setLanguageDetails({ ...languageDetails, ["language"]: e.target.value });
-		console.log(languageDetails);
+	const handleChangeLanguage = (event) => {
+		setKnownLanguages(event.target.value);
+		setLanguageDetails({
+			...languageDetails,
+			["language"]: event.target.value,
+		});
+	};
+	const resetLanguages = () => {
+		setLanguageDetails({
+			...languageDetails,
+			["language"]: "",
+			["fluency"]: "",
+			["spoken"]: null,
+			["written"]: null,
+		});
+		setKnownLanguages("");
+		setDegree("");
+		setRadioSpoken(null);
+		setRadioWritten(null);
+	};
+
+	const addLanguageToPage = () => {
+		setLanguageInfo((info) => [...info, languageDetails]);
+		setUserDetails({
+			...userDetails,
+			["languages"]: languages.concat(languageDetails),
+		});
+		resetLanguages();
+		handleClose();
 	};
 
 	const handleChangeDegree = (event) => {
 		setDegree(event.target.value);
+		setLanguageDetails({ ...languageDetails, ["fluency"]: event.target.value });
 	};
 
 	const handleChangeSpoken = (event) => {
 		setRadioSpoken(event.target.value);
+		setLanguageDetails({ ...languageDetails, ["spoken"]: event.target.value });
 	};
 
 	const handleChangeWritten = (event) => {
 		setRadioWritten(event.target.value);
+		setLanguageDetails({ ...languageDetails, ["written"]: event.target.value });
 	};
 	return (
 		<div>
@@ -71,61 +101,47 @@ function LanguagesModal() {
 						}}
 					>
 						<Box>
-							<DialogContentText>Language<span className="asterisk"> *</span></DialogContentText>
+							<DialogContentText>
+								Language<span className="asterisk"> *</span>
+							</DialogContentText>
 							<FormControl
 								variant="standard"
 								sx={{ m: 1, minWidth: 200 }}
 								size="small"
 							>
+								<InputLabel id="knownLanguages">Please Select</InputLabel>
 								<Select
 									labelId="languages"
-									value={languages}
+									value={knownLanguages}
 									label=""
 									onChange={handleChangeLanguage}
 									variant="outlined"
 								>
-									<MenuItem value="">
-										<em>Please Select</em>
-									</MenuItem>
-									<MenuItem value={"English"}>English</MenuItem>
-									<MenuItem value={"Mandarin"}>Mandarin</MenuItem>
-									<MenuItem value={"Hindi"}>Hindi</MenuItem>
-									<MenuItem value={"Spanish"}>Spanish</MenuItem>
-									<MenuItem value={"French"}>French</MenuItem>
-									<MenuItem value={"Arabic"}>Arabic</MenuItem>
-									<MenuItem value={"Bengali"}>Bengali</MenuItem>
-									<MenuItem value={"Russian"}>Russian</MenuItem>
-									<MenuItem value={"Portuguese"}>Portuguese</MenuItem>
-									<MenuItem value={"Indonesian"}>Indonesian</MenuItem>
-									<MenuItem value={"Turkish"}>Turkish</MenuItem>
-									<MenuItem value={"Italian"}>Italian</MenuItem>
-									<MenuItem value={"German"}>German</MenuItem>
-									<MenuItem value={"Persian"}>Persian</MenuItem>
-									<MenuItem value={"Romanian"}>Romanian</MenuItem>
-									<MenuItem value={"Polish"}>Polish</MenuItem>
-									<MenuItem value={"Lithuanian"}>Lithuanian</MenuItem>
-									<MenuItem value={"Somali"}>Somali</MenuItem>
-									<MenuItem value={"Gujarati"}>Gujarati</MenuItem>
+									{commonLanguages.map((language, index) => {
+										return (
+											<MenuItem key={index} value={language}>
+												{language}
+											</MenuItem>
+										);
+									})}
 								</Select>
 							</FormControl>
 						</Box>
 						<Box>
 							<DialogContentText>Degree of Fluency*</DialogContentText>
 							<FormControl
-								variant="container"
+								variant="standard"
 								sx={{ m: 1, minWidth: 220 }}
 								size="small"
 							>
+								<InputLabel id="fluency">Please Select</InputLabel>
 								<Select
-									labelId="demo-select-small"
+									labelId="fluency"
 									value={degree}
 									label=""
 									onChange={handleChangeDegree}
 									variant="outlined"
 								>
-									<MenuItem value="">
-										<em>Please Select</em>
-									</MenuItem>
 									<MenuItem value={"Elementary Proficiency"}>
 										Elementary Proficiency
 									</MenuItem>
@@ -150,7 +166,7 @@ function LanguagesModal() {
 							height: 100,
 							display: "flex",
 							alignItems: "center",
-                            justifyContent: "space-between",
+							justifyContent: "space-between",
 							"& > :not(style)": { m: 1 },
 						}}
 					>
@@ -203,7 +219,7 @@ function LanguagesModal() {
 					<Button variant="contained" onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button variant="contained" onClick={handleClose}>
+					<Button variant="contained" onClick={addLanguageToPage}>
 						Save
 					</Button>
 				</DialogActions>
