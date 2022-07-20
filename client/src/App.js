@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 
 import HMCDashboard from "./pages/HMCDashboard";
 import ApplicationDetails from "./pages/ApplicationDetails";
+import ApplicantDashboard from "./pages/ApplicantDashboard";
 
 const App = () => {
 	return (
@@ -14,6 +15,8 @@ const App = () => {
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/hmcview" element={<HMCDashboard />} />
 		<Route path="/application" element={<ApplicantForm />} />
+		<Route path="/applicantdashboard" element={<ApplicantDashboard applicantId={2} />} />
+		<Route path="/equality" element={<EqualityForm />} />
 			<Route
 				path="/applicationdetails/:id"
 				element={<ApplicationDetails />}
