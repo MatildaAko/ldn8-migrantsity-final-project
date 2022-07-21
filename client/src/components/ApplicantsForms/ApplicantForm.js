@@ -127,8 +127,10 @@ function ApplicantsForm() {
 								userDetails={userDetails}
 								employment_history={userDetails.employment_history}
 								education_history={userDetails.education_history}
-									professional_qualifications={userDetails.professional_qualifications}
-									languages={userDetails.languages}
+								professional_qualifications={
+									userDetails.professional_qualifications
+								}
+								languages={userDetails.languages}
 							/>
 						)}
 						{activeStep === 4 && (
@@ -141,6 +143,8 @@ function ApplicantsForm() {
 							<EqualOpportunitiesPage6
 								values={userDetails}
 								handleChange={handleChange}
+								setUserDetails={setUserDetails}
+								userDetails={userDetails}
 							/>
 						)}
 						{activeStep === 6 && <ConfirmPage7 values={userDetails} />}

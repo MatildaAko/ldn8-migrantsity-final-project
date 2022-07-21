@@ -17,6 +17,8 @@ function EducationHistoryModal({
 	education_history,
 }) {
 	const [eduOpen, setEduOpen] = useState(false);
+	const [mobile, setMobile] = useState("");
+	const [telephone, setTelephone] = useState("");
 	const [educationDetails, setEducationDetails] = useState({
 		schoolName: "",
 		courseName: "",
@@ -41,6 +43,26 @@ function EducationHistoryModal({
 	const addEducation = (input) => (e) => {
 		setEducationDetails({ ...educationDetails, [input]: e.target.value });
 	};
+
+	const setTelephoneValue = (e) => {
+		e.target.value = e.target.value.replace(/[^0-9+-]/g, "");
+		setTelephone(e.target.value);
+		setEducationDetails({
+			...educationDetails,
+			["telephone"]: telephone,
+		});
+	};
+
+	const setMobileValue = (e) => {
+		e.target.value = e.target.value.replace(/[^0-9+-]/g, "");
+		setMobile(e.target.value);
+		setEducationDetails({
+			...educationDetails,
+			["mobile"]: mobile,
+		});
+	};
+
+
 	const resetEducation = () => {
 		setEducationDetails({
 			...educationDetails,
@@ -166,11 +188,12 @@ function EducationHistoryModal({
 							<TextField
 								id="telephone"
 								type="tel"
+								value={telephone}
 								label=""
 								variant="outlined"
 								size="small"
 								fullWidth
-								onChange={addEducation("telephone")}
+								onChange={setTelephoneValue}
 							/>
 						</Box>
 						<Box className="flex-half">
@@ -178,11 +201,12 @@ function EducationHistoryModal({
 							<TextField
 								id="mobile"
 								type="tel"
+								value={mobile}
 								label=""
 								variant="outlined"
 								size="small"
 								fullWidth
-								onChange={addEducation("mobile")}
+								onChange={setMobileValue}
 							/>
 						</Box>
 					</Box>
