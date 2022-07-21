@@ -4,9 +4,10 @@ import ApplicantForm from "./components/ApplicantsForms/ApplicantForm";
 import Loading from "./components/Auth0Login/Loading";
 import { useAuth0 } from "@auth0/auth0-react";
 import Home from "./pages/Home";
-
+import EqualityForm from "./pages/EqualityForm";
 import HMCDashboard from "./pages/HMCDashboard";
 import ApplicationDetails from "./pages/ApplicationDetails";
+import ApplicantDashboard from "./pages/ApplicantDashboard";
 
 const App = () => {
 	const { isLoading } = useAuth0();
@@ -19,6 +20,8 @@ const App = () => {
 			<Route path="/" element={<Home />} />
 			<Route path="/hmcview" element={<HMCDashboard />} />
 		<Route path="/application" element={<ApplicantForm />} />
+		<Route path="/applicantdashboard" element={<ApplicantDashboard applicantId={2} />} />
+		<Route path="/equality" element={<EqualityForm />} />
 			<Route
 				path="/applicationdetails/:id"
 				element={<ApplicationDetails />}
