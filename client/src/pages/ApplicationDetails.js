@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 
 const ApplicationDetails = () => {
   let { id } = useParams();
+  console.log({ id });
   const [applications, setApplications] = useState([]);
   useEffect(() => {
    const fetchData = async () => {
@@ -30,7 +31,7 @@ const ApplicationDetails = () => {
 					<p>Skills: {applicationInformation.Applicant[0].skills}</p>
 					<p>
 						Current employee:{" "}
-						{applicationInformation.Applicant[0].current_employee ? "Yes" : "No"}
+						{applicationInformation.Applicant[0].currently_work ? "Yes" : "No"}
 					</p>
 					<p>Applicant skills: {applicationInformation.Applicant[0].skills}</p>
 				</>
@@ -44,4 +45,3 @@ const ApplicationDetails = () => {
 };
 
 export default ApplicationDetails;
-

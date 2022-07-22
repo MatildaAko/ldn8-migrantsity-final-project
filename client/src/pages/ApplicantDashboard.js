@@ -28,7 +28,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 			.catch((error) => {
 				console.error(error);
 			});
-	}, []);
+	}, [applicantId]);
 
   useEffect(() => {
 		fetch(`/api/${applicantId}/applications`)
@@ -45,7 +45,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 			.catch((error) => {
 				console.error(error);
 			});
-	}, []);
+	}, [applicantId]);
     const columns = [
 		{
 			field: "id",
@@ -166,4 +166,3 @@ const ApplicantDashboard = ({ applicantId }) => {
 };
 
 export default ApplicantDashboard;
-
