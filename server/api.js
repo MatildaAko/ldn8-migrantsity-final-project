@@ -6,7 +6,7 @@ const usersController = require("./controllers/users");
 const citiesController = require("./controllers/cities");
 const applicationsController = require("./controllers/applications");
 const educationController = require("./controllers/education");
-const examsController = require("./controllers/exams");
+const employmentsController = require("./controllers/employments");
 const qualificationsController = require("./controllers/qualifications");
 const languagesController = require("./controllers/languages");
 const equalityController = require("./controllers/equality");
@@ -80,13 +80,13 @@ router
 .put("/education/:educationId", educationController.updateEducation)
 .delete("/education/:educationId", educationController.deleteEducation);
 
-//Exams
+//Employments
 router
-.get("/exams", examsController.getExams )
-.get("/:applicantId/exams", examsController.getExamsByApplicantId)
-.post("/exams", examsController.createNewExams)
-.put("/exams/:examId", examsController.updateExams)
-.delete("/exams/:examId", examsController.deleteExams);
+.get("/employments", employmentsController.getEmployments )
+.get("/:applicantId/employments", employmentsController.getEmploymentsByApplicantId)
+.post("/employments", employmentsController.createNewEmployments)
+.put("/employments/:employmentId", employmentsController.updateEmployments)
+.delete("/employments/:employmentId", employmentsController.deleteEmployments);
 
 //Qualifications
 router
