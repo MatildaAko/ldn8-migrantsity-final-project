@@ -6,10 +6,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Auth0Login/Loading";
 import HMCNavbar from "../components/ApplicantDashboard/HMCNavbar";
+import Like from "../assets/like.png";
+import DisLike from "../assets/dislike.png";
 
 const HMCDashboard = () => {
 	const { user } = useAuth0();
-	const { name, picture } = user;
+	const { nickname, picture } = user;
 	const [applications, setApplications] = useState([]);
   useEffect(() => {
 		fetch("/api/applications")
@@ -64,6 +66,7 @@ const HMCDashboard = () => {
 			description: "This column has a value getter and is not sortable.",
 			width: 100,
 			editable: false,
+			renderCell: (params) => <img alt={params.value} src={params.value=="Yes"?Like:DisLike} />,
 		},
 	];
 	const rows = applications.map((application) => {
@@ -79,7 +82,7 @@ const HMCDashboard = () => {
 	});
   return (
 	<Container fluid>
-		<HMCNavbar user={name} picture={picture} />
+		<HMCNavbar user={nickname} picture={picture} />
 		<Box
 			container
 			display="flex"
@@ -98,11 +101,30 @@ const HMCDashboard = () => {
 			padding= "84px"
 			>
 		<Box
-			width="100%"
-			direction="column"
-			height="50vh"
+			sx={{
+				height: 300,
+				width: "100%",
+				"& .other": {
+				},
+				"& .rejected": {
+					backgroundColor: "#ff943975",
+					color: "#1a3e72",
+				},
+				"& .inProgress": {
+					backgroundColor: "#b9d5ff91",
+					color: "#1a3e72",
+				},
+			}}
 		>
 			<DataGrid
+				getCellClassName={(params) => {
+					switch (params.value) {
+						case "Rejected": return "rejected";
+						case "In progress": return "inProgress";
+						case "Accepted": return "accepted";
+						default: "other";
+					}
+				}}
 				getRowHeight={() => "auto"}
 				getEstimatedRowHeight={() => 10}
 				rows={rows}

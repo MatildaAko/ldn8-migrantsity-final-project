@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
 import AuthenticationButton from "../Auth0Login/authentication-button";
+import { Avatar } from "@material-ui/core";
 
 const styles = {
   root: {
@@ -34,6 +35,7 @@ function ApplicantNavbar(props) {
           </Typography>
         <Box sx={{ display:"flex", alignItems: "end", flexDirection: "column" }}>
             <SettingsIcon />
+          <Avatar alt={props.user.nickname} src={props.user.picture} />
           <Typography variant="h5" color="inherit" className={classes.detailTitle}>
            Hi {props.user.nickname}!
           </Typography>

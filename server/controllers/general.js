@@ -4,7 +4,7 @@ import pool from "../db";
 const applicationsQueryString = `
 	Select * from (Select applications.id as id, applicant_id, concat(first_name,' ',surname) as fullName, first_name, surname, email, 
 			currently_work, right_to_work, skills, gap_reasons, city, job_id, 
-			jobs.title as job_title, jobs.description as job_description, 
+			jobs.title as job_title, jobs.description as job_description, color as status_color,
 			skills_require, cover_letter, applications.description, notes, status_id, status
 	From applications 
 	Inner join applicants on applicants.id = applicant_id
