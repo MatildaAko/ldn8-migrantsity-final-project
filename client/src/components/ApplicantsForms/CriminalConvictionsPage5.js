@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../../styles/CriminalConvictionsPage.css";
+
 import {
 	Box,
 	FormLabel,
@@ -12,8 +14,10 @@ import {
 function CriminalConvictionsPage5({ values, handleChange }) {
 	return (
 		<>
+		<Box className="criminalConvictionsFeature">
+
 			<h1>Criminal Convictions</h1>
-			<p>
+			<p className="paragraph">
 				This role is exempt from the Rehabilitation of Offenders Act 1974 as it
 				involves regulated activities with children and/or adults at risk.
 				Successful candidates will be required to undertake an enhanced criminal
@@ -21,39 +25,56 @@ function CriminalConvictionsPage5({ values, handleChange }) {
 				necessarily bar candidates from working at Hackney Migrant Centre, this
 				will depend on the circumstances and background to the offence(s).
 			</p>
-			dbs_work: Boolean, dbs_convictions: Boolean,
 			<Box>
 				<FormControl>
 					<FormLabel id="dbs-work">
-						*Is there any reason why you could not work with vulnerable adults
+					<span className="asterisk">*</span>Is there any reason why you could not work with vulnerable adults
 						or children?
 					</FormLabel>
+					<br />
 					<RadioGroup
 						aria-label="dbs-work"
 						value={values.dbs_work}
 						onChange={handleChange("dbs_work")}
+						sx={{
+							width: 420,
+							height: 50,
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "flexStart",
+						}}
 					>
-						<FormControlLabel control={<Radio />} label="yes" value="yes" />
-						<FormControlLabel control={<Radio />} label="no" value="no" />
+						<FormControlLabel control={<Radio />} label="Yes" value="Yes" />
+						<FormControlLabel control={<Radio />} label="No" value="No" />
 					</RadioGroup>
 				</FormControl>
 			</Box>
+			<br />
 			<Box>
 				<FormControl>
 					<FormLabel id="dbs-convictions">
-						*Do you have any convictions, cautions, reprimands or final warnings
+					<span className="asterisk">*</span>Do you have any convictions, cautions, reprimands or final warnings
 						(spent and unspent)?
 					</FormLabel>
+					<br />
 					<RadioGroup
 						aria-label="dbs-convictions"
 						value={values.dbs_convictions}
 						onChange={handleChange("dbs_convictions")}
+						sx={{
+							width: 420,
+							height: 50,
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "flexStart",
+						}}
 					>
-						<FormControlLabel control={<Radio />} label="yes" value="yes" />
-						<FormControlLabel control={<Radio />} label="no" value="no" />
+						<FormControlLabel control={<Radio />} label="Yes" value="Yes" />
+						<FormControlLabel control={<Radio />} label="No" value="No" />
 					</RadioGroup>
 				</FormControl>
 			</Box>
+		</Box>
 		</>
 	);
 }

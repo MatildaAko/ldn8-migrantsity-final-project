@@ -1,0 +1,15 @@
+.criminalConvictionsFeature {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 1.3em;
+    margin-bottom: 0.5em;
+}
+
+.asterisk{
+    color: red;
+}
+
+.rightWorkParagraph {
+	background-color: #f5f4fb;
+	padding: 10px 15px; 
+}

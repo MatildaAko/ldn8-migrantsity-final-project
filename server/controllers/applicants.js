@@ -1,6 +1,7 @@
 import pool from "../db";
 import generalController from "./general";
 
+
 const getApplicantById = (req, res) => {
     const applicantId = req.params.applicantId;
 	const params = [applicantId];

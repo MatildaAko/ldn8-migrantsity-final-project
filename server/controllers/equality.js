@@ -27,6 +27,7 @@ const getEquality = (req, res) => {
 	.catch((error) => res.status(500).json(error));
 };
 
+
 module.exports = {
     getFlexibleWorking,
     getWorkingPattern,
