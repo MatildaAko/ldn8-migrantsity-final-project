@@ -29,7 +29,7 @@ router
 .get("/applicants", applicantsController.getAllApplicants)
 .get("/:applicantId/applicantAllData", applicantsController.getApplicantAllData)
 .post("/applicants", applicantsController.createNewApplicant)
-.post("/applicantAllData", applicantsController.createApplicantWithAllData);
+.post("/applicantAllData",  applicantsController.createApplicantWithAllData);
 
 //Users
 router
