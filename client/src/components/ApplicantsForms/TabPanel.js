@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { PropTypes } from "prop-types";
+import axios from "axios";
 
-const TabPanel = ({ children, value, index, setValue, ...other }) => {
+const TabPanel = ({ children, value, index, setValue,postApplication, postEquality, handleReset, userDetails, ...other }) => {
   // console.log(handleTabChange);
   return (
 		<div
@@ -26,8 +27,17 @@ const TabPanel = ({ children, value, index, setValue, ...other }) => {
 						</Button>
 					)}
 					{index === 2 && (
-						<Button
-						>
+						<Button onClick={()=>{
+							axios
+								.post("/api/applications", userDetails)
+								.then(function (response) {
+									console.log(response);
+								})
+								.catch(function (error) {
+									console.log(error);
+								});
+							handleReset();
+}}>
 							Submit
 						</Button>
 					)}

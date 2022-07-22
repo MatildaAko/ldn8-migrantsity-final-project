@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TabPanel from "./TabPanel";
+// import { axios } from "axios";
 import "./form.css";
 
 // import Button from "@mui/material/Button";
@@ -10,13 +11,8 @@ import DetailsPage1 from "./DetailsPage1";
 import CVPage2 from "./CVPage2";
 import StatementPage3 from "./StatementPage3";
 import EmploymentPage4 from "./EmploymentPage4";
-// import CriminalConvictionsPage5 from "./CriminalConvictionsPage5";
-// import EqualOpportunitiesPage6 from "./EqualOpportunitiesPage6";
 import EqualityForm from "../../pages/EqualityForm";
 import PersonalDetails from "./PersonalDetails";
-// import ConfirmPage7 from "./ConfirmPage7";
-// import ConfirmEqualityForm from "../EqualityFormControl/ConfirmEqualityForm";
-// import SubmitPage8 from "./SubmitPage8";
 
 
 const showFormPage = (index) => {
@@ -25,6 +21,8 @@ const showFormPage = (index) => {
 		"aria-controls": `vertical-tabpanel-${index}`,
 	};
 };
+
+
 
 
 function ApplicantsForm() {
@@ -60,6 +58,18 @@ function ApplicantsForm() {
 
 	console.log(userDetails);
 
+const [equality, setEquality] = useState({
+	gender: "",
+	identify: "",
+	age_band: "",
+	ethnic_group: "",
+	disability: "",
+	sex_orientation: "",
+	religion: "",
+	working_pattern: "",
+	flexible_working: "",
+	caring: "",
+});
 
 	const handleReset = () => {
 		setUserDetails({
@@ -83,25 +93,32 @@ function ApplicantsForm() {
 			professional_qualifications: [],
 			languages: [],
 		});
-		// handleTabChange(0);
+		setEquality; ({
+			gender: "",
+			identify: "",
+			age_band: "",
+			ethnic_group: "",
+			disability: "",
+			sex_orientation: "",
+			religion: "",
+			working_pattern: "",
+			flexible_working: "",
+			caring: "",
+		});
+		setValue(0);
 	};
-const [equality, setEquality] = useState({
-	gender: "",
-	identify: "",
-	age_band: "",
-	ethnic_group: "", // main_group
-	disability: "",
-	sex_orientation: "",
-	religion: "",
-	working_pattern: "",
-	flexible_working: "",
-	caring: "",
-});
+
 	// Handle fields change
 	const handleChange = (input) => (e) => {
 		setUserDetails({ ...userDetails, [input]: e.target.value });
 	};
 
+// 	const postApplication = () => {
+// 		axios.post("/api/applications", userDetails);
+// 	};
+// const postEquality = () => {
+// 	axios.post("/api/equality", equality);
+// };
 	return (
 		<Box
 			sx={{
@@ -156,7 +173,13 @@ const [equality, setEquality] = useState({
 					languages={userDetails.languages}
 				/>
 			</TabPanel>
-			<TabPanel value={value} index={2} setValue={setValue}>
+			<TabPanel
+				value={value}
+				index={2}
+				setValue={setValue}
+				userDetails={userDetails}
+				handleReset={handleReset}
+			>
 				<EqualityForm
 					values={userDetails}
 					handleChange={handleChange}

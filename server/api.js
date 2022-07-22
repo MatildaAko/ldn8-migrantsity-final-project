@@ -111,7 +111,7 @@ const applicantsQueryString = `
 	Inner join religions on religions.id = religion_id) as selectTable `;
 
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, 
+	Select * from (Select applications.id as id, applicant_id, first_name, last_name, email, 
 			current_employee, right_to_work, skills, gap_reasons, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, status_id, status
@@ -272,7 +272,10 @@ router.get("/applications/:applicationId", (req, res) => {
 
 router.get("/applications", (req, res) => get(getTableName(req), req, res, applicationsQueryString ));
 router.get("/:applicantId/applications", (req, res) => getApplicantData(getTableName(req), req, res, applicationsQueryString));
-router.post("/applications", (req, res) => post(getTableName(req), req, res));
+router.post("/applications", (req, res) => {
+	console.log({ req, res });
+post(getTableName(req), req, res);
+});
 router.put("/applications/:applicationId", (req, res) => put(getTableName(req), req, res));
 router.delete("/applications/:applicationId", (req, res) => del(getTableName(req), req, res));
 

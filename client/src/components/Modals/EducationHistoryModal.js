@@ -20,8 +20,8 @@ function EducationHistoryModal({
 	const [mobile, setMobile] = useState("");
 	const [telephone, setTelephone] = useState("");
 	const [educationDetails, setEducationDetails] = useState({
-		schoolName: "",
-		courseName: "",
+		school_name: "",
+		course_name: "",
 		subject: "",
 		address1: "",
 		address2: "",
@@ -66,8 +66,8 @@ function EducationHistoryModal({
 	const resetEducation = () => {
 		setEducationDetails({
 			...educationDetails,
-			["schoolName"]: "",
-			["courseName"]: "",
+			["school_name"]: "",
+			["course_name"]: "",
 			["subject"]: "",
 			["address1"]: "",
 			["address2"]: "",
@@ -106,7 +106,7 @@ function EducationHistoryModal({
 						variant="outlined"
 						size="small"
 						fullWidth
-						onChange={addEducation("schoolName")}
+						onChange={addEducation("school_name")}
 					/>
 					<br />
 					<br />
@@ -118,7 +118,7 @@ function EducationHistoryModal({
 						variant="outlined"
 						size="small"
 						fullWidth
-						onChange={addEducation("courseName")}
+						onChange={addEducation("course_name")}
 					/>
 					<br />
 					<br />

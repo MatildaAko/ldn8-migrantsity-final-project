@@ -95,7 +95,7 @@ function EmploymentPage4({
 							return (
 								//need to fix this layout
 								<Item key={index}>
-									School: {education.schoolName}, Course: {education.courseName}
+									School: {education.school_name}, Course: {education.course_name}
 									, Mobile: {education.mobile}, Grades: {education.grades},
 									Telephone: {education.telephone}, Address1:{" "}
 									{education.address1}, Address2: {education.address2}, Subject:{" "}

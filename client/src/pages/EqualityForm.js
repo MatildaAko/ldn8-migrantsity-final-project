@@ -54,7 +54,7 @@ const EqualityForm = ({
 			<GenderEqualityForm
 				changeEqualityDetails={changeEqualityDetails}
 				setEquality={setEquality}
-	equality={equality}
+				equality={equality}
 			/>
 
 			{/* Identify */}
@@ -119,7 +119,9 @@ const EqualityForm = ({
 
 			<hr />
 
-			<ConfirmEqualityForm values={equality} />
+			<ConfirmEqualityForm
+				values={equality}
+			/>
 
 			<hr />
 		</>
