@@ -1,13 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Auth0Login/Loading";
 import HMCNavbar from "../components/ApplicantDashboard/HMCNavbar";
 import Like from "../assets/like.png";
 import DisLike from "../assets/dislike.png";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 
 const HMCDashboard = () => {
 	const { user } = useAuth0();
@@ -32,7 +33,7 @@ const HMCDashboard = () => {
 	const columns = [
 		{
 			field: "fullname",
-			headerName: "Name",
+			headerName: "Name/ID",
 			width: 150,
 			editable: false,
 		},
@@ -67,6 +68,19 @@ const HMCDashboard = () => {
 			width: 100,
 			editable: false,
 			renderCell: (params) => <img alt={params.value} src={params.value=="Yes"?Like:DisLike} />,
+		},
+		{
+			field: "actions",
+			headerName: "Actions",
+			width: 70,
+			value: 1,
+			editable: false,
+			align: "right",
+			renderCell: (params) => (
+				<>
+					<a href={`/applicationdetails/${params.id}`} id="detail" ><ListAltIcon /></a>
+				</>
+			),
 		},
 	];
 	const rows = applications.map((application) => {
