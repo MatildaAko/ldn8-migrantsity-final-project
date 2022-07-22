@@ -24,7 +24,7 @@ const styles = {
   },
 };
 
-function ApplicantNavbar({user, classes}) {
+function ApplicantNavbar({ user, classes }) {
   return (
     <div className={classes.root}>
         <Toolbar className={classes.bar}>
