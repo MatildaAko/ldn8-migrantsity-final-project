@@ -2,7 +2,8 @@ import pool from "../db";
 
 //////////--------- Select Queries --------////////////
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, first_name, last_name, concat(first_name,' ',last_name) as fullName, 
+	Select * from (Select applications.id as id, applicant_id, first_name, last_name, 
+		(case when status_id = 5 then cast(applicant_id as varchar) else concat(first_name,' ',last_name) end)  as fullName,
       email, telephone, mobile, town, country, address1, address2, address3, postcode, 
 			current_employee, right_to_work, skills, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
