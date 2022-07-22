@@ -12,7 +12,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function IdentifyEqualityForm({ handleChange }) {
+function IdentifyEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 
 	return (
@@ -27,7 +27,7 @@ function IdentifyEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("identify")}
+								onChange={changeEqualityDetails("identify")}
 								name="yes"
 							/>
 						}
@@ -39,7 +39,7 @@ function IdentifyEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("identify")}
+								onChange={changeEqualityDetails("identify")}
 								name="no"
 							/>
 						}
@@ -51,7 +51,7 @@ function IdentifyEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("identify")}
+								onChange={changeEqualityDetails("identify")}
 								name="prefer-not-to-say"
 							/>
 						}

@@ -3,7 +3,7 @@ import { List, ListItem, ListItemText } from "@mui/material";
 
 function Confirm({ values }) {
 	const {
-		currently_work,
+		current_employee,
 		right_to_work,
 		cv,
 		supp_statement,
@@ -31,7 +31,7 @@ function Confirm({ values }) {
 				<ListItem>
 					<ListItemText
 						primary="Do you currently work/ volunteer for Hackney Migrant Centre?"
-						secondary={currently_work ? "yes" : "no"}
+						secondary={current_employee ? "yes" : "no"}
 					/>
 				</ListItem>
 				<ListItem>

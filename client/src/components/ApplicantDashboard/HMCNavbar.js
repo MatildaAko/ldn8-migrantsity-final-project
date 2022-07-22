@@ -7,6 +7,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
 import AuthenticationButton from "../Auth0Login/authentication-button";
 import { Avatar } from "@material-ui/core";
+import LogoutButton from "../Auth0Login/logout-button";
 
 const styles = {
   root: {

@@ -13,7 +13,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function WorkingPatternEqualityForm({ handleChange }) {
+function WorkingPatternEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -26,7 +26,7 @@ function WorkingPatternEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("working_pattern")}
+								onChange={changeEqualityDetails("working_pattern")}
 								name="Full-time "
 							/>
 						}
@@ -38,7 +38,7 @@ function WorkingPatternEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("working_pattern")}
+								onChange={changeEqualityDetails("working_pattern")}
 								name="Part-time"
 							/>
 						}
@@ -50,7 +50,7 @@ function WorkingPatternEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("working_pattern")}
+								onChange={changeEqualityDetails("working_pattern")}
 								name="not-answered"
 							/>
 						}

@@ -19,7 +19,7 @@ import {
 // const API =
 // 	"https://ldn8-migrantsity-final-project.herokuapp.com/api/ethnic_groups";
 
-function EthnicityEqualityForm({ handleChange }) {
+function EthnicityEqualityForm({ changeEqualityDetails }) {
 	// const [ethnicGroup, setEthnicGroup] = useState([]);
 
 	// const getTodos = async () => {
@@ -61,82 +61,82 @@ function EthnicityEqualityForm({ handleChange }) {
 					<InputLabel htmlFor="grouped-select">Please Select</InputLabel>
 					<Select defaultValue="" id="grouped-select" label="Please Select">
 						<ListSubheader>Asian or Asian British</ListSubheader>
-						<MenuItem value="Indian" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Indian" onChange={changeEqualityDetails("ethnic_group")}>
 							Indian
 						</MenuItem>
-						<MenuItem value="Pakistani" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Pakistani" onChange={changeEqualityDetails("ethnic_group")}>
 							Pakistani
 						</MenuItem>
 						<MenuItem
 							value="Bangladeshi"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 						>
 							Bangladeshi
 						</MenuItem>
-						<MenuItem value="Chinese" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Chinese" onChange={changeEqualityDetails("ethnic_group")}>
 							Chinese
 						</MenuItem>
 						<ListSubheader>
 							Black, African, Caribbean or Black British
 						</ListSubheader>
-						<MenuItem value="African" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="African" onChange={changeEqualityDetails("ethnic_group")}>
 							African
 						</MenuItem>
-						<MenuItem value="Caribbean" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Caribbean" onChange={changeEqualityDetails("ethnic_group")}>
 							Caribbean
 						</MenuItem>
 						<ListSubheader>Mixed or Multiple ethnic groups</ListSubheader>
 						<MenuItem
 							value="White and Black Caribbean"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 						>
 							White and Black Caribbean
 						</MenuItem>
 						<MenuItem
 							value="White and Black African"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 						>
 							White and Black African
 						</MenuItem>
 						<MenuItem
 							value="White and Asian"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 						>
 							White and Asian
 						</MenuItem>
 						<ListSubheader>White</ListSubheader>
-						<MenuItem value="English" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="English" onChange={changeEqualityDetails("ethnic_group")}>
 							English
 						</MenuItem>
-						<MenuItem value="Welsh" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Welsh" onChange={changeEqualityDetails("ethnic_group")}>
 							Welsh
 						</MenuItem>
-						<MenuItem value="Scottish" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Scottish" onChange={changeEqualityDetails("ethnic_group")}>
 							Scottish
 						</MenuItem>
 						<MenuItem
 							value="Northern Irish"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 						>
 							Northern Irish
 						</MenuItem>
-						<MenuItem value="Irish" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Irish" onChange={changeEqualityDetails("ethnic_group")}>
 							Irish
 						</MenuItem>
-						<MenuItem value="British" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="British" onChange={changeEqualityDetails("ethnic_group")}>
 							British
 						</MenuItem>
 						<MenuItem
 							value="Gypsy or Irish Traveller"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 						>
 							Gypsy or Irish Traveller
 						</MenuItem>
 						<ListSubheader>Other ethnic group</ListSubheader>
-						<MenuItem value="Arab" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="Arab" onChange={changeEqualityDetails("ethnic_group")}>
 							Arab
 						</MenuItem>
-						<MenuItem value="N/A" onChange={handleChange("ethnic_group")}>
+						<MenuItem value="N/A" onChange={changeEqualityDetails("ethnic_group")}>
 							Prefer not to say
 						</MenuItem>
 					</Select>
@@ -145,7 +145,7 @@ function EthnicityEqualityForm({ handleChange }) {
 					control={
 						<TextField
 							id="standard-basic"
-							onChange={handleChange("ethnic_group")}
+							onChange={changeEqualityDetails("ethnic_group")}
 							label=""
 							variant="standard"
 						/>

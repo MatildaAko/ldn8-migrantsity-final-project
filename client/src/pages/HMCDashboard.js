@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Auth0Login/Loading";
@@ -88,6 +88,10 @@ const HMCDashboard = () => {
 			id: application.id,
 			jobTitle: application.job_title,
 			rightToWork: `${application.right_to_work ? "Yes" : "No"}`,
+			currentEmployee: `${application.current_employee ? "Yes" : "No"}`,
+			skills: application.skills.split(",").join("\n"),
+			hasGap: application.gap_reasons,
+			cover: application.cover_letter,
 			notes: application.notes,
 			status: application.status,
 			fullname: application.fullname,

@@ -12,7 +12,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function AgeEqualityForm({ handleChange }) {
+function AgeEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 
 	return (
@@ -26,7 +26,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="16-24"
 							/>
 						}
@@ -38,7 +38,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="25-29"
 							/>
 						}
@@ -50,7 +50,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="30-34"
 							/>
 						}
@@ -62,7 +62,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="35-39"
 							/>
 						}
@@ -74,7 +74,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="40-44"
 							/>
 						}
@@ -86,7 +86,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="45-49"
 							/>
 						}
@@ -98,7 +98,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="50-54"
 							/>
 						}
@@ -110,7 +110,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="55-59"
 							/>
 						}
@@ -122,7 +122,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="60-64"
 							/>
 						}
@@ -134,7 +134,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="65+"
 							/>
 						}
@@ -146,7 +146,7 @@ function AgeEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("age_band")}
+								onChange={changeEqualityDetails("age_band")}
 								name="Prefer not to say"
 							/>
 						}
