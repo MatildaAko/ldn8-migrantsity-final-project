@@ -2,14 +2,13 @@ import pool from "../db";
 
 //////////--------- Select Queries --------////////////
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, first_name, last_name, concat(first_name,' ',surname) as fullName, 
+	Select * from (Select applications.id as id, applicant_id, first_name, last_name, concat(first_name,' ',last_name) as fullName, 
       email, telephone, mobile, town, country, address1, address2, address3, postcode, 
-			current_employee, right_to_work, skills, gap_reasons, job_id, 
+			current_employee, right_to_work, skills, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, notes, status_id, status
 	From applications 
 	Inner join applicants on applicants.id = applicant_id
-	Inner join cities on cities.id = city_id
 	Inner join jobs on jobs.id = job_id
 	Inner join application_status on application_status.id = status_id) selectTable `;
 
