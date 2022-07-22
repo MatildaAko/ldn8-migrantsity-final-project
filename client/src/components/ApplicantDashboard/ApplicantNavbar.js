@@ -24,9 +24,7 @@ const styles = {
   },
 };
 
-function ApplicantNavbar(props) {
-  console.log("props:",props);
-  const { classes } = props;
+function ApplicantNavbar({user, classes}) {
   return (
     <div className={classes.root}>
         <Toolbar className={classes.bar}>
@@ -35,9 +33,9 @@ function ApplicantNavbar(props) {
           </Typography>
         <Box sx={{ display:"flex", alignItems: "end", flexDirection: "column" }}>
             <SettingsIcon />
-          <Avatar alt={props.user.nickname} src={props.user.picture} />
+          <Avatar alt={user.nickname} src={user.picture} />
           <Typography variant="h5" color="inherit" className={classes.detailTitle}>
-           Hi {props.user.nickname}!
+           Hi {user.nickname}!
           </Typography>
           <AuthenticationButton />
         </Box>

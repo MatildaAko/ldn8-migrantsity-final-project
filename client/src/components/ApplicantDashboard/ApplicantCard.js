@@ -41,9 +41,11 @@ const ApplicantCard = ({ application }) => {
         </Grid>
         </Grid>
       </CardContent>
+      <Grid item xs>
       <CardActions>
         <Button size="small">Archive</Button>
       </CardActions>
+      </Grid>
     </Card>
   );
 };

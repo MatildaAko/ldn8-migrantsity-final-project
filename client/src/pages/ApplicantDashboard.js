@@ -35,7 +35,6 @@ const ApplicantDashboard = ({ applicantId }) => {
 				return res.json();
 			})
       .then((data) => {
-				// console.log(data);
 				setApplications(data);
 			})
 			.catch((error) => {
@@ -46,7 +45,6 @@ const ApplicantDashboard = ({ applicantId }) => {
 	// const handleAddClick = () => {
 	// 	setOpen(!open);
 	// };
-  console.log(user);
   return (
 	<Container fluid>
         <ApplicantNavbar applicant={applicant} user={user} />
