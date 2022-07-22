@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
+import AuthenticationButton from "../Auth0Login/authentication-button";
 
 const styles = {
   root: {
@@ -23,7 +24,7 @@ const styles = {
 };
 
 function ApplicantNavbar(props) {
-  console.log('props:',props);
+  console.log("props:",props);
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -34,9 +35,9 @@ function ApplicantNavbar(props) {
         <Box sx={{ display:"flex", alignItems: "end", flexDirection: "column" }}>
             <SettingsIcon />
           <Typography variant="h5" color="inherit" className={classes.detailTitle}>
-           Hi {props.applicant.first_name}!
+           Hi {props.user.nickname}!
           </Typography>
-          <a href="/logout">Log out</a>
+          <AuthenticationButton />
         </Box>
         </Toolbar>
     </div>

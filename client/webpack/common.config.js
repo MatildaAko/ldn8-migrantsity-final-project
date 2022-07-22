@@ -1,5 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const { DefinePlugin } = require("webpack");
+require("dotenv").config();
+
 module.exports = {
 	entry: "./client/src/index.js",
 	module: {
@@ -31,6 +34,15 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			favicon: "./client/src/favicon.ico",
 			template: "./client/src/index.html",
+		}),
+		new DefinePlugin({
+			"process.env.APP_VERSION": JSON.stringify(process.env.APP_VERSION),
+			"process.env.REACT_APP_AUTH0_DOMAIN": JSON.stringify(
+				process.env.REACT_APP_AUTH0_DOMAIN
+			),
+			"process.env.REACT_APP_AUTH0_CLIENT_ID": JSON.stringify(
+				process.env.REACT_APP_AUTH0_CLIENT_ID
+			),
 		}),
 	],
 };

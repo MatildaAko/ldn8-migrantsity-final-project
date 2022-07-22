@@ -5,6 +5,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
+import LogoutButton from "../Auth0Login/logout-button";
+import AuthenticationButton from "../Auth0Login/authentication-button";
 
 const styles = {
   root: {
@@ -22,9 +24,8 @@ const styles = {
   },
 };
 
-function HMCNavbar(props) {
-  const { classes } = props;
-  console.log("user:", props.user);
+function HMCNavbar({ user, classes, picture }) {
+  console.log("user:", user);
   return (
     <div className={classes.root}>
         <Toolbar className={classes.bar}>
@@ -32,11 +33,12 @@ function HMCNavbar(props) {
             Dashboard
           </Typography>
         <Box sx={{ display:"flex", alignItems: "end", flexDirection: "column" }}>
-            <SettingsIcon />
+          <SettingsIcon />
+          <img src={picture} alt="user" />
           <Typography variant="h5" color="inherit" className={classes.detailTitle}>
-           Hi {props.user.username}!
+           Hi {user}!
           </Typography>
-          <a href="/logout">Log out</a>
+          <AuthenticationButton />
         </Box>
         </Toolbar>
     </div>

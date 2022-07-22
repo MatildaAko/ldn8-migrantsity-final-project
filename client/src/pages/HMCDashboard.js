@@ -1,14 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../components/Auth0Login/Loading";
 import HMCNavbar from "../components/ApplicantDashboard/HMCNavbar";
 
 const HMCDashboard = () => {
+	const { user } = useAuth0();
+	const { name, picture } = user;
 	const [applications, setApplications] = useState([]);
-	const [user, setUser] = useState({ username: "Dilara" });
   useEffect(() => {
 		fetch("/api/applications")
 			.then((res) => {
@@ -26,16 +28,6 @@ const HMCDashboard = () => {
 			});
 	}, []);
 	const columns = [
-		// {
-		// 	field: "id",
-		// 	headerName: "Application ID",
-		// 	width: 120,
-		// 	renderCell: (params) => (
-		// 		<Link to={`/applicationdetails/${params.id}`}>
-		// 			<Button>{params.id}</Button>
-		// 		</Link>
-		// 	),
-		// },
 		{
 			field: "fullname",
 			headerName: "Name",
@@ -87,7 +79,7 @@ const HMCDashboard = () => {
 	});
   return (
 	<Container fluid>
-		<HMCNavbar user={user} />
+		<HMCNavbar user={name} picture={picture} />
 		<Box
 			container
 			display="flex"
@@ -125,5 +117,6 @@ const HMCDashboard = () => {
 	);
 };
 
-export default HMCDashboard;
-
+export default withAuthenticationRequired(HMCDashboard, {
+	onRedirecting: () => <Loading />,
+});
