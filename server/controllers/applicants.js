@@ -105,7 +105,7 @@ const getApplicantAllData = async (req, res) => {
 	const applicantId = req.params.applicantId;
 
 	const educQuery = "Select * From education Where applicant_id = $1";
-	const examQuery = "Select * From exams Where applicant_id = $1";
+	const emplQuery = "Select * From employments Where applicant_id = $1";
 	const qualQuery = "Select * From qualifications Where applicant_id = $1";
 	const langQuery = "Select * From languages Where applicant_id = $1";
 	const appQuery  = generalController.appOnlyQueryString+" Where applicant_id = $1";
@@ -118,8 +118,8 @@ const getApplicantAllData = async (req, res) => {
 	.then((result) => result.rows.length>0&&allResult.push({ "Education": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
-	await pool.query(examQuery, [applicantId])
-	.then((result) => result.rows.length>0&&allResult.push({ "Exams": result.rows }))
+	await pool.query(emplQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Employments": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
 	await pool.query(qualQuery, [applicantId])

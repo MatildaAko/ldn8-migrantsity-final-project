@@ -12,7 +12,7 @@ const applicationsQueryString = `
 	Inner join jobs on jobs.id = job_id
 	Inner join application_status on application_status.id = status_id) selectTable `;
 
-const appOnlyQueryString = `Select id, applicant_id, gap_reasons, job_id, job_title, job_description,
+const appOnlyQueryString = `Select id, applicant_id, job_id, job_title, job_description,
 								skills_require, cover_letter, description, status_id, status 
 							From (${applicationsQueryString}) TableSelect `;
 
