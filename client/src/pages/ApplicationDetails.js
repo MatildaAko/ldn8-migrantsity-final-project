@@ -30,7 +30,7 @@ const ApplicationDetails = () => {
 					<p>Skills: {applicationInformation.Applicant[0].skills}</p>
 					<p>
 						Current employee:{" "}
-						{applicationInformation.Applicant[0].currently_work ? "Yes" : "No"}
+						{applicationInformation.Applicant[0].current_employee ? "Yes" : "No"}
 					</p>
 					<p>Applicant skills: {applicationInformation.Applicant[0].skills}</p>
 				</>

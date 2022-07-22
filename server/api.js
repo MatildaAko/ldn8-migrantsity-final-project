@@ -112,7 +112,7 @@ const applicantsQueryString = `
 
 const applicationsQueryString = `
 	Select * from (Select applications.id as id, applicant_id, first_name, surname, email, 
-			currently_work, right_to_work, skills, gap_reasons, job_id, 
+			current_employee, right_to_work, skills, gap_reasons, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, status_id, status
 	From applications 

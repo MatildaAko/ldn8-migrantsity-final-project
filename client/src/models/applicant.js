@@ -10,7 +10,7 @@ export class Applicant {
     city_id,
     email,
     phone,
-    currently_work,
+    current_employee,
     right_to_work,
     cv,
     gap_reasons,
@@ -37,7 +37,7 @@ export class Applicant {
     this.city_id = city_id;
     this.email = email;
     this.phone = phone;
-    this.currently_work = currently_work;
+    this.current_employee = current_employee;
     this.right_to_work = right_to_work;
     this.cv = cv;
     this.gap_reasons = gap_reasons;

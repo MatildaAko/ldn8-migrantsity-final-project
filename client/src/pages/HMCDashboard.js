@@ -77,7 +77,7 @@ const HMCDashboard = () => {
 			id: application.id,
 			jobTitle: application.job_title,
 			rightToWork: `${application.right_to_work ? "Yes" : "No"}`,
-			currentlyWork: `${application.currently_work ? "Yes" : "No"}`,
+			currentEmployee: `${application.current_employee ? "Yes" : "No"}`,
 			skills: application.skills.split(",").join("\n"),
 			hasGap: application.gap_reasons,
 			cover: application.cover_letter,

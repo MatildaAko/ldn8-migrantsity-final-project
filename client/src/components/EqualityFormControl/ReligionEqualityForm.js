@@ -13,7 +13,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function ReligionEqualityForm({ handleChange }) {
+function ReligionEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -26,7 +26,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="No religion or belief"
 							/>
 						}
@@ -38,7 +38,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="Buddhist"
 							/>
 						}
@@ -50,7 +50,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="Christian"
 							/>
 						}
@@ -62,7 +62,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="Hindu"
 							/>
 						}
@@ -74,7 +74,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="Jewish"
 							/>
 						}
@@ -86,7 +86,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="Muslim"
 							/>
 						}
@@ -98,7 +98,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="Sikh"
 							/>
 						}
@@ -111,7 +111,7 @@ function ReligionEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("religion")}
+								onChange={changeEqualityDetails("religion")}
 								name="not-answered"
 							/>
 						}
@@ -123,7 +123,7 @@ function ReligionEqualityForm({ handleChange }) {
 				<FormControlLabel
 					control={
 						<TextField
-							onChange={handleChange("religion")}
+							onChange={changeEqualityDetails("religion")}
 							id="standard-basic"
 							label=""
 							variant="standard"

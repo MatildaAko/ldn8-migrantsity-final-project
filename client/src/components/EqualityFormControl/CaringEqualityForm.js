@@ -11,7 +11,7 @@ import {
 	FormLabel,
 } from "@mui/material";
 
-function CaringEqualityForm({ values, handleChange }) {
+function CaringEqualityForm({ values, changeEqualityDetails }) {
 	return (
 		<Box sx={{ display: "flex" }}>
 			<FormControl sx={{ m: 3 }} component="fieldset" variant="outlined">
@@ -22,7 +22,7 @@ function CaringEqualityForm({ values, handleChange }) {
 					</b>
 				</FormLabel>
 				<br />
-				<Select native value={values.caring} onChange={handleChange("caring")}>
+				<Select native value={values.caring} onChange={changeEqualityDetails("caring")}>
 					<option aria-label="Please Select" value="">
 						Please Select
 					</option>

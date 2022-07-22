@@ -12,7 +12,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function DisabilityEqualityForm({ handleChange }) {
+function DisabilityEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -27,7 +27,7 @@ function DisabilityEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("disability")}
+								onChange={changeEqualityDetails("disability")}
 								name="yes"
 							/>
 						}
@@ -39,7 +39,7 @@ function DisabilityEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("disability")}
+								onChange={changeEqualityDetails("disability")}
 								name="no"
 							/>
 						}
@@ -52,7 +52,7 @@ function DisabilityEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("disability")}
+								onChange={changeEqualityDetails("disability")}
 								name="not-answered"
 							/>
 						}

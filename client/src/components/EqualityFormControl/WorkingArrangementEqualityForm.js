@@ -14,7 +14,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function WorkingArrangementEqualityForm({ handleChange }) {
+function WorkingArrangementEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -27,7 +27,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="None"
 							/>
 						}
@@ -39,7 +39,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Flexi-time"
 							/>
 						}
@@ -51,7 +51,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Staggered hours"
 							/>
 						}
@@ -63,7 +63,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Term-time hours"
 							/>
 						}
@@ -75,7 +75,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Annualised hours"
 							/>
 						}
@@ -87,7 +87,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Job-share"
 							/>
 						}
@@ -99,7 +99,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Flexible shifts"
 							/>
 						}
@@ -112,7 +112,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Compressed hours"
 							/>
 						}
@@ -125,7 +125,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Homeworking"
 							/>
 						}
@@ -137,7 +137,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("flexible_working")}
+								onChange={changeEqualityDetails("flexible_working")}
 								name="Prefer not to say"
 							/>
 						}
@@ -149,7 +149,7 @@ function WorkingArrangementEqualityForm({ handleChange }) {
 				<FormControlLabel
 					control={
 						<TextField
-							onChange={handleChange("flexible_working")}
+							onChange={changeEqualityDetails("flexible_working")}
 							id="standard-basic"
 							label=""
 							variant="standard"

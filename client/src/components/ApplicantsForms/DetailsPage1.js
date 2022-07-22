@@ -23,16 +23,16 @@ function DetailsPage1({ handleChange }) {
 					<Box>
 						<h2>Right to Work</h2>
 						<FormControl>
-							<FormLabel id="currently-work">
+							<FormLabel id="current_employee">
 								<span className="asterisk">*</span>Do you currently work/
 								volunteer for Hackney Migrant Centre?
 							</FormLabel>
 							<br />
 							<RadioGroup
 								required
-								aria-label="currently-work"
-								name="currently-work"
-								onChange={handleChange("currently_work")}
+								aria-label="current_employee"
+								name="current_employee"
+								onChange={handleChange("current_employee")}
 								sx={{
 									width: 420,
 									height: 50,
