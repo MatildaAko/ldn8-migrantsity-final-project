@@ -168,10 +168,10 @@ const createApplicantWithAllData = (req, res) => {
 		});
 	};
 
-	const addExams = () => {
+	const addEmployments = () => {
 		fields = [];
 		items  = [];
-		req.body.exams.map((param) => {
+		req.body.employments.map((param) => {
 			fields = Object.keys(param);
 			items.push(Object.values(param));
 		});
@@ -184,7 +184,7 @@ const createApplicantWithAllData = (req, res) => {
 		fields.forEach((el, index) => {
 			addValue(lastValuesLength+index);
 		});
-		queryString += ` exam${index} as (Insert Into exams (${fields.join(",")}, applicant_id) 
+		queryString += ` employment${index} as (Insert Into employments (${fields.join(",")}, applicant_id) 
 			Values (${values.join(",")}, (select id from app) ) returning *), `;
 		});
 	};
@@ -232,7 +232,7 @@ const createApplicantWithAllData = (req, res) => {
 	};
 
 	//prepare query to add applicant
-	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="exams"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
+	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="employments"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
 		addValue(values.length);
 		fields.push(param);
 		params.push(req.body[param]);
@@ -240,7 +240,7 @@ const createApplicantWithAllData = (req, res) => {
 	queryString += ` with app as (Insert Into applicants (${fields.join(",")}) 
 		Values (${values.join(",")}) returning id ), `;
 	addEducation();
-	addExams();
+	addEmployments();
 	addQualification();
 	addLanguages();
 
