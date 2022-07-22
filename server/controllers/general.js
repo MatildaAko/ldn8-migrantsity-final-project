@@ -2,34 +2,26 @@ import pool from "../db";
 
 //////////--------- Select Queries --------////////////
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, concat(first_name,' ',surname) as fullName, first_name, surname, email, 
-			currently_work, right_to_work, skills, gap_reasons, city, job_id, 
-			jobs.title as job_title, jobs.description as job_description, color as status_color,
+	Select * from (Select applications.id as id, applicant_id, first_name, last_name, concat(first_name,' ',last_name) as fullName, 
+      email, telephone, mobile, town, country, address1, address2, address3, postcode, 
+			current_employee, right_to_work, skills, job_id, 
+			jobs.title as job_title, jobs.description as job_description, 
 			skills_require, cover_letter, applications.description, notes, status_id, status
 	From applications 
 	Inner join applicants on applicants.id = applicant_id
-	Inner join cities on cities.id = city_id
 	Inner join jobs on jobs.id = job_id
 	Inner join application_status on application_status.id = status_id) selectTable `;
 
-const appOnlyQueryString = `Select id, applicant_id, gap_reasons, job_id, job_title, job_description,
+const appOnlyQueryString = `Select id, applicant_id, job_id, job_title, job_description,
 								skills_require, cover_letter, description, status_id, status 
 							From (${applicationsQueryString}) TableSelect `;
 
 const applicantsSelect = "Select * From applicants Where id = $1";
 const applicantsQueryString = `		
-	Select * from (Select applicants.*, role_name, genders.gender,
-		sex_orientations.sex_orientation, cities.city, age_bands.age_band, 
-		ethnic_groups.ethnic_group, religions.religion
+	Select * from (Select applicants.*, role_name
 	From applicants
 	Inner join users on users.id = user_id
-	Inner join roles on roles.role_id = users.role_id
-	Inner join genders on genders.id = gender_id
-	Inner join sex_orientations on sex_orientations.id = sex_orient_id
-	Inner join cities on cities.id = city_id
-	Inner join age_bands on age_bands.id = age_band_id
-	Inner join ethnic_groups on ethnic_groups.id = ethnic_group_id
-	Inner join religions on religions.id = religion_id) as selectTable `;
+	Inner join roles on roles.role_id = users.role_id ) TableSelect `;
 ////////////////////////////////////////////////////////
 
 const getTableName = (req) => {
