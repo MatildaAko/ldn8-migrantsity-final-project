@@ -1,9 +1,29 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import React, { useState } from "react";
 
-import { TextField, Box, InputLabel, Select } from "@mui/material";
+import { TextField, Box, InputLabel, Select, MenuItem } from "@mui/material";
 
-function SubmissionPage6({ values, handleChange }) {
+
+function SubmissionPage6({ setUserDetails,
+userDetails, handleChange }) {
+	const [disability, setDisability] = useState("");
+	const [ageBand, setAgeBand] = useState("");
+	const [ethnicGroup, setEthnicGroup] = useState("");
+	const handleChangeDisability = (event) => {
+		setDisability(event.target.value);
+		setUserDetails({ ...userDetails, ["disability"]: event.target.value });
+	};
+	const handleChangeAgeBand = (event) => {
+		setAgeBand(event.target.value);
+		setUserDetails({ ...userDetails, ["age_band"]: event.target.value });
+	};
+	const handleChangeEthnicGroup = (event) => {
+		setEthnicGroup(event.target.value);
+		setUserDetails({ ...userDetails, ["ethnic_group"]: event.target.value });
+		console.log(ethnicGroup === "Other ethnic Group");
+	};
+
+
 	return (
 		<>
 			<h1>Equal Opportunities and Submission</h1>
@@ -30,63 +50,62 @@ function SubmissionPage6({ values, handleChange }) {
 				recruitment process and will not affect the outcome of your application.
 			</p>
 			<Box>
-				<InputLabel htmlFor="age-native-simple">
+				<InputLabel htmlFor="disability">
 					*Do you consider yourself to have a disability?
 				</InputLabel>
 				<Select
-					native
-					value={values.disability}
-					onChange={handleChange("disability")}
+					labelId="disability"
+					value={disability}
+					onChange={handleChangeDisability}
 				>
-					<option aria-label="no" value="No">
+					<MenuItem aria-label="no" value="No">
 						No
-					</option>
-					<option value="Yes">Yes</option>
+					</MenuItem>
+					<MenuItem value="Yes">Yes</MenuItem>
 				</Select>
 			</Box>
 			<br />
 
 			<Box>
-				<InputLabel htmlFor="age-native-simple">*Age band</InputLabel>
+				<InputLabel htmlFor="age-native-simple">Age band *</InputLabel>
 				<Select
-					native
-					value={values.age_band}
-					onChange={handleChange("age_band")}
+					labelId="age-band"
+					value={ageBand}
+					variant="outlined"
+					onChange={handleChangeAgeBand}
 				>
-					<option aria-label="Please Select" value="">
-						Please Select
-					</option>
-					<option value="18-25">18-25</option>
-					<option value="26-33">26-33</option>
-					<option value="34-41">34-41</option>
-					<option value="42-49">42-49</option>
-					<option value="50-57">50-57</option>
-					<option value="58-64">58-64</option>
-					<option value="65+">65+</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					<MenuItem value="18-25">18-25</MenuItem>
+					<MenuItem value="26-33">26-33</MenuItem>
+					<MenuItem value="34-41">34-41</MenuItem>
+					<MenuItem value="42-49">42-49</MenuItem>
+					<MenuItem value="50-57">50-57</MenuItem>
+					<MenuItem value="58-64">58-64</MenuItem>
+					<MenuItem value="65+">65+</MenuItem>
+					<MenuItem value="prefer not to say">Prefer not to say</MenuItem>
 				</Select>
 			</Box>
 			<br />
 			<Box>
-				<InputLabel htmlFor="age-native-simple">
+				<InputLabel htmlFor="ethnic-group">
 					*What best describes your ethnic group?
 				</InputLabel>
 				<Select
-					native
-					value={values.ethnic_group}
-					onChange={handleChange("ethnic_group")}
-				>
-					<option aria-label="Other ethnic Group" value="Other ethnic Group">
+					labelId="ethnic-group"
+					value={ethnicGroup}
+					onChange={handleChangeEthnicGroup}>
+					<MenuItem aria-label="Other ethnic Group" value="Other ethnic Group">
 						Other ethnic Group
-					</option>
-					<option value="Asian or Asian British">Asian or Asian British</option>
-					<option value="Black African, Caribbean or Black British">
+					</MenuItem>
+					<MenuItem value="Asian or Asian British">
+						Asian or Asian British
+					</MenuItem>
+					<MenuItem value="Black African, Caribbean or Black British">
 						Black African, Caribbean or Black British
-					</option>
-					<option value="Mixed or Multiple ethnic groups">
+					</MenuItem>
+					<MenuItem value="Mixed or Multiple ethnic groups">
 						Mixed or Multiple ethnic groups
-					</option>
-					<option value="White">White</option>
+					</MenuItem>
+					<MenuItem value="White">White</MenuItem>
 				</Select>
 			</Box>
 			<br />
@@ -101,7 +120,7 @@ function SubmissionPage6({ values, handleChange }) {
 					rows={3}
 					variant="outlined"
 					onChange={handleChange("description")}
-					defaultValue={values.description}
+					defaultValue={userDetails.description}
 				/>
 			</Box>
 			<br />
@@ -111,20 +130,22 @@ function SubmissionPage6({ values, handleChange }) {
 				</InputLabel>
 				<Select
 					native
-					value={values.religion}
+					value={userDetails.religion}
 					onChange={handleChange("religion")}
 				>
-					<option aria-label="Please Select" value="">
+					<MenuItem aria-label="Please Select" value="">
 						Please Select
-					</option>
-					<option value="No religion or belief">No religion or belief</option>
-					<option value="Buddhist">Buddhist</option>
-					<option value="Christian">Christian</option>
-					<option value="Hindu">Hindu</option>
-					<option value="Jewish">Jewish</option>
-					<option value="Muslim">Muslim</option>
-					<option value="Sikh">Sikh</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					</MenuItem>
+					<MenuItem value="No religion or belief">
+						No religion or belief
+					</MenuItem>
+					<MenuItem value="Buddhist">Buddhist</MenuItem>
+					<MenuItem value="Christian">Christian</MenuItem>
+					<MenuItem value="Hindu">Hindu</MenuItem>
+					<MenuItem value="Jewish">Jewish</MenuItem>
+					<MenuItem value="Muslim">Muslim</MenuItem>
+					<MenuItem value="Sikh">Sikh</MenuItem>
+					<MenuItem value="prefer not to say">Prefer not to say</MenuItem>
 				</Select>
 			</Box>
 			<br />
@@ -134,35 +155,39 @@ function SubmissionPage6({ values, handleChange }) {
 				</InputLabel>
 				<Select
 					native
-					value={values.sex_orientation}
+					value={userDetails.sex_orientation}
 					onChange={handleChange("sex_orientation")}
 				>
-					<option aria-label="Please Select" value="">
+					<MenuItem aria-label="Please Select" value="">
 						Please Select
-					</option>
-					<option value="Heterosexual">Heterosexual</option>
-					<option value="Gay">Gay</option>
-					<option value="Lesbian">Lesbian</option>
-					<option value="Bisexual">Bisexual</option>
-					<option value="Asexual">Asexual</option>
-					<option value="Pansexual">Pansexual</option>
-					<option value="Undecided">Undecided</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					</MenuItem>
+					<MenuItem value="Heterosexual">Heterosexual</MenuItem>
+					<MenuItem value="Gay">Gay</MenuItem>
+					<MenuItem value="Lesbian">Lesbian</MenuItem>
+					<MenuItem value="Bisexual">Bisexual</MenuItem>
+					<MenuItem value="Asexual">Asexual</MenuItem>
+					<MenuItem value="Pansexual">Pansexual</MenuItem>
+					<MenuItem value="Undecided">Undecided</MenuItem>
+					<MenuItem value="prefer not to say">Prefer not to say</MenuItem>
 				</Select>
 			</Box>
 			<Box>
 				<InputLabel htmlFor="age-native-simple">
 					*Which gender identity do you most identify with?
 				</InputLabel>
-				<Select native value={values.gender} onChange={handleChange("gender")}>
-					<option aria-label="Please Select" value="">
+				<Select
+					native
+					value={userDetails.gender}
+					onChange={handleChange("gender")}
+				>
+					<MenuItem aria-label="Please Select" value="">
 						Please Select
-					</option>
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-					<option value="Intersex">Intersex</option>
-					<option value="Non-binary">Non-binary</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					</MenuItem>
+					<MenuItem value="Male">Male</MenuItem>
+					<MenuItem value="Female">Female</MenuItem>
+					<MenuItem value="Intersex">Intersex</MenuItem>
+					<MenuItem value="Non-binary">Non-binary</MenuItem>
+					<MenuItem value="prefer not to say">Prefer not to say</MenuItem>
 				</Select>
 			</Box>
 			<Box>
@@ -170,27 +195,31 @@ function SubmissionPage6({ values, handleChange }) {
 					*Do you have caring responsibilities?If yes, please tick all that
 					apply.
 				</InputLabel>
-				<Select native value={values.caring} onChange={handleChange("caring")}>
-					<option aria-label="Please Select" value="">
+				<Select
+					native
+					value={userDetails.caring}
+					onChange={handleChange("caring")}
+				>
+					<MenuItem aria-label="Please Select" value="">
 						Please Select
-					</option>
-					<option value="no">No</option>
-					<option value="Primary carer of a child/children (under 18) ">
+					</MenuItem>
+					<MenuItem value="no">No</MenuItem>
+					<MenuItem value="Primary carer of a child/children (under 18) ">
 						Primary carer of a child/children (under 18){" "}
-					</option>
-					<option value="Primary carer of disabled child/children">
+					</MenuItem>
+					<MenuItem value="Primary carer of disabled child/children">
 						Primary carer of disabled child/children
-					</option>
-					<option value="Primary carer of disabled adult (18 and over)">
+					</MenuItem>
+					<MenuItem value="Primary carer of disabled adult (18 and over)">
 						Primary carer of disabled adult (18 and over)
-					</option>
-					<option value="Primary carer of older person">
+					</MenuItem>
+					<MenuItem value="Primary carer of older person">
 						Primary carer of older person
-					</option>
-					<option value="Secondary carer (another person carries out the main caring role)">
+					</MenuItem>
+					<MenuItem value="Secondary carer (another person carries out the main caring role)">
 						Secondary carer (another person carries out the main caring role)
-					</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					</MenuItem>
+					<MenuItem value="prefer not to say">Prefer not to say</MenuItem>
 				</Select>
 			</Box>
 			<br />

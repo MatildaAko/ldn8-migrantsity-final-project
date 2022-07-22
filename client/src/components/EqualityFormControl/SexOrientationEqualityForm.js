@@ -13,7 +13,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 
-function SexOrientationEqualityForm({ handleChange }) {
+function SexOrientationEqualityForm({ changeEqualityDetails }) {
 	const ref = useRef(null);
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -26,7 +26,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Heterosexual "
 							/>
 						}
@@ -38,7 +38,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Gay"
 							/>
 						}
@@ -50,7 +50,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Lesbian"
 							/>
 						}
@@ -62,7 +62,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Bisexual"
 							/>
 						}
@@ -74,7 +74,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Asexual"
 							/>
 						}
@@ -86,7 +86,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Pansexual"
 							/>
 						}
@@ -98,7 +98,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="Undecided"
 							/>
 						}
@@ -111,7 +111,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 						control={
 							<Checkbox
 								ref={ref}
-								onChange={handleChange("sex_orientation")}
+								onChange={changeEqualityDetails("sex_orientation")}
 								name="not-answered"
 							/>
 						}
@@ -123,7 +123,7 @@ function SexOrientationEqualityForm({ handleChange }) {
 				<FormControlLabel
 					control={
 						<TextField
-							onChange={handleChange("sex_orientation")}
+							onChange={changeEqualityDetails("sex_orientation")}
 							id="standard-basic"
 							label=""
 							variant="standard"

@@ -67,6 +67,7 @@ router
 .get("/equality",  equalityController.getEquality);
 
 //Applications
+
 router
 .get("/applications/:applicationId", applicationsController.getApplicationById)
 .get("/applications", applicationsController.getApplications)
