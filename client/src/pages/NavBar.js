@@ -33,6 +33,12 @@ function NavBar() {
 						</a>
 					</li>
 
+					<li>
+						<a href="/hmcview">
+							<Link to="/hmcview">HMC Dashboard</Link>
+						</a>
+					</li>
+
 					<li><a href="#login"><AuthenticationButton /></a></li>
 				</ul>
 			</header>
