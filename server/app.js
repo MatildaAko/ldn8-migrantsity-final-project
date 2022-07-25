@@ -22,7 +22,7 @@ app.use(
 			"default-src": [SELF],
 			"script-src": [SELF, INLINE],
 			"style-src": [SELF],
-			"img-src": ["data:", "https:"],
+			"img-src": ["https:"],
 			"worker-src": [NONE],
 			"block-all-mixed-content": true,
 		},
