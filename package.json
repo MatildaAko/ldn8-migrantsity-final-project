@@ -86,6 +86,7 @@
 		"helmet": "^5.0.2",
 		"morgan": "^1.10.0",
 		"node-fetch": "^2.6.1",
+		"notistack": "^2.0.5",
 		"pg": "^8.7.3",
 		"react-bootstrap": "^2.4.0",
 		"react-modal": "^3.15.1",
