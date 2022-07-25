@@ -26,11 +26,11 @@ const applicantsQueryString = `
 ////////////////////////////////////////////////////////
 
 const getTableName = (req) => {
-    const regexp = "(?<=\/)(.*?)(?=\/)";
 	const path = req.path;
-	const firstPart = path.match(regexp);
+	const firstPart = req.path.slice(1).split("/")[0];
 	const isFirstPartNumber = Number.isInteger(parseInt(firstPart, 10));
 	const lastPart = path.slice(path.lastIndexOf("/")+1);
+	console.log(path, firstPart);
 	return path.match(/[/]/g).length==1 ? path.slice(1) : isFirstPartNumber?lastPart:firstPart ;
 };
 
