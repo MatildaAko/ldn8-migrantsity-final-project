@@ -25,7 +25,8 @@ app.use(
 				INLINE,
 				"https://ldn8-migrantsity-final-project.herokuapp.com/",
 			],
-			"img-src": [expressCspHeader.SELF],
+			"img-src":
+				"https://cdn.auth0.com/blog/auth0-react-sample/assets/loading.svg",
 		},
 	})
 );
