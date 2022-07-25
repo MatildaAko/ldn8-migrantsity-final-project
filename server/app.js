@@ -20,6 +20,11 @@ app.use(
 	expressCspHeader({
 		policies: {
 			"default-src": [expressCspHeader.NONE],
+			"script-src": [
+				SELF,
+				INLINE,
+				"https://ldn8-migrantsity-final-project.herokuapp.com/",
+			],
 			"img-src": [expressCspHeader.SELF],
 		},
 	})
