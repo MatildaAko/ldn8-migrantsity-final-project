@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+
 const applicantsController = require("./controllers/applicants");
 const jobsController = require("./controllers/jobs");
 const usersController = require("./controllers/users");
