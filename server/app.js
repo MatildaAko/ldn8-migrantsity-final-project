@@ -18,15 +18,13 @@ const app = express();
 
 app.use(
 	expressCspHeader({
-		policies: {
-			"default-src": [expressCspHeader.NONE],
-			"script-src": [
-				SELF,
-				INLINE,
-				"https://ldn8-migrantsity-final-project.herokuapp.com/",
-			],
-			"img-src":
-				"https://cdn.auth0.com/blog/auth0-react-sample/assets/loading.svg",
+		directives: {
+			"default-src": [SELF],
+			"script-src": [SELF, INLINE],
+			"style-src": [SELF],
+			"img-src": ["data:", "https:"],
+			"worker-src": [NONE],
+			"block-all-mixed-content": true,
 		},
 	})
 );
