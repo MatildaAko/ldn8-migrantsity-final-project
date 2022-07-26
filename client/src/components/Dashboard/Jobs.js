@@ -19,6 +19,7 @@ const Jobs = () => {
 			setload(!load);
 		});
 	};
+
 	const postJob = (jobDetails, isAdd) => {
 		console.log(jobDetails, isAdd);
 		const job = { title: jobDetails.title, description: jobDetails.description, skills_require: jobDetails.skills_require };
@@ -103,8 +104,8 @@ const Jobs = () => {
 			flexDirection="column"
 			alignItems="start"
 			justifyContent="center"
-			height="50vh"
-			padding= "84px"
+			height="60vh"
+			padding= "0 84px"
 			rowGap={1}
 			>
 		<JobModal postJob = { postJob } IsAdd = { true } />

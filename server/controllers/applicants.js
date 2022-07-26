@@ -252,8 +252,34 @@ const createApplicantWithAllData = (req, res) => {
 		});
 	};
 
+	const addEquality = () => {
+		fields = [];
+		items  = [];
+		req.body.equality.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` equality${index} as ( Insert Into equality (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app)) returning *), `;
+		});
+	};
 	//prepare query to add applicant
-	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="employments"&& obj!=="application"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
+	Object.keys(req.body).filter((obj) =>
+		obj!=="equality" &&
+		obj!=="education" &&
+		obj!=="employments"&&
+		obj!=="application"&&
+		obj!=="qualifications"&&
+		obj!=="languages" ).map((param) => {
 		addValue(values.length);
 		fields.push(param);
 		params.push(req.body[param]);
@@ -272,6 +298,7 @@ const createApplicantWithAllData = (req, res) => {
 	addQualification();
 	addLanguages();
 	addApplication();
+	addEquality();
 
 	queryString = queryString.slice(0, -2);
 	queryString += " select * from app;";

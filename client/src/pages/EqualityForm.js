@@ -13,6 +13,8 @@ import CaringEqualityForm from "../components/EqualityFormControl/CaringEquality
 import ConfirmEqualityForm from "../components/EqualityFormControl/ConfirmEqualityForm";
 
 const EqualityForm = ({
+	setUserDetails,
+	userDetails,
 	setEquality,
 	equality,
 }) => {
@@ -20,7 +22,9 @@ const EqualityForm = ({
 	const changeEqualityDetails = (input) => (e) => {
 		// console.log(e.target.value);
 		setEquality({ ...equality, [input]: e.target.value });
-	};
+		setUserDetails({ ...userDetails,
+			["equality"]: [{ ...equality, [input]: e.target.value }] });
+		};
 
 	console.log(equality);
 	return (

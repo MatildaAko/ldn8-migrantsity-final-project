@@ -1,126 +1,61 @@
 {
 	/* What is your sexual orientation? */
 }
-import React, { useRef } from "react";
+import React from "react";
 
 import {
-	Box,
 	TextField,
 	FormLabel,
 	FormControl,
-	FormGroup,
 	FormControlLabel,
-	Checkbox,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 
 function SexOrientationEqualityForm({ changeEqualityDetails }) {
-	const ref = useRef(null);
+	const sexOrientation = [
+		"Heterosexual",
+		"Gay",
+		"Lesbian",
+		"Bisexual",
+		"Asexual",
+		"Pansexual",
+		"Undecided",
+		"Prefer not to say"	];
 	return (
-		<Box sx={{ display: "flex" }}>
+		<>
 			<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
 				<FormLabel component="legend">
 					<b>What is your sexual orientation?</b>
 				</FormLabel>
-				<FormGroup row={true}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Heterosexual "
+				<RadioGroup
+					required
+					aria-label="sexOrientation"
+					name="sexOrientation"
+					onChange={changeEqualityDetails("sex_orientation")}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flexStart",
+					}}
+				>
+					{sexOrientation.map((orientation, index) => {
+						return (
+							<FormControlLabel
+								key={index}
+								control={<Radio />}
+								label={orientation}
+								value={orientation}
 							/>
-						}
-						value="Heterosexual"
-						label="Heterosexual "
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Gay"
-							/>
-						}
-						value="Gay"
-						label="Gay"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Lesbian"
-							/>
-						}
-						value="Lesbian"
-						label="Lesbian"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Bisexual"
-							/>
-						}
-						value="Bisexual"
-						label="Bisexual"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Asexual"
-							/>
-						}
-						value="Asexual"
-						label="Asexual"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Pansexual"
-							/>
-						}
-						value="Pansexual"
-						label="Pansexual"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="Undecided"
-							/>
-						}
-						value="Undecided"
-						label="Undecided"
-						labelPlacement="start"
-					/>
-
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("sex_orientation")}
-								name="not-answered"
-							/>
-						}
-						value="N/A"
-						label="Prefer not to say"
-						labelPlacement="start"
-					/>
-				</FormGroup>
+						);
+					})}
+				</RadioGroup>
 				<FormControlLabel
+					sx={{
+						display: "flex",
+						flexDirection: "row-reverse",
+						justifyContent: "flexStart",
+					}}
 					control={
 						<TextField
 							onChange={changeEqualityDetails("sex_orientation")}
@@ -137,10 +72,9 @@ function SexOrientationEqualityForm({ changeEqualityDetails }) {
 				required
 				error={"error"}
 				component="fieldset"
-				sx={{ m: 3 }}
 				variant="standard"
 			></FormControl>
-		</Box>
+		</>
 	);
 }
 
