@@ -16,7 +16,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 function ProfessionalQualificationsModal({
 	setQualificationInfo,
-	professional_qualifications,
+	qualifications,
 	setUserDetails,
 	userDetails,
 }) {
@@ -65,8 +65,8 @@ function ProfessionalQualificationsModal({
 		setQualificationInfo((info) => [...info, qualificationDetails]);
 		setUserDetails({
 			...userDetails,
-			["professional_qualifications"]:
-				professional_qualifications.concat(qualificationDetails),
+			["qualifications"]:
+				qualifications.concat(qualificationDetails),
 		});
 		resetQualifications();
 		handleClose();
