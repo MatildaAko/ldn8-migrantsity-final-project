@@ -14,7 +14,7 @@ function EducationHistoryModal({
 	setEducationInfo,
 	setUserDetails,
 	userDetails,
-	education_history,
+	education,
 }) {
 	const [eduOpen, setEduOpen] = useState(false);
 	const [mobile, setMobile] = useState("");
@@ -83,7 +83,7 @@ function EducationHistoryModal({
 		setEducationInfo((info) => [...info, educationDetails]);
 		setUserDetails({
 			...userDetails,
-			["education_history"]: education_history.concat(educationDetails),
+			["education"]: education.concat(educationDetails),
 		});
 		resetEducation();
 		handleClose();

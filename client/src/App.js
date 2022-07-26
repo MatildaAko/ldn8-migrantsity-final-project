@@ -8,6 +8,7 @@ import EqualityForm from "./pages/EqualityForm";
 import HMCDashboard from "./pages/HMCDashboard";
 import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
+import "./styles/App.css";
 
 const App = () => {
 	const { isLoading } = useAuth0();

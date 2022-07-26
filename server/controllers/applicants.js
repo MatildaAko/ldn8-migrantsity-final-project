@@ -231,18 +231,47 @@ const createApplicantWithAllData = (req, res) => {
 		});
 	};
 
+	const addApplication = () => {
+		fields = [];
+		items  = [];
+		req.body.application.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` application${index} as ( Insert Into applications (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app)) returning *), `;
+		});
+	};
+
 	//prepare query to add applicant
-	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="employments"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
+	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="employments"&& obj!=="application"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
 		addValue(values.length);
 		fields.push(param);
 		params.push(req.body[param]);
 	});
+
+	// Extra line to don't use users---------------------
+	addValue(values.length);
+	fields.push("user_id");
+	params.push(1);
+	//---------------------------------------------------
+
 	queryString += ` with app as (Insert Into applicants (${fields.join(",")}) 
 		Values (${values.join(",")}) returning id ), `;
 	addEducation();
 	addEmployments();
 	addQualification();
 	addLanguages();
+	addApplication();
 
 	queryString = queryString.slice(0, -2);
 	queryString += " select * from app;";
@@ -253,7 +282,10 @@ const createApplicantWithAllData = (req, res) => {
 	pool.query(queryString, params)
 	.then(() => {
 		res.status(201).send("All records added.");
-	}).catch((error) => res.status(500).json(error));
+	}).catch((error) => {
+		res.status(500).json(error);
+		console.error(error);
+	});
 };
 
 module.exports = {

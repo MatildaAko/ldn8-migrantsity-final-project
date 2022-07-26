@@ -90,8 +90,8 @@ const Jobs = () => {
 		return {
 			id: job.id,
 			title: job.title,
-			description: job.description.slice(0,80),
-			skills_require: job.skills_require.slice(0,80),
+			description: job.description,//.slice(0,80),
+			skills_require: job.skills_require,//.slice(0,80),
 			used: job.used,
 		};
 	});

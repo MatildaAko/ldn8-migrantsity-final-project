@@ -21,22 +21,23 @@ const TabPanel = ({ children, value, index, setValue,postApplication, postEquali
 							Back
 						</Button>
 					)}
-					{index !== 2 && (
+					{index !== 3 && (
 						<Button onClick={() => setValue((value) => (value += 1))}>
 							Next
 						</Button>
 					)}
-					{index === 2 && (
+					{index === 3 && (
 						<Button onClick={()=>{
+							console.log("Last Objext: ", userDetails);
 							axios
-								.post("/api/applications", userDetails)
+								.post("/api/applicantalldata", userDetails)
 								.then(function (response) {
 									console.log(response);
 								})
 								.catch(function (error) {
 									console.log(error);
 								});
-							handleReset();
+							// handleReset();
 }}>
 							Submit
 						</Button>
