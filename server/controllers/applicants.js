@@ -105,7 +105,7 @@ const getApplicantAllData = async (req, res) => {
 	const applicantId = req.params.applicantId;
 
 	const educQuery = "Select * From education Where applicant_id = $1";
-	const examQuery = "Select * From exams Where applicant_id = $1";
+	const emplQuery = "Select * From employments Where applicant_id = $1";
 	const qualQuery = "Select * From qualifications Where applicant_id = $1";
 	const langQuery = "Select * From languages Where applicant_id = $1";
 	const appQuery  = generalController.appOnlyQueryString+" Where applicant_id = $1";
@@ -118,8 +118,8 @@ const getApplicantAllData = async (req, res) => {
 	.then((result) => result.rows.length>0&&allResult.push({ "Education": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
-	await pool.query(examQuery, [applicantId])
-	.then((result) => result.rows.length>0&&allResult.push({ "Exams": result.rows }))
+	await pool.query(emplQuery, [applicantId])
+	.then((result) => result.rows.length>0&&allResult.push({ "Employments": result.rows }))
 	.catch((error) => res.status(500).json(error));
 
 	await pool.query(qualQuery, [applicantId])
@@ -168,10 +168,10 @@ const createApplicantWithAllData = (req, res) => {
 		});
 	};
 
-	const addExams = () => {
+	const addEmployments = () => {
 		fields = [];
 		items  = [];
-		req.body.exams.map((param) => {
+		req.body.employments.map((param) => {
 			fields = Object.keys(param);
 			items.push(Object.values(param));
 		});
@@ -184,7 +184,7 @@ const createApplicantWithAllData = (req, res) => {
 		fields.forEach((el, index) => {
 			addValue(lastValuesLength+index);
 		});
-		queryString += ` exam${index} as (Insert Into exams (${fields.join(",")}, applicant_id) 
+		queryString += ` employment${index} as (Insert Into employments (${fields.join(",")}, applicant_id) 
 			Values (${values.join(",")}, (select id from app) ) returning *), `;
 		});
 	};
@@ -231,18 +231,74 @@ const createApplicantWithAllData = (req, res) => {
 		});
 	};
 
+	const addApplication = () => {
+		fields = [];
+		items  = [];
+		req.body.application.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` application${index} as ( Insert Into applications (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app)) returning *), `;
+		});
+	};
+
+	const addEquality = () => {
+		fields = [];
+		items  = [];
+		req.body.equality.map((param) => {
+			fields = Object.keys(param);
+			items.push(Object.values(param));
+		});
+
+		Object.values(items).map((param, index) => {
+			params = params.concat(param);
+
+		lastValuesLength = parseInt(values[values.length-1].replace("$", ""));
+		values = [];
+		fields.forEach((el, index) => {
+			addValue(lastValuesLength+index);
+		});
+		queryString += ` equality${index} as ( Insert Into equality (${fields.join(",")}, applicant_id) 
+			Values (${values.join(",")}, (select id from app)) returning *), `;
+		});
+	};
 	//prepare query to add applicant
-	Object.keys(req.body).filter((obj) => obj!=="education" && obj!=="exams"&& obj!=="qualifications"&& obj!=="languages" ).map((param) => {
+	Object.keys(req.body).filter((obj) =>
+		obj!=="equality" &&
+		obj!=="education" &&
+		obj!=="employments"&&
+		obj!=="application"&&
+		obj!=="qualifications"&&
+		obj!=="languages" ).map((param) => {
 		addValue(values.length);
 		fields.push(param);
 		params.push(req.body[param]);
 	});
+
+	// Extra line to don't use users---------------------
+	addValue(values.length);
+	fields.push("user_id");
+	params.push(1);
+	//---------------------------------------------------
+
 	queryString += ` with app as (Insert Into applicants (${fields.join(",")}) 
 		Values (${values.join(",")}) returning id ), `;
 	addEducation();
-	addExams();
+	addEmployments();
 	addQualification();
 	addLanguages();
+	addApplication();
+	addEquality();
 
 	queryString = queryString.slice(0, -2);
 	queryString += " select * from app;";
@@ -253,7 +309,10 @@ const createApplicantWithAllData = (req, res) => {
 	pool.query(queryString, params)
 	.then(() => {
 		res.status(201).send("All records added.");
-	}).catch((error) => res.status(500).json(error));
+	}).catch((error) => {
+		res.status(500).json(error);
+		console.error(error);
+	});
 };
 
 module.exports = {

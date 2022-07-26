@@ -1,6 +1,7 @@
 import generalController from "./general";
 import pool from "../db";
 
+const createEquality = (req, res) => generalController.post(req, res);
 const getFlexibleWorking = (req, res) => generalController.get(req, res);
 const getWorkingPattern = (req, res) => generalController.get(req, res);
 const getGenders = (req, res) => generalController.get(req, res);
@@ -27,8 +28,8 @@ const getEquality = (req, res) => {
 	.catch((error) => res.status(500).json(error));
 };
 
-
 module.exports = {
+    createEquality,
     getFlexibleWorking,
     getWorkingPattern,
     getGenders,

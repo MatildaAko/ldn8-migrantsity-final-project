@@ -1,20 +1,28 @@
 {
 	/* Gender */
 }
-import React, { useRef } from "react";
+import React, { useState } from "react";
 
 import {
 	Box,
 	TextField,
 	FormLabel,
 	FormControl,
-	FormGroup,
 	FormControlLabel,
-	Checkbox,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 
-function GenderEqualityForm({ handleChange }) {
-    const ref = useRef(null);
+function GenderEqualityForm({ changeEqualityDetails, equality, setEquality }) {
+	const genders = [
+		"Male",
+		"Female",
+		"Intersex",
+		"Non Binary",
+		"Other",
+		"Prefer not to say",
+	];
+	const [chosenGender, setChosenGender] = useState("");
 
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -22,75 +30,39 @@ function GenderEqualityForm({ handleChange }) {
 				<FormLabel component="legend">
 					<b>Gender</b>
 				</FormLabel>
-				<FormGroup row={true}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={handleChange("gender")}
-								name="male"
+				<RadioGroup
+					required
+					aria-label="gender"
+					name="gender"
+					onChange={(e) => {
+						setChosenGender(e.target.value);
+						setEquality({ ...equality, ["gender"]: e.target.value });
+					}}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flexStart",
+					}}
+				>
+					{genders.map((gender, index) => {
+						return (
+							<FormControlLabel
+								key={index}
+								control={<Radio />}
+								label={gender}
+								value={gender}
 							/>
-						}
-						value="Male"
-						label="Male"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={handleChange("gender")}
-								name="female"
-							/>
-						}
-						value="Female"
-						label="Female"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={handleChange("gender")}
-								name="intersex"
-							/>
-						}
-						value="Intersex"
-						label="Intersex"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={handleChange("gender")}
-								name="non-binary"
-							/>
-						}
-						value="Non-binary"
-						label="Non-binary"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={handleChange("gender")}
-								name="prefer-not-to-say"
-							/>
-						}
-						value="N/A"
-						label="Prefer not to say"
-						labelPlacement="start"
-					/>
-				</FormGroup>
+						);
+					})}
+				</RadioGroup>
 				<FormControlLabel
 					control={
 						<TextField
+							disabled={chosenGender !== "Other" ? true : false}
 							id="standard-basic"
 							label=""
 							variant="standard"
-							onChange={handleChange("gender")}
+							onChange={changeEqualityDetails("gender")}
 						/>
 					}
 					label="If you prefer to use your own gender identity, please write in:"
@@ -101,7 +73,6 @@ function GenderEqualityForm({ handleChange }) {
 				required
 				error={"error"}
 				component="fieldset"
-				sx={{ m: 3 }}
 				variant="standard"
 			></FormControl>
 		</Box>
@@ -109,3 +80,5 @@ function GenderEqualityForm({ handleChange }) {
 }
 
 export default GenderEqualityForm;
+
+

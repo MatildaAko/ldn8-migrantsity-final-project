@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../../styles/ProfessionalQualifications.css";
 
@@ -14,9 +14,26 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Stack from "@mui/material/Stack";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
-function ProfessionalQualificationsModal() {
-	const [open, setOpen] = React.useState(false);
-	const [date, setDate] = React.useState(new Date());
+function ProfessionalQualificationsModal({
+	setQualificationInfo,
+	qualifications,
+	setUserDetails,
+	userDetails,
+}) {
+	const [open, setOpen] = useState(false);
+	const [date, setDate] = useState(null);
+	const [qualificationDetails, setQualificationDetails] = useState({
+		title: "",
+		date: "",
+		status: "",
+	});
+
+	const addQualification = (input) => (e) => {
+		setQualificationDetails({
+			...qualificationDetails,
+			[input]: e.target.value,
+		});
+	};
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -26,9 +43,35 @@ function ProfessionalQualificationsModal() {
 		setOpen(false);
 	};
 
-	const handleChange = (newDate) => {
-		setDate(newDate);
+	const changeDate = (e) => {
+		setDate(e);
+		setQualificationDetails({
+			...qualificationDetails,
+			["date"]: e,
+		});
 	};
+
+	const resetQualifications = () => {
+		setQualificationDetails({
+			...qualificationDetails,
+			["title"]: "",
+			["date"]: "",
+			["status"]: "",
+		});
+		setDate(null);
+	};
+
+	const addQualificationsToPage = () => {
+		setQualificationInfo((info) => [...info, qualificationDetails]);
+		setUserDetails({
+			...userDetails,
+			["qualifications"]:
+				qualifications.concat(qualificationDetails),
+		});
+		resetQualifications();
+		handleClose();
+	};
+
 
 	return (
 		<div>
@@ -42,11 +85,12 @@ function ProfessionalQualificationsModal() {
 					</DialogContentText>
 					<TextField
 						required
-						id="outlined-basic"
+						id="title"
 						label=""
 						variant="outlined"
 						size="small"
 						fullWidth
+						onChange={addQualification("title")}
 					/>
 					<Box
 						sx={{
@@ -64,10 +108,10 @@ function ProfessionalQualificationsModal() {
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>
 									<DesktopDatePicker
-										label=""
+										label="date"
 										inputFormat="dd/MM/yyyy"
 										value={date}
-										onChange={handleChange}
+										onChange={changeDate}
 										renderInput={(params) => <TextField {...params} />}
 									/>
 								</Stack>
@@ -75,13 +119,24 @@ function ProfessionalQualificationsModal() {
 						</Box>
 						<Box>
 							<DialogContentText>Status</DialogContentText>
-							<TextField label="" />
+							<TextField
+								id="status"
+								label=""
+								variant="outlined"
+								size="small"
+								fullWidth
+								onChange={addQualification("status")}
+							/>
 						</Box>
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button variant="contained" onClick={handleClose}>Cancel</Button>
-					<Button variant="contained" onClick={handleClose}>Save</Button>
+					<Button variant="contained" onClick={handleClose}>
+						Cancel
+					</Button>
+					<Button variant="contained" onClick={addQualificationsToPage}>
+						Save
+					</Button>
 				</DialogActions>
 			</Dialog>
 		</div>

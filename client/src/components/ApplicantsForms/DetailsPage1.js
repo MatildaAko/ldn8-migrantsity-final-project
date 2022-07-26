@@ -12,8 +12,7 @@ import {
 	Paper,
 } from "@mui/material";
 
-function DetailsPage1({ values, handleChange }) {
-
+function DetailsPage1({ handleChange }) {
 	return (
 		<div>
 			<Paper>
@@ -24,15 +23,16 @@ function DetailsPage1({ values, handleChange }) {
 					<Box>
 						<h2>Right to Work</h2>
 						<FormControl>
-							<FormLabel id="currently-work">
-								<span className="asterisk">*</span>Do you currently work/ volunteer for Hackney Migrant Centre?
+							<FormLabel id="current_employee">
+								<span className="asterisk">*</span>Do you currently work/
+								volunteer for Hackney Migrant Centre?
 							</FormLabel>
 							<br />
 							<RadioGroup
 								required
-								aria-label="currently-work"
-								value={values.currently_work}
-								onChange={handleChange("currently_work")}
+								aria-label="current_employee"
+								name="current_employee"
+								onChange={handleChange("current_employee")}
 								sx={{
 									width: 420,
 									height: 50,
@@ -41,8 +41,16 @@ function DetailsPage1({ values, handleChange }) {
 									justifyContent: "flexStart",
 								}}
 							>
-								<FormControlLabel control={<Radio />} label="Yes" value="Yes" />
-								<FormControlLabel control={<Radio />} label="No" value="No" />
+								<FormControlLabel
+									control={<Radio />}
+									label="Yes"
+									value={true}
+								/>
+								<FormControlLabel
+									control={<Radio />}
+									label="No"
+									value={false}
+								/>
 							</RadioGroup>
 						</FormControl>
 					</Box>
@@ -50,13 +58,14 @@ function DetailsPage1({ values, handleChange }) {
 					<Box>
 						<FormControl>
 							<FormLabel id="right-to-work">
-							<span className="asterisk">*</span>Do you have the Right to Work in the UK?
+								<span className="asterisk">*</span>Do you have the Right to Work
+								in the UK?
 							</FormLabel>
 							<br />
 							<RadioGroup
 								required
 								aria-label="right-to-work"
-								value={values.right_to_work}
+								name="right-to-work"
 								onChange={handleChange("right_to_work")}
 								sx={{
 									width: 420,
@@ -66,8 +75,16 @@ function DetailsPage1({ values, handleChange }) {
 									justifyContent: "flexStart",
 								}}
 							>
-								<FormControlLabel control={<Radio />} label="Yes" value="Yes" />
-								<FormControlLabel control={<Radio />} label="No" value="No" />
+								<FormControlLabel
+									control={<Radio />}
+									label="Yes"
+									value={true}
+								/>
+								<FormControlLabel
+									control={<Radio />}
+									label="No"
+									value={false}
+								/>
 							</RadioGroup>
 						</FormControl>
 					</Box>

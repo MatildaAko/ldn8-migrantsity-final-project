@@ -1,175 +1,259 @@
 import React, { useState } from "react";
+import TabPanel from "./TabPanel";
+// import { axios } from "axios";
+import "../../styles/Form.css";
+import { styled } from "@mui/material/styles";
 
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
+
+import { Tabs, Tab, Box } from "@mui/material";
 
 import DetailsPage1 from "./DetailsPage1";
 import CVPage2 from "./CVPage2";
 import StatementPage3 from "./StatementPage3";
 import EmploymentPage4 from "./EmploymentPage4";
-import CriminalConvictionsPage5 from "./CriminalConvictionsPage5";
-import EqualOpportunitiesPage6 from "./EqualOpportunitiesPage6";
 import EqualityForm from "../../pages/EqualityForm";
-import ConfirmPage7 from "./ConfirmPage7";
-import ConfirmEqualityForm from "../EqualityFormControl/ConfirmEqualityForm";
-import SubmitPage8 from "./SubmitPage8";
+import PersonalDetails from "./PersonalDetails";
+import ApplicationForm from "./ApplicationForm";
+
+const showFormPage = (index) => {
+	return {
+		id: `vertical-tab-${index}`,
+		"aria-controls": `vertical-tabpanel-${index}`,
+	};
+};
+
+const StyledTabs = styled((props) => (
+	<Tabs
+  {...props}
+  TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+	/>
+  ))({
+	"& .MuiTabs-indicator": {
+		maxWidth: 6,
+		width: "100%",
+		backgroundColor: "#4c8a8f",
+		textAlign: "left",
+	},
+	"& .MuiTabs-indicatorSpan": {
+		maxWidth: 40,
+		width: "100%",
+		backgroundColor: "#4c8a8f",
+	},
+  });
+
 
 function ApplicantsForm() {
 	// Steps
-	const [activeStep, setActiveStep] = useState(0);
+	const [value, setValue] = useState(0);
 
-	const getSteps = () => {
-		return [
-			"Personal Details and Right to Work",
-			"CV Upload and Supporting Statement",
-			"Supporting Statement",
-			"Employment, Education, Qualifications and Language History",
-			"Criminal Convictions",
-			"Equal Opportunities and Submission",
-			"ConfirmPage7",
-			"ConfirmEqualityForm",
-		];
-	};
-	const steps = getSteps();
+  const handleTabChange = ( event, newValue) => {
+    setValue(newValue);
+  };
 
 	// State variables
 	const [userDetails, setUserDetails] = useState({
-		currently_work: Boolean,
-		right_to_work: Boolean,
+		first_name: "",
+		last_name: "",
+		address1: "",
+		address2: "",
+		address3: "",
+		town: "",
+		country: "",
+		postcode: "",
+		telephone: "",
+		mobile: "",
+		email: "",
+		current_employee: false,
+		right_to_work: false,
 		cv: "",
 		supp_statement: "",
-		employment_history: "",
-		education_history: "",
-		exam_history: "",
-		professional_qualifications: "",
-		languages: "",
-		dbs_work: Boolean,
-		dbs_convictions: Boolean,
-		disability: Boolean,
-		age_band: "",
-		ethnic_group: "",
-		description: "",
-		religion: "",
-		sex_orientation: "",
-		gender: "",
-		caring: "",
+		employments: [],
+		education: [],
+		qualifications: [],
+		languages: [],
+		application: [],
+		equality: [],
 	});
 
 	console.log(userDetails);
 
-	// Actions
-	// Proceed to next step
-	const handleNext = () => {
-		setActiveStep((prevStep) => prevStep + 1);
-	};
-
-	// Go back to prev step
-	const handleBack = () => {
-		setActiveStep((prevStep) => prevStep - 1);
-	};
+const [equality, setEquality] = useState({
+	gender: "",
+	identify: "",
+	age_band: "",
+	ethnic_group: "",
+	disability: "",
+	sex_orientation: "",
+	religion: "",
+	working_pattern: "",
+	flexible_working: "",
+	caring: "",
+});
 
 	const handleReset = () => {
 		setUserDetails({
-			currently_work: Boolean,
-			right_to_work: Boolean,
+			first_name: "",
+			last_name: "",
+			address1: "",
+			address2: "",
+			address3: "",
+			town: "",
+			country: "",
+			postcode: "",
+			telephone: "",
+			mobile: "",
+			email: "",
+			current_employee: false,
+			right_to_work: false,
 			cv: "",
 			supp_statement: "",
-			employment_history: "",
-			education_history: "",
-			exam_history: "",
-			professional_qualifications: "",
-			languages: "",
-			dbs_work: Boolean,
-			dbs_convictions: Boolean,
-			disability: Boolean,
+			employments: [],
+			education: [],
+			qualifications: [],
+			languages: [],
+			application: [],
+			equality: [],
+	});
+		setEquality; ({
+			gender: "",
+			identify: "",
 			age_band: "",
 			ethnic_group: "",
-			description: "",
-			religion: "",
+			disability: "",
 			sex_orientation: "",
-			gender: "",
+			religion: "",
+			working_pattern: "",
+			flexible_working: "",
 			caring: "",
 		});
-		setActiveStep(0);
+		setValue(0);
 	};
 
 	// Handle fields change
 	const handleChange = (input) => (e) => {
-		setUserDetails({ ...userDetails, [input]: e.target.value });
+		let value;
+		switch (e.target.value) {
+			case "Yes":
+				value = true;
+				break;
+			case "true":
+				value = true;
+				break;
+			case "No":
+				value = false;
+				break;
+			case "false":
+				value = false;
+				break;
+			default:
+				value = e.target.value;
+		}
+
+		console.log("input:", value);
+		setUserDetails({ ...userDetails, [input]: value });
 	};
 
+// 	const postApplication = () => {
+// 		axios.post("/api/applications", userDetails);
+// 	};
+// const postEquality = () => {
+// 	axios.post("/api/equality", equality);
+// };
 	return (
-		<>
-			{activeStep === steps.length ? (
-				<div>
-					<SubmitPage8 />
-					<Button variant="contained" color="primary" onClick={handleReset}>
-						Reset
-					</Button>
-				</div>
-			) : (
-				<>
-					<div className="content">
-						{activeStep === 0 && (
-							<DetailsPage1 values={userDetails} handleChange={handleChange} />
-						)}
-						{activeStep === 1 && (
-							<CVPage2 values={userDetails} handleChange={handleChange} />
-						)}
-						{activeStep === 2 && (
-							<StatementPage3
-								values={userDetails}
-								handleChange={handleChange}
-							/>
-						)}
-						{activeStep === 3 && (
-							<EmploymentPage4
-								values={userDetails}
-								handleChange={handleChange}
-							/>
-						)}
-						{activeStep === 4 && (
-							<CriminalConvictionsPage5
-								values={userDetails}
-								handleChange={handleChange}
-							/>
-						)}
-						{activeStep === 5 && (
-							<EqualOpportunitiesPage6
-								values={userDetails}
-								handleChange={handleChange}
-							/>
-						)}
-						{activeStep === 6 && <ConfirmPage7 values={userDetails} />}
-						{activeStep === 7 && (
-							<EqualityForm values={userDetails} handleChange={handleChange} />
-						)}
-
-						{activeStep === 8 && <ConfirmEqualityForm />}
-						{activeStep === 9 && <SubmitPage8 />}
-					</div>
-					<div className="buttons">
-						<Button disabled={activeStep === 0} onClick={handleBack}>
-							Back
-						</Button>
-						{activeStep !== steps.length - 1 ? (
-							<Button
-								// disabled={activeStep !== steps.length - 1}
-								onClick={handleNext}
-							>
-								Next
-							</Button>
-						) : (
-							<Button
-							// enabled={activeStep === steps.length - 1}
-							// onClick={handleSubmit}
-							>
-								Submit
-							</Button>
-						)}
-					</div>
-				</>
-			)}
-		</>
+		<Box
+			sx={{
+				flexGrow: 1,
+				bgcolor: "background.paper",
+				display: "flex",
+				height: 224,
+			}}
+		>
+			<StyledTabs
+				orientation="vertical"
+				variant="standard"
+				indicatorColor="secondary"
+				textColor="secondary"
+				value={value}
+				onChange={handleTabChange}
+				aria-label="secondary tabs example"
+				sx={{
+					maxWidth:200,
+					minWidth:200,
+				}}
+			>
+				<Tab
+					label="Application Data"
+					{...showFormPage(0)}
+				/>
+				<Tab
+					label="Right to Work, Personal Details, CV and Supporting Statement"
+					{...showFormPage(1)}
+				/>
+				<Tab
+					label="Employment, Education, Qualification and Language History"
+					{...showFormPage(2)}
+				/>
+				<Tab label="Equal Opportunities and Submission" {...showFormPage(3)} />
+			</StyledTabs>
+			<TabPanel
+				value={value}
+				index={0}
+				setValue={setValue}
+				>
+				<ApplicationForm
+					values={userDetails}
+					handleChange={handleChange}
+					userDetails={userDetails}
+					setUserDetails={setUserDetails}
+					application={userDetails.application}
+				/>
+			</TabPanel>
+			<TabPanel
+				value={value}
+				index={1}
+				setValue={setValue}
+				>
+				<DetailsPage1 values={userDetails} handleChange={handleChange} />
+				<PersonalDetails
+					values={userDetails}
+					handleChange={handleChange}
+					userDetails={userDetails}
+					setUserDetails={setUserDetails}
+					country={userDetails.country}
+					/>
+				<CVPage2 values={userDetails} handleChange={handleChange} />
+				<StatementPage3 values={userDetails} handleChange={handleChange} />
+			</TabPanel>
+			<TabPanel value={value} index={2} setValue={setValue}>
+				<EmploymentPage4
+					values={userDetails}
+					handleChange={handleChange}
+					setUserDetails={setUserDetails}
+					userDetails={userDetails}
+					employments={userDetails.employments}
+					education={userDetails.education}
+					qualifications={userDetails.qualifications}
+					languages={userDetails.languages}
+				/>
+			</TabPanel>
+			<TabPanel
+				value={value}
+				index={3}
+				setValue={setValue}
+				userDetails={userDetails}
+				handleReset={handleReset}
+			>
+				<EqualityForm
+					values={userDetails}
+					handleChange={handleChange}
+					setUserDetails={setUserDetails}
+					userDetails={userDetails}
+					equality={equality}
+					setEquality={setEquality}
+				/>
+			</TabPanel>
+		</Box>
 	);
 }
 

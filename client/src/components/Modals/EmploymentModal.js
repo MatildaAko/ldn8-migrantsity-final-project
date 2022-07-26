@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../../styles/ProfessionalQualifications.css";
 
@@ -17,11 +17,21 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal() {
-	const [open, setOpen] = React.useState(false);
-	const [date, setDate] = React.useState(new Date());
-	const [checked, setChecked] = React.useState(false);
+function EmploymentModal({ setUserDetails, userDetails, employments, setEmploymentInfo }) {
+	const [open, setOpen] = useState(false);
+	const [start_date, setStartDate] = useState(null);
+	const [end_date, setEndDate] = useState(null);
 
+	const [checked, setChecked] = useState(false);
+	const [employmentDetails, setEmploymentDetails] = useState({
+		position: "",
+		employer: "",
+		currently_working: false,
+		start_date: "",
+		end_date: "",
+		responsibilities: "",
+		leaving_reason: "",
+	});
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -30,12 +40,56 @@ function EmploymentModal() {
 		setOpen(false);
 	};
 
-	const handleChange = (newDate) => {
-		setDate(newDate);
+	const addEmployment = (input) => (e) => {
+		setEmploymentDetails({ ...employmentDetails, [input]: e.target.value });
 	};
 
-	const handleChangeCheck = (event) => {
-		setChecked(event.target.checked);
+	const stillWorkingCheck = (e) => {
+		setChecked(e.target.checked);
+		setEmploymentDetails({
+			...employmentDetails,
+			["currently_working"]: e.target.checked,
+			["end_date"]: e.target.checked ? "Currently working" : "",
+		});
+	};
+	const changeStartDate = (e) => {
+		setStartDate(e);
+		setEmploymentDetails({
+			...employmentDetails,
+			["start_date"]: e,
+		});
+	};
+	const changeEndDate = (e) => {
+		setEndDate(e);
+		setEmploymentDetails({
+			...employmentDetails,
+			["end_date"]: e,
+		});
+	};
+	const resetEmployment = () => {
+		setEmploymentDetails({
+			...employmentDetails,
+			["position"]: "",
+			["employer"]: "",
+			["currently_working"]: false,
+			["start_date"]: "",
+			["end_date"]: "",
+			["responsibilities"]: "",
+			["leaving_reason"]: "",
+		});
+		setStartDate(null);
+		setEndDate(null);
+		setChecked(false);
+	};
+
+	const addEmploymentToPage = () => {
+		setEmploymentInfo((info) => [...info, employmentDetails]);
+		setUserDetails({
+			...userDetails,
+			["employments"]: employments.concat( employmentDetails ),
+		});
+		resetEmployment();
+		handleClose();
 	};
 
 	return (
@@ -43,7 +97,6 @@ function EmploymentModal() {
 			<Button variant="contained" onClick={handleClickOpen}>
 				+Add
 			</Button>
-
 			<Dialog open={open} onClose={handleClose}>
 				<DialogContent>
 					<DialogContentText>
@@ -51,37 +104,38 @@ function EmploymentModal() {
 					</DialogContentText>
 					<TextField
 						required
-						id="outlined-basic"
-						label=""
+						id="position"
 						variant="outlined"
 						size="small"
 						fullWidth
+						onChange={addEmployment("position")}
 					/>
-					<br />
-					<br />
 					<DialogContentText>
 						Employer/Gap<span className="asterisk"> *</span>
 					</DialogContentText>
 					<TextField
 						required
-						id="outlined-basic"
+						id="employer"
 						label=""
 						variant="outlined"
 						size="small"
 						fullWidth
+						onChange={addEmployment("employer")}
 					/>
 					<FormGroup>
 						<FormControlLabel
+							id="currently_working"
 							control={
 								<Checkbox
-									defaultChecked
+									value={checked}
+									onChange={stillWorkingCheck}
 									checked={checked}
-									onChange={handleChangeCheck}
 								/>
 							}
 							label="I am currently working in this role"
 						/>
 					</FormGroup>
+
 					<Box
 						sx={{
 							width: 500,
@@ -98,10 +152,10 @@ function EmploymentModal() {
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>
 									<DesktopDatePicker
-										label=""
+										required
 										inputFormat="dd/MM/yyyy"
-										value={date}
-										onChange={handleChange}
+										value={start_date}
+										onChange={changeStartDate}
 										renderInput={(params) => <TextField {...params} />}
 									/>
 								</Stack>
@@ -112,10 +166,13 @@ function EmploymentModal() {
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Stack spacing={2}>
 									<DesktopDatePicker
-										label=""
 										inputFormat="dd/MM/yyyy"
-										value={date}
-										onChange={handleChange}
+										value={end_date}
+										maxDate={new Date()}
+										minDate={start_date}
+										onChange={changeEndDate}
+										disabled={checked ? true : false}
+										required={checked ? false : true}
 										renderInput={(params) => <TextField {...params} />}
 									/>
 								</Stack>
@@ -126,26 +183,27 @@ function EmploymentModal() {
 					<TextField
 						required
 						multiline
-						id="outlined-basic"
-						label=""
+						id="responsibilities"
 						variant="outlined"
 						size="small"
 						rows={4}
 						fullWidth
+						onChange={addEmployment("responsibilities")}
 					/>
 					<br />
 					<br />
 					<DialogContentText>
-						Reason For Leaving / Explanation for Gap in Employment<span className="asterisk"> *</span>
+						Reason For Leaving / Explanation for Gap in Employment
+						<span className="asterisk"> *</span>
 					</DialogContentText>
 					<TextField
 						required
 						multiline
-						id="outlined-basic"
-						label=""
+						id="leaving_reason"
 						variant="outlined"
 						size="small"
 						rows={4}
+						onChange={addEmployment("leaving_reason")}
 						helperText="Please enter N/A if you are still employed or had no gaps in employment."
 						fullWidth
 					/>
@@ -156,7 +214,7 @@ function EmploymentModal() {
 					<Button variant="contained" onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button variant="contained" onClick={handleClose}>
+					<Button variant="contained" onClick={addEmploymentToPage}>
 						Save
 					</Button>
 				</DialogActions>

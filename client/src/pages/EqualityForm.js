@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import GenderEqualityForm from "../components/EqualityFormControl/GenderEqualityForm";
 import IdentifyEqualityForm from "../components/EqualityFormControl/IdentifyEqualityForm";
@@ -12,29 +12,21 @@ import WorkingArrangementEqualityForm from "../components/EqualityFormControl/Wo
 import CaringEqualityForm from "../components/EqualityFormControl/CaringEqualityForm";
 import ConfirmEqualityForm from "../components/EqualityFormControl/ConfirmEqualityForm";
 
-const EqualityForm = () => {
-
-	const [userInfo, setUserInfo] = useState({
-		gender: "",
-		identify: "",
-		age_band: "",
-		ethnic_group: "", // main_group
-		disability: "",
-		sex_orientation: "",
-		religion: "",
-		working_pattern: "",
-		flexible_working: "",
-		caring: "",
-	});
-
-
+const EqualityForm = ({
+	setUserDetails,
+	userDetails,
+	setEquality,
+	equality,
+}) => {
 	// Handle fields change
-	const handleChange = (input) => (e) => {
+	const changeEqualityDetails = (input) => (e) => {
 		// console.log(e.target.value);
-		setUserInfo({ ...userInfo, [input]: e.target.value });
-	};
+		setEquality({ ...equality, [input]: e.target.value });
+		setUserDetails({ ...userDetails,
+			["equality"]: [{ ...equality, [input]: e.target.value }] });
+		};
 
-	console.log(userInfo);
+	console.log(equality);
 	return (
 		<>
 			<h1>Hackney Migrant Centre Equal Opportunities Monitoring Form</h1>
@@ -59,37 +51,33 @@ const EqualityForm = () => {
 				Filling in this form is voluntary. It will be separated from your
 				application before shortlisting.
 			</p>
-			<p>
-				<b>
-					Please return the completed form along with your CV and cover letter
-					to
-				</b>
-				<a href="mailto:recruitment@hackneymigrantcentre.org.uk">
-					recruitment@hackneymigrantcentre.org.uk
-				</a>
-			</p>
+
 			<hr />
 
 			{/* Gender */}
-			<GenderEqualityForm handleChange={handleChange} />
+			<GenderEqualityForm
+				changeEqualityDetails={changeEqualityDetails}
+				setEquality={setEquality}
+				equality={equality}
+			/>
 
 			{/* Identify */}
-			<IdentifyEqualityForm handleChange={handleChange} />
+			<IdentifyEqualityForm changeEqualityDetails={changeEqualityDetails} />
 
 			<hr />
 
 			{/* Age */}
-			<AgeEqualityForm handleChange={handleChange} />
+			<AgeEqualityForm changeEqualityDetails={changeEqualityDetails} />
 
 			<hr />
 
 			{/* What is your ethnicity? */}
-			<EthnicityEqualityForm handleChange={handleChange} />
+			<EthnicityEqualityForm changeEqualityDetails={changeEqualityDetails} />
 
 			<hr />
 
 			{/* Do you consider yourself to have a disability or health condition?    */}
-			<DisabilityEqualityForm handleChange={handleChange} />
+			<DisabilityEqualityForm changeEqualityDetails={changeEqualityDetails} />
 			<br />
 			<br />
 			<p>
@@ -101,32 +89,43 @@ const EqualityForm = () => {
 			<hr />
 
 			{/* What is your sexual orientation? */}
-			<SexOrientationEqualityForm handleChange={handleChange} />
+			<SexOrientationEqualityForm
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			<hr />
 
 			{/* What is your religion or belief? */}
-			<ReligionEqualityForm handleChange={handleChange} />
+			<ReligionEqualityForm changeEqualityDetails={changeEqualityDetails} />
 
 			<hr />
 
 			{/* What is your working pattern?
 			 */}
-			<WorkingPatternEqualityForm handleChange={handleChange} />
+			<WorkingPatternEqualityForm
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			<hr />
 
 			{/* What is your flexible working arrangement?
 			 */}
-			<WorkingArrangementEqualityForm handleChange={handleChange} />
+			<WorkingArrangementEqualityForm
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			{/* Do you have caring responsibilities? If yes, please tick all that apply.
 			 */}
-			<CaringEqualityForm handleChange={handleChange} values={userInfo} />
+			<CaringEqualityForm
+				changeEqualityDetails={changeEqualityDetails}
+				values={equality}
+			/>
 
 			<hr />
 
-			<ConfirmEqualityForm values={userInfo} />
+			<ConfirmEqualityForm
+				values={equality}
+			/>
 
 			<hr />
 		</>

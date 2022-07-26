@@ -6,7 +6,7 @@ const usersController = require("./controllers/users");
 const citiesController = require("./controllers/cities");
 const applicationsController = require("./controllers/applications");
 const educationController = require("./controllers/education");
-const examsController = require("./controllers/exams");
+const employmentsController = require("./controllers/employments");
 const qualificationsController = require("./controllers/qualifications");
 const languagesController = require("./controllers/languages");
 const equalityController = require("./controllers/equality");
@@ -53,8 +53,9 @@ router
 .delete("/cities/:cityId", citiesController.deleteCity);
 
 //Equality Params
-router
-.get("/equality", equalityController.getEquality);
+router.route("/equality")
+.get(equalityController.getEquality)
+.post(equalityController.createEquality);
 
 router
 .get("/flexible_working", equalityController.getFlexibleWorking)
@@ -63,10 +64,10 @@ router
 .get("/sex_orientations", equalityController.getSexOrientations)
 .get("/age_bands", equalityController.getAgeBands)
 .get("/religions",  equalityController.getReligions)
-.get("/ethnic_groups",  equalityController.getEthnicGroups)
-.get("/equality",  equalityController.getEquality);
+.get("/ethnic_groups",  equalityController.getEthnicGroups);
 
 //Applications
+
 router
 .get("/applications/:applicationId", applicationsController.getApplicationById)
 .get("/applications", applicationsController.getApplications)
@@ -83,13 +84,13 @@ router
 .put("/education/:educationId", educationController.updateEducation)
 .delete("/education/:educationId", educationController.deleteEducation);
 
-//Exams
+//Employments
 router
-.get("/exams", examsController.getExams )
-.get("/:applicantId/exams", examsController.getExamsByApplicantId)
-.post("/exams", examsController.createNewExams)
-.put("/exams/:examId", examsController.updateExams)
-.delete("/exams/:examId", examsController.deleteExams);
+.get("/employments", employmentsController.getEmployments )
+.get("/:applicantId/employments", employmentsController.getEmploymentsByApplicantId)
+.post("/employments", employmentsController.createNewEmployments)
+.put("/employments/:employmentId", employmentsController.updateEmployments)
+.delete("/employments/:employmentId", employmentsController.deleteEmployments);
 
 //Qualifications
 router
@@ -108,4 +109,3 @@ router
 .delete("/languages/:languageId", languagesController.deleteLanguages);
 
 export default router;
-
