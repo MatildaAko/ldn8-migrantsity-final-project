@@ -98,8 +98,8 @@ const Applications = () => {
 			display="flex"
 			alignItems="center"
 			justifyContent="center"
-			height="50vh"
-			padding= "84px"
+			height="60vh"
+			padding= "0 84px"
 			>
 		<Box
 			sx={{

@@ -7,14 +7,13 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
 import AuthenticationButton from "../Auth0Login/authentication-button";
 import { Avatar } from "@material-ui/core";
-import LogoutButton from "../Auth0Login/logout-button";
 
 const styles = {
   root: {
     flexGrow: 1,
   },
   bar: {
-    margin: 60,
+    margin: "20px 60px 10px 60px",
   },
   grow: {
     flexGrow: 1,

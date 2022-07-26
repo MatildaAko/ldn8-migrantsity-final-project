@@ -8,6 +8,7 @@ import EqualityForm from "./pages/EqualityForm";
 import HMCDashboard from "./pages/HMCDashboard";
 import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
+import { SnackbarProvider } from "notistack";
 import "./styles/App.css";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
 		return <Loading />;
 	}
 	return (
+		<SnackbarProvider maxSnack={3}>
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/hmcview" element={<HMCDashboard />} />
@@ -28,6 +30,7 @@ const App = () => {
 				element={<ApplicationDetails />}
 			/>
 		</Routes>
+		</SnackbarProvider>
 	);
 };
 

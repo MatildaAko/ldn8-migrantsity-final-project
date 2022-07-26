@@ -14,10 +14,7 @@ import StatementPage3 from "./StatementPage3";
 import EmploymentPage4 from "./EmploymentPage4";
 import EqualityForm from "../../pages/EqualityForm";
 import PersonalDetails from "./PersonalDetails";
-import ApplicationForm from "./ApplicationForn";
-import { EditNotifications } from "@mui/icons-material";
-import { defaultStyles } from "react-modal";
-
+import ApplicationForm from "./ApplicationForm";
 
 const showFormPage = (index) => {
 	return {
@@ -76,6 +73,7 @@ function ApplicantsForm() {
 		qualifications: [],
 		languages: [],
 		application: [],
+		equality: [],
 	});
 
 	console.log(userDetails);
@@ -115,7 +113,8 @@ const [equality, setEquality] = useState({
 			qualifications: [],
 			languages: [],
 			application: [],
-		});
+			equality: [],
+	});
 		setEquality; ({
 			gender: "",
 			identify: "",
@@ -195,7 +194,7 @@ const [equality, setEquality] = useState({
 					label="Employment, Education, Qualification and Language History"
 					{...showFormPage(2)}
 				/>
-				<Tab label="Equal Opportunities and Submission" {...showFormPage(2)} />
+				<Tab label="Equal Opportunities and Submission" {...showFormPage(3)} />
 			</StyledTabs>
 			<TabPanel
 				value={value}
