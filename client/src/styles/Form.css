@@ -26,7 +26,7 @@ section {
 }
 
 button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.btn.btn-danger.btn-block.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-	color: #f3f3f3;
+	color: #f3f3f3 !important;
 }
 
 .item:hover {
