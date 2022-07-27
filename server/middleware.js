@@ -17,7 +17,7 @@ export const configuredHelmet = () =>
 					"'self'",
 					"https://dev-gsbrhm0s.eu.auth0.com",
 				],
-				imgSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com", "https://hackneymigrantcentre.org.uk/", "data:"],
+				imgSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com", "https://hackneymigrantcentre.org.uk/", "https://ldn8-migrantsity-final-project.herokuapp.com/", "data:"],
 				styleSrc: ["'self'", "https: 'unsafe-inline'"],
 				upgradeInsecureRequests: [],
 			},
