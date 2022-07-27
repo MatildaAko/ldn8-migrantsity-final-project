@@ -92,7 +92,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 						labelId="country"
 						label=""
 						variant="outlined"
-						value={knownCountries}
+						value={userDetails.country}
 						onChange={handleChangeCountries}
 					>
 						{countries.map((country, index) => {
