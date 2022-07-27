@@ -5,13 +5,17 @@ export const configuredHelmet = () =>
 	helmet({
 		contentSecurityPolicy: {
 			directives: {
-				defaultSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com"],
+				defaultSrc: ["'self'"],
 				objectSrc: ["'none'"],
 				scriptSrc: [
 					"'self'",
 					"unpkg.com",
 					"polyfill.io",
 					"dev-gsbrhm0s.eu.auth0.com",
+				],
+				connectSrc: [
+					"'self'",
+					"https://dev-gsbrhm0s.eu.auth0.com",
 				],
 				imgSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com", "data:"],
 				styleSrc: ["'self'", "https: 'unsafe-inline'"],
