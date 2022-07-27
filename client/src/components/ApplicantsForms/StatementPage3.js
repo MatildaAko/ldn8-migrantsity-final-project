@@ -19,6 +19,7 @@ function StatementPage3({ values, handleChange }) {
 				multiline
 				rows={4}
 				variant="outlined"
+				value={values.supp_statement}
 				onChange={handleChange("supp_statement")}
 				defaultValue={values.supp_statement}
 			/>

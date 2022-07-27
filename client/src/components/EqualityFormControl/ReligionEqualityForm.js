@@ -12,7 +12,7 @@ import {
 	RadioGroup,
 } from "@mui/material";
 
-function ReligionEqualityForm({ changeEqualityDetails }) {
+function ReligionEqualityForm({ equality, changeEqualityDetails }) {
 	const religions = [
 		"No religion or belief",
 		"Buddhist",
@@ -32,6 +32,7 @@ function ReligionEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="religions"
 					name="religions"
+					value={equality.religion}
 					onChange={changeEqualityDetails("religion")}
 					sx={{
 						display: "flex",
