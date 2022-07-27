@@ -5,176 +5,49 @@
 
 body {
 	margin: 0;
-	font-family: Helvetica, sans-serif;
-	/* background-color: #f4f4f4; */
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
-a {
-	color: #000;
+/* Title */
+
+.page-header{
+	background-color: #158284;
+	padding: 50px 0 50px 0;
+    position: relative;
+}
+
+.page-header .container header{
+	display: grid;
+    grid-template-columns: max-content auto;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+	padding: 0 30px;
+}
+
+.page-header__title {
+    border-left: 4px solid #F4DE11;
+    padding-left: 15px;
+    color: #f3f3f3;
 }
 
 button.btn.btn-primary.btn-block {
-	background: #408083;
-	color: aliceblue;
-	border: none;
-	border-radius: 5px;
+    background-color: #f3f3f3;
+    color: #158284;
+	margin-left: 20px;
+    border-radius: 3px;
 	padding: 10px 20px;
-	cursor: pointer;
 }
 
-/* header */
-
-.header {
-	position: fixed;
-	width: 100%;
-	z-index: 3;
-	text-align: center;
-	background-color: #f4f4f4;
-
+button.btn.btn-primary.btn-block:focus {
+    outline: 3px solid #ffbf47;
 }
 
-.header ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	overflow: hidden;
-	align-items: center;
-}
-
-.header li a {
-	display: block;
-	padding: 20px 20px;
-	text-decoration: none;
-}
-
-/* .header li a:hover,
-.header .menu-btn:hover {
-	background-color: #408083;
-} */
-
-.header .logo {
-	display: block;
-	float: left;
-	width: 10em;
-	padding: 10px 20px;
-	text-decoration: none;
-}
-
-/* menu */
-
-.header .menu {
-	clear: both;
-	max-height: 0;
-	transition: max-height 0.2s ease-out;
-	background-color: #f4f4f4;
-}
-
-/* menu icon */
-
-.header .menu-icon {
-	cursor: pointer;
-	display: inline-block;
-	float: right;
-	padding: 28px 20px;
-	position: relative;
-	user-select: none;
-}
-
-.header .menu-icon .navicon {
-	background: #333;
-	display: block;
-	height: 2px;
-	position: relative;
-	transition: background 0.2s ease-out;
-	width: 18px;
-}
-
-.header .menu-icon .navicon:before,
-.header .menu-icon .navicon:after {
-	background: #333;
-	content: "";
-	display: block;
-	height: 100%;
-	position: absolute;
-	transition: all 0.2s ease-out;
-	width: 100%;
-}
-
-.header .menu-icon .navicon:before {
-	top: 5px;
-}
-
-.header .menu-icon .navicon:after {
-	top: -5px;
-}
-
-/* menu btn */
-
-.header .menu-btn {
-	display: none;
-}
-
-.header .menu-btn:checked ~ .menu {
-	max-height: 340px;
-}
-
-.header .menu-btn:checked ~ .menu-icon .navicon {
-	background: transparent;
-}
-
-.header .menu-btn:checked ~ .menu-icon .navicon:before {
-	transform: rotate(-45deg);
-}
-
-.header .menu-btn:checked ~ .menu-icon .navicon:after {
-	transform: rotate(45deg);
-}
-
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
-	top: 0;
-}
-
-.content {
-	margin-top: 4em;
-}
-.MuiBox-root.css-19kzrtu {
-    margin-top: 4em;
-}
-
-.css-1n3h4wo {
-    flex-direction: row;
-}
-
-.content-details {
-    padding-left: 4em;
-}
-
-.applicationDetails {
-    margin-top: 4em;
-    max-width: 600px;
-}
-
-/* 48em = 768px */
-
-@media (min-width: 48em) {
-	.header ul {
-		display: flex;
-		align-items: center;
-		flex-direction: row;
-	}
-	.header li {
-		float: left;
-	}
-	.header li a {
-		padding: 20px 30px;
-	}
-	.header .menu {
-		clear: none;
-		float: right;
-		max-height: none;
-	}
-	.header .menu-icon {
-		display: none;
-	}
+button.btn.btn-primary.btn-block:hover{
+	text-decoration: 2px underline;
+    color: #158284;
 }

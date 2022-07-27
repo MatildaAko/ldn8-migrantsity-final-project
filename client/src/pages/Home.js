@@ -1,5 +1,5 @@
 // import { Link } from "react-router-dom";
-// import AuthenticationButton from "../components/Auth0Login/auth-nav";
+import AuthenticationButton from "../components/Auth0Login/auth-nav";
 
 import "../styles/App.css";
 
@@ -7,8 +7,14 @@ import "../styles/App.css";
 import "./Home.css";
 export function Home() {
 	return (
-		<main role="main">
-		</main>
+		<div className="page-header">
+			<div className="container">
+				<header>
+					<h1 className="page-header__title">Jobs</h1>
+					<span><AuthenticationButton /></span>
+				</header>
+			</div>
+		</div>
 
 	);
 }
@@ -45,4 +51,3 @@ export default Home;
 // }
 
 // export default Home;
-

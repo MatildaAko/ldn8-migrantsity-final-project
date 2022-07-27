@@ -20,9 +20,6 @@ const App = () => {
 	return (
 		<>
 			<NavBar />
-			<br />
-			<br />
-			<br />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/hmcview" element={<HMCDashboard />} />
