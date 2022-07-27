@@ -11,6 +11,8 @@ import ApplicantDashboard from "./pages/ApplicantDashboard";
 import { SnackbarProvider } from "notistack";
 import "./styles/App.css";
 
+import NavBar from "./pages/NavBar";
+
 const App = () => {
 	const { isLoading } = useAuth0();
 
@@ -19,17 +21,21 @@ const App = () => {
 	}
 	return (
 		<SnackbarProvider maxSnack={3}>
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/hmcview" element={<HMCDashboard />} />
-		<Route path="/application" element={<ApplicantForm />} />
-		<Route path="/applicantdashboard" element={<ApplicantDashboard applicantId={2} />} />
-		<Route path="/equality" element={<EqualityForm />} />
-			<Route
-				path="/applicationdetails/:id"
-				element={<ApplicationDetails />}
-			/>
-		</Routes>
+			<NavBar />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/hmcview" element={<HMCDashboard />} />
+				<Route path="/application" element={<ApplicantForm />} />
+				<Route
+					path="/applicantdashboard"
+					element={<ApplicantDashboard applicantId={2} />}
+				/>
+				<Route path="/equality" element={<EqualityForm />} />
+				<Route
+					path="/applicationdetails/:id"
+					element={<ApplicationDetails />}
+				/>
+			</Routes>
 		</SnackbarProvider>
 	);
 };
