@@ -12,7 +12,7 @@ import {
 	Radio,
 } from "@mui/material";
 
-function WorkingPatternEqualityForm({ changeEqualityDetails }) {
+function WorkingPatternEqualityForm({ equality, changeEqualityDetails }) {
 	const workingPattern = ["Full-time", "Part-time", "Prefer not to say"];
 	return (
 		<>
@@ -24,6 +24,7 @@ function WorkingPatternEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="workingPattern"
 					name="workingPattern"
+					value={equality.working_pattern}
 					onChange={changeEqualityDetails("working_pattern")}
 					sx={{
 						display: "flex",
