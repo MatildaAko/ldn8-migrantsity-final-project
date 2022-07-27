@@ -2,72 +2,54 @@
 	/* What is your working pattern?
 	 */
 }
-import React, { useRef } from "react";
+import React from "react";
 
 import {
-	Box,
 	FormLabel,
 	FormControl,
-	FormGroup,
 	FormControlLabel,
-	Checkbox,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 
 function WorkingPatternEqualityForm({ changeEqualityDetails }) {
-	const ref = useRef(null);
+	const workingPattern = ["Full-time", "Part-time", "Prefer not to say"];
 	return (
-		<Box sx={{ display: "flex" }}>
+		<>
 			<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
 				<FormLabel component="legend">
 					<b>What is your working pattern?</b>
 				</FormLabel>
-				<FormGroup row={true}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("working_pattern")}
-								name="Full-time "
+				<RadioGroup
+					required
+					aria-label="workingPattern"
+					name="workingPattern"
+					onChange={changeEqualityDetails("working_pattern")}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flexStart",
+					}}
+				>
+					{workingPattern.map((pattern, index) => {
+						return (
+							<FormControlLabel
+								key={index}
+								control={<Radio />}
+								label={pattern}
+								value={pattern}
 							/>
-						}
-						value="Full-time"
-						label="Full-time "
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("working_pattern")}
-								name="Part-time"
-							/>
-						}
-						value="Part-time"
-						label="Part-time"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("working_pattern")}
-								name="not-answered"
-							/>
-						}
-						value="N/A"
-						label="Prefer not to say"
-						labelPlacement="start"
-					/>
-				</FormGroup>
+						);
+					})}
+				</RadioGroup>
 			</FormControl>
 			<FormControl
 				required
 				error={"error"}
 				component="fieldset"
-				sx={{ m: 3 }}
 				variant="standard"
 			></FormControl>
-		</Box>
+		</>
 	);
 }
 

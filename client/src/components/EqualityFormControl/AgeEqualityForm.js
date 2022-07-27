@@ -1,19 +1,31 @@
 {
 	/* Age */
 }
-import React, { useRef } from "react";
+import React from "react";
 
 import {
 	Box,
 	FormLabel,
 	FormControl,
-	FormGroup,
 	FormControlLabel,
-	Checkbox,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 
 function AgeEqualityForm({ changeEqualityDetails }) {
-	const ref = useRef(null);
+	const ageBand = [
+		"16-24",
+		"25-29",
+		"30-34",
+		"35-39",
+		"40-44",
+		"45-49",
+		"50-54",
+		"55-59",
+		"60-64",
+		"65+",
+		"Prefer not to say",
+	];
 
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -21,140 +33,28 @@ function AgeEqualityForm({ changeEqualityDetails }) {
 				<FormLabel component="legend">
 					<b>Age</b>
 				</FormLabel>
-				<FormGroup row={true}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="16-24"
+				<RadioGroup
+					required
+					aria-label="age"
+					name="age"
+					onChange={changeEqualityDetails("age_band")}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flexStart",
+					}}
+				>
+					{ageBand.map((age, index) => {
+						return (
+							<FormControlLabel
+								key={index}
+								control={<Radio />}
+								label={age}
+								value={age}
 							/>
-						}
-						value="16-24"
-						label="16-24"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="25-29"
-							/>
-						}
-						value="25-29"
-						label="25-29"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="30-34"
-							/>
-						}
-						value="30-34"
-						label="30-34"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="35-39"
-							/>
-						}
-						value="35-39"
-						label="35-39"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="40-44"
-							/>
-						}
-						value="40-44"
-						label="40-44"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="45-49"
-							/>
-						}
-						value="45-49"
-						label="45-49"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="50-54"
-							/>
-						}
-						value="50-54"
-						label="50-54"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="55-59"
-							/>
-						}
-						value="55-59"
-						label="55-59"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="60-64"
-							/>
-						}
-						value="60-64"
-						label="60-64"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="65+"
-							/>
-						}
-						value="65+"
-						label="65+"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("age_band")}
-								name="Prefer not to say"
-							/>
-						}
-						value="N/A"
-						label="Prefer not to say"
-						labelPlacement="start"
-					/>
-				</FormGroup>
+						);
+					})}
+				</RadioGroup>
 			</FormControl>
 			<FormControl
 				required

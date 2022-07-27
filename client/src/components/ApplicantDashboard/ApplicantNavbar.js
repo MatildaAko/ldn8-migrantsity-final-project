@@ -13,7 +13,7 @@ const styles = {
     flexGrow: 1,
   },
   bar: {
-    margin: 60,
+    margin: "20px 60px 10px 60px",
   },
   grow: {
     flexGrow: 1,

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import TabPanel from "./TabPanel";
 // import { axios } from "axios";
-import "./form.css";
+import "../../styles/Form.css";
+import { styled } from "@mui/material/styles";
 
 // import Button from "@mui/material/Button";
 
@@ -13,7 +14,7 @@ import StatementPage3 from "./StatementPage3";
 import EmploymentPage4 from "./EmploymentPage4";
 import EqualityForm from "../../pages/EqualityForm";
 import PersonalDetails from "./PersonalDetails";
-
+import ApplicationForm from "./ApplicationForm";
 
 const showFormPage = (index) => {
 	return {
@@ -22,7 +23,24 @@ const showFormPage = (index) => {
 	};
 };
 
-
+const StyledTabs = styled((props) => (
+	<Tabs
+  {...props}
+  TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+	/>
+  ))({
+	"& .MuiTabs-indicator": {
+		maxWidth: 6,
+		width: "100%",
+		backgroundColor: "#4c8a8f",
+		textAlign: "left",
+	},
+	"& .MuiTabs-indicatorSpan": {
+		maxWidth: 40,
+		width: "100%",
+		backgroundColor: "#4c8a8f",
+	},
+  });
 
 
 function ApplicantsForm() {
@@ -46,14 +64,16 @@ function ApplicantsForm() {
 		telephone: "",
 		mobile: "",
 		email: "",
-		current_employee: "",
-		right_to_work: "",
+		current_employee: false,
+		right_to_work: false,
 		cv: "",
 		supp_statement: "",
-		employment_history: [],
-		education_history: [],
-		professional_qualifications: [],
+		employments: [],
+		education: [],
+		qualifications: [],
 		languages: [],
+		application: [],
+		equality: [],
 	});
 
 	console.log(userDetails);
@@ -84,15 +104,17 @@ const [equality, setEquality] = useState({
 			telephone: "",
 			mobile: "",
 			email: "",
-			current_employee: "",
-			right_to_work: "",
+			current_employee: false,
+			right_to_work: false,
 			cv: "",
 			supp_statement: "",
-			employment_history: [],
-			education_history: [],
-			professional_qualifications: [],
+			employments: [],
+			education: [],
+			qualifications: [],
 			languages: [],
-		});
+			application: [],
+			equality: [],
+	});
 		setEquality; ({
 			gender: "",
 			identify: "",
@@ -110,7 +132,26 @@ const [equality, setEquality] = useState({
 
 	// Handle fields change
 	const handleChange = (input) => (e) => {
-		setUserDetails({ ...userDetails, [input]: e.target.value });
+		let value;
+		switch (e.target.value) {
+			case "Yes":
+				value = true;
+				break;
+			case "true":
+				value = true;
+				break;
+			case "No":
+				value = false;
+				break;
+			case "false":
+				value = false;
+				break;
+			default:
+				value = e.target.value;
+		}
+
+		console.log("input:", value);
+		setUserDetails({ ...userDetails, [input]: value });
 	};
 
 // 	const postApplication = () => {
@@ -128,28 +169,51 @@ const [equality, setEquality] = useState({
 				height: 224,
 			}}
 		>
-			<Tabs
+			<StyledTabs
 				orientation="vertical"
 				variant="standard"
-				// selectionFollowsFocus={true}
 				indicatorColor="secondary"
-				centered={true}
+				textColor="secondary"
 				value={value}
 				onChange={handleTabChange}
-				aria-label="Form Steps"
-				sx={{ borderRight: 1, borderColor: "divider" }}
+				aria-label="secondary tabs example"
+				sx={{
+					maxWidth:200,
+					minWidth:200,
+				}}
 			>
 				<Tab
-					label="Right to Work, Personal Details, CV and Supporting Statement"
+					label="Application Data"
 					{...showFormPage(0)}
 				/>
 				<Tab
-					label="Employment, Education, Qualification and Language History"
+					label="Right to Work, Personal Details, CV and Supporting Statement"
 					{...showFormPage(1)}
 				/>
-				<Tab label="Equal Opportunities and Submission" {...showFormPage(2)} />
-			</Tabs>
-			<TabPanel value={value} index={0} setValue={setValue}>
+				<Tab
+					label="Employment, Education, Qualification and Language History"
+					{...showFormPage(2)}
+				/>
+				<Tab label="Equal Opportunities and Submission" {...showFormPage(3)} />
+			</StyledTabs>
+			<TabPanel
+				value={value}
+				index={0}
+				setValue={setValue}
+				>
+				<ApplicationForm
+					values={userDetails}
+					handleChange={handleChange}
+					userDetails={userDetails}
+					setUserDetails={setUserDetails}
+					application={userDetails.application}
+				/>
+			</TabPanel>
+			<TabPanel
+				value={value}
+				index={1}
+				setValue={setValue}
+				>
 				<DetailsPage1 values={userDetails} handleChange={handleChange} />
 				<PersonalDetails
 					values={userDetails}
@@ -157,25 +221,25 @@ const [equality, setEquality] = useState({
 					userDetails={userDetails}
 					setUserDetails={setUserDetails}
 					country={userDetails.country}
-				/>
+					/>
 				<CVPage2 values={userDetails} handleChange={handleChange} />
 				<StatementPage3 values={userDetails} handleChange={handleChange} />
 			</TabPanel>
-			<TabPanel value={value} index={1} setValue={setValue}>
+			<TabPanel value={value} index={2} setValue={setValue}>
 				<EmploymentPage4
 					values={userDetails}
 					handleChange={handleChange}
 					setUserDetails={setUserDetails}
 					userDetails={userDetails}
-					employment_history={userDetails.employment_history}
-					education_history={userDetails.education_history}
-					professional_qualifications={userDetails.professional_qualifications}
+					employments={userDetails.employments}
+					education={userDetails.education}
+					qualifications={userDetails.qualifications}
 					languages={userDetails.languages}
 				/>
 			</TabPanel>
 			<TabPanel
 				value={value}
-				index={2}
+				index={3}
 				setValue={setValue}
 				userDetails={userDetails}
 				handleReset={handleReset}

@@ -11,9 +11,9 @@ import LanguagesModal from "../Modals/LanguagesModal";
 function EmploymentPage4({
 	setUserDetails,
 	userDetails,
-	employment_history,
-	education_history,
-	professional_qualifications,
+	employments,
+	education,
+	qualifications,
 	languages,
 }) {
 	const [employmentInfo, setEmploymentInfo] = useState([]);
@@ -49,7 +49,7 @@ function EmploymentPage4({
 						setEmploymentInfo={setEmploymentInfo}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
-						employment_history={employment_history}
+						employments={employments}
 					/>
 				</div>
 				<Stack spacing={2}>
@@ -59,11 +59,11 @@ function EmploymentPage4({
 							<Item key={index}>
 								Position: {employment.position}, Employer: {employment.employer}
 								, Still Employed there:{" "}
-								{employment.currentlyWorking ? "yes" : "no"}, Start Date:{" "}
-								{JSON.stringify(employment.startDate.toLocaleString())}, End
-								Date: {JSON.stringify(employment.endDate.toLocaleString())},
+								{employment.currently_working ? "yes" : "no"}, Start Date:{" "}
+								{JSON.stringify(employment.start_date.toLocaleString())}, End
+								Date: {JSON.stringify(employment.end_date.toLocaleString())},
 								Responsibilities: {employment.responsibilities}, Leaving/Gap
-								Reason: {employment.leavingReason}
+								Reason: {employment.leaving_reason}
 							</Item>
 						);
 					})}
@@ -87,7 +87,7 @@ function EmploymentPage4({
 							setEducationInfo={setEducationInfo}
 							setUserDetails={setUserDetails}
 							userDetails={userDetails}
-							education_history={education_history}
+							education={education}
 						/>
 					</div>
 					<Stack spacing={2}>
@@ -116,7 +116,7 @@ function EmploymentPage4({
 					</p>
 					<ProfessionalQualificationsModal
 						setQualificationInfo={setQualificationInfo}
-						professional_qualifications={professional_qualifications}
+						qualifications={qualifications}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 					/>
@@ -156,7 +156,7 @@ function EmploymentPage4({
 							//need to fix this layout
 							<Item key={index}>
 								Language: {language.language}, Fluency: {language.fluency},
-								Spoken: {language.spoken}, Written: {language.written},
+								Spoken: {language.spoken?"Yes":"No"}, Written: {language.written?"Yes":"No"},
 							</Item>
 						);
 					})}

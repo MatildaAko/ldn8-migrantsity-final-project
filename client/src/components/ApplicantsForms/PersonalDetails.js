@@ -47,7 +47,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 				<label htmlFor="first_name">
 					First Name<span className="asterisk">*</span>
 				</label>
-				<TextField
+						<TextField
 					id="first_name"
 					label=""
 					variant="outlined"

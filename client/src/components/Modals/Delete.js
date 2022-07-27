@@ -1,50 +1,39 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@mui/material";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const DeleteModal = () => {
+const DeleteModal = ({ deleteHandler, item }) => {
   const [openModal, setOpenModal] = useState(false);
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
+  const handleYes = () => {
+	handleClose();
+	deleteHandler(item.id);
+  };
 
   return (
     <div>
-      <DeleteIcon variant="contained" onClick={handleOpen}/>
-      <Modal
-        keepMounted
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Are sure to delete the application?
-          </Typography>
-          <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-            <Button>Yes</Button> 
-            <Button>No</Button>
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
-  );
+      <DeleteIcon variant="contained" onClick={handleOpen} />
+			<Dialog open={openModal} onClose={handleClose}>
+				<DialogContent>
+					<DialogContentText>
+            <Typography>
+						Are you sure to delete the {item.title} id {item.id}?
+            </Typography>
+					</DialogContentText>
+          </DialogContent>
+				<DialogActions>
+					<Button variant="contained" onClick={handleClose}>
+						No
+					</Button>
+					<Button variant="contained" onClick={handleYes}>
+						Yes
+					</Button>
+				</DialogActions>
+			</Dialog>
+		</div>
+	);
 };
-
 
 export default DeleteModal;
