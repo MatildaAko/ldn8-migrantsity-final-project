@@ -22,8 +22,8 @@ const App = () => {
 	return (
 		<SnackbarProvider maxSnack={3}>
 			<NavBar />
+			<Home />
 			<Routes>
-				<Route path="/" element={<Home />} />
 				<Route path="/hmcview" element={<HMCDashboard />} />
 				<Route path="/application" element={<ApplicantForm />} />
 				<Route

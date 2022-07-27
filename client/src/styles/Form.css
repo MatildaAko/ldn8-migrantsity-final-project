@@ -1,7 +1,56 @@
 .MuiTabs-root {
-  height: fit-content;
+	height: fit-content;
 }
 
 section {
-  width: 100%;
+	width: 100%;
+}
+
+.css-1n3h4wo {
+	display: flex;
+	justify-content: center;
+	width: 1000px;
+	margin: 0 auto;
+	/* padding: 90px 0px; */
+}
+
+.links {
+	display: flex;
+	align-items: center;
+	color: #f3f3f3;
+}
+
+.item {
+	padding: 0 20px;
+	text-decoration: none;
+}
+
+button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.btn.btn-danger.btn-block.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+	color: #f3f3f3;
+}
+
+.item:hover {
+	text-decoration: 2px underline;
+	color: #f3f3f3;
+}
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root.Mui-selected {
+	color: #000;
+}
+
+.MuiLinearProgress-bar {
+  background-color: #51CC56 !important;
+}
+
+.css-eglki6-MuiLinearProgress-root{
+  background-color: #F0F0F0 !important;
+}
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root.Mui-selected{
+	color: #000 !important;
+}
+
+/* Buttons Back and Next */
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+	color: #408083 !important;
 }
