@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 
+import "../styles/App.css"
+
 const ApplicationDetails = () => {
   let { id } = useParams();
   const [applications, setApplications] = useState([]);
@@ -19,24 +21,28 @@ const ApplicationDetails = () => {
   const applicationInformation = Object.assign({}, ...applications);
   console.log(applicationInformation);
   return (
-		<>
+		<div className="content-details">
 			{applications.length && (
-				<>
-					<h1>Application ID: {applicationInformation.id}</h1>
-					<p>Job: {applicationInformation.job_title}</p>
-					<p>Skills require: {applicationInformation.skills_require}</p>
-					<p>Town: {applicationInformation.town}</p>
-					<p>CV: {applicationInformation.cv}</p>
-					<p>Cover letter: {applicationInformation.cover_letter}</p>
-					<p>Current employee: {applicationInformation.current_employee ? "Yes" : "No"}</p>
-					<p>Supporting Statement: {applicationInformation.supp_statement}</p>
-				</>
+				<div className="applicationDetails">
+					<h1>Application ID: {applicationInformation.Applicant[0].id}</h1>
+					<p>Job: {applicationInformation.Applications[0].job_title}</p>
+					<p>City: {applicationInformation.Applicant[0].city}</p>
+					<p>CV: {applicationInformation.Applicant[0].cv}</p>
+					<p>Cover letter: {applicationInformation.Applications[0].cover_letter}</p>
+					<p>Skills: {applicationInformation.Applicant[0].skills}</p>
+					<p>
+						Current employee:{" "}
+						{applicationInformation.Applicant[0].current_employee ? "Yes" : "No"}
+					</p>
+					<p>Applicant skills: {applicationInformation.Applicant[0].skills}</p>
+				</div>
+
 			)}
 			<Link to="/hmcview">
 				<Button>Back</Button>
       </Link>
       <Button>Delete</Button>
-		</>
+		</div>
 	);
 };
 
