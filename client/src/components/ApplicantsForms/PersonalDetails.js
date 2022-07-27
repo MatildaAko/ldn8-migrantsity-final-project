@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { countries } from "./CountryOptions";
 
 const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
-	const [knownCountries, setKnownCountries] = useState("");
 	const handleChangeCountries = (event) => {
-		setKnownCountries(event.target.value);
 		setUserDetails({ ...userDetails, ["country"]: event.target.value });
 	};
 
@@ -85,7 +83,6 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 				<FormControl
 					variant="standard"
 					sx={{ m: 1, minWidth: 200 }}
-					size="small"
 				>
 					<label htmlFor="country">Country</label>
 					<Select
@@ -120,7 +117,6 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					type="tel"
 					label=""
 					variant="outlined"
-					size="small"
 					value={userDetails.telephone}
 					onChange={handleChange("telephone")}
 				/>
@@ -130,7 +126,6 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					type="tel"
 					label=""
 					variant="outlined"
-					size="small"
 					value={userDetails.mobile}
 					onChange={handleChange("mobile")}
 				/>
