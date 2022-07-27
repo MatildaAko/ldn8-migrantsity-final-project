@@ -16,7 +16,7 @@ export const configuredHelmet = () =>
 				connectSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com"],
 				imgSrc: [
 					"'self'",
-					"https://",
+					"https:",
 					"data:",
 				],
 				styleSrc: ["'self'", "https: 'unsafe-inline'"],
