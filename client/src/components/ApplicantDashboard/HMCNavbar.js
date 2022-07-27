@@ -36,7 +36,7 @@ function HMCNavbar({ user, classes, picture }) {
 					sx={{ display: "flex", alignItems: "end", flexDirection: "column" }}
 				>
 					<SettingsIcon />
-					<Avatar crossOrigin="anonymous" alt={user} src={picture} />
+					<img crossOrigin="anonymous" alt={user} src={picture} />
 					<Typography
 						variant="h5"
 						color="inherit"
