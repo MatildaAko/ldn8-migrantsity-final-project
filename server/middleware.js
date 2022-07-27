@@ -5,7 +5,7 @@ export const configuredHelmet = () =>
 	helmet({
 		contentSecurityPolicy: {
 			directives: {
-				defaultSrc: ["'self'"],
+				defaultSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com"],
 				objectSrc: ["'none'"],
 				scriptSrc: [
 					"'self'",
