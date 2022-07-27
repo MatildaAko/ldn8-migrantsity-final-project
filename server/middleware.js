@@ -7,7 +7,13 @@ export const configuredHelmet = () =>
 			directives: {
 				defaultSrc: ["'self'"],
 				objectSrc: ["'none'"],
-				scriptSrc: ["'self'", "unpkg.com", "polyfill.io"],
+				scriptSrc: [
+					"'self'",
+					"unpkg.com",
+					"polyfill.io",
+					"dev-gsbrhm0s.eu.auth0.com",
+				],
+				imgSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com", "data:"],
 				styleSrc: ["'self'", "https: 'unsafe-inline'"],
 				upgradeInsecureRequests: [],
 			},
