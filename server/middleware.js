@@ -13,11 +13,14 @@ export const configuredHelmet = () =>
 					"polyfill.io",
 					"dev-gsbrhm0s.eu.auth0.com",
 				],
-				connectSrc: [
+				connectSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com"],
+				imgSrc: [
 					"'self'",
-					"https://dev-gsbrhm0s.eu.auth0.com",
+					"https://dev-gsbrhm0s.eu.auth0.com/",
+					"https://hackneymigrantcentre.org.uk/",
+					"https://cdn.auth0.com/",
+					"data:",
 				],
-				imgSrc: ["'self'", "https://dev-gsbrhm0s.eu.auth0.com", "https://hackneymigrantcentre.org.uk", "data:"],
 				styleSrc: ["'self'", "https: 'unsafe-inline'"],
 				upgradeInsecureRequests: [],
 			},
