@@ -9,7 +9,7 @@ function NavBar() {
 					<img
 						crossOrigin="anonymous"
 						className="site-logo"
-						src="https://hackneymigrantcentre.org.uk/wp-content/uploads/2019/10/hackney-migrant-centre.png"
+						src="https://res.cloudinary.com/ltming4/image/upload/v1658948037/hackney-migrant-centre_sqmnt0.png"
 						alt="Hackney Migrant Centre logo"
 					/>
 				</a>
