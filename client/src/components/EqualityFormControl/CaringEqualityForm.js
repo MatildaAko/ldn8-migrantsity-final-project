@@ -11,7 +11,16 @@ import {
 	FormLabel,
 } from "@mui/material";
 
-function CaringEqualityForm({ values, changeEqualityDetails }) {
+function CaringEqualityForm({ equality, changeEqualityDetails }) {
+	const items = [
+		"No",
+		"Primary carer of a child/children (under 18)",
+		"Primary carer of disabled child/children",
+		"Primary carer of disabled adult (18 and over)",
+		"Primary carer of older person",
+		"Secondary carer (another person carries out the main caring role)",
+		"Prefer not to say",
+		];
 	return (
 		<Box sx={{ display: "flex" }}>
 			<FormControl sx={{ m: 3 }} component="fieldset" variant="outlined">
@@ -22,27 +31,17 @@ function CaringEqualityForm({ values, changeEqualityDetails }) {
 					</b>
 				</FormLabel>
 				<br />
-				<Select native value={values.caring} onChange={changeEqualityDetails("caring")}>
+				<Select native value={equality.caring} onChange={changeEqualityDetails("caring")}>
 					<option aria-label="Please Select" value="">
 						Please Select
 					</option>
-					<option value="no">No</option>
-					<option value="Primary carer of a child/children (under 18) ">
-						Primary carer of a child/children (under 18){" "}
-					</option>
-					<option value="Primary carer of disabled child/children">
-						Primary carer of disabled child/children
-					</option>
-					<option value="Primary carer of disabled adult (18 and over)">
-						Primary carer of disabled adult (18 and over)
-					</option>
-					<option value="Primary carer of older person">
-						Primary carer of older person
-					</option>
-					<option value="Secondary carer (another person carries out the main caring role)">
-						Secondary carer (another person carries out the main caring role)
-					</option>
-					<option value="prefer not to say">Prefer not to say</option>
+					{items.map((item) => {
+						return(
+							<>
+							<option value={item}>{item}</option>
+							</>
+						);
+					})}
 				</Select>
 			</FormControl>
 		</Box>

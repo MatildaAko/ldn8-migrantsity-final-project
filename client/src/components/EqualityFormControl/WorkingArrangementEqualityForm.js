@@ -13,7 +13,7 @@ import {
 	Radio,
 } from "@mui/material";
 
-function WorkingArrangementEqualityForm({ changeEqualityDetails }) {
+function WorkingArrangementEqualityForm({ equality, changeEqualityDetails }) {
 	const workingArrangement = [
 		"None",
 		"Flexi-time",
@@ -37,6 +37,7 @@ function WorkingArrangementEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="workingArrangement"
 					name="workingArrangement"
+					value={equality.flexible_working}
 					onChange={changeEqualityDetails("flexible_working")}
 					sx={{
 						display: "flex",

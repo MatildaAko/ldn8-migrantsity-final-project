@@ -9,7 +9,7 @@ const ApplicationDetails = () => {
   const [applications, setApplications] = useState([]);
   useEffect(() => {
    const fetchData = async () => {
-			const res = await fetch(`/api/${id}/applicantAllData`);
+			const res = await fetch(`/api/applications/${id}`);
 			const data = await res.json();
      setApplications(data);
     };
@@ -22,17 +22,14 @@ const ApplicationDetails = () => {
 		<>
 			{applications.length && (
 				<>
-					<h1>Application ID: {applicationInformation.Applicant[0].id}</h1>
-					<p>Job: {applicationInformation.Applications[0].job_title}</p>
-					<p>City: {applicationInformation.Applicant[0].city}</p>
-					<p>CV: {applicationInformation.Applicant[0].cv}</p>
-					<p>Cover letter: {applicationInformation.Applications[0].cover_letter}</p>
-					<p>Skills: {applicationInformation.Applicant[0].skills}</p>
-					<p>
-						Current employee:{" "}
-						{applicationInformation.Applicant[0].current_employee ? "Yes" : "No"}
-					</p>
-					<p>Applicant skills: {applicationInformation.Applicant[0].skills}</p>
+					<h1>Application ID: {applicationInformation.id}</h1>
+					<p>Job: {applicationInformation.job_title}</p>
+					<p>Skills require: {applicationInformation.skills_require}</p>
+					<p>Town: {applicationInformation.town}</p>
+					<p>CV: {applicationInformation.cv}</p>
+					<p>Cover letter: {applicationInformation.cover_letter}</p>
+					<p>Current employee: {applicationInformation.current_employee ? "Yes" : "No"}</p>
+					<p>Supporting Statement: {applicationInformation.supp_statement}</p>
 				</>
 			)}
 			<Link to="/hmcview">

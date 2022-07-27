@@ -16,10 +16,10 @@ function EmploymentPage4({
 	qualifications,
 	languages,
 }) {
-	const [employmentInfo, setEmploymentInfo] = useState([]);
-	const [educationInfo, setEducationInfo] = useState([]);
-	const [qualificationInfo, setQualificationInfo] = useState([]);
-	const [languageInfo, setLanguageInfo] = useState([]);
+	const [employmentInfo, setEmploymentInfo] = useState(userDetails.employments);
+	const [educationInfo, setEducationInfo] = useState(userDetails.education);
+	const [qualificationInfo, setQualificationInfo] = useState(userDetails.qualifications);
+	const [languageInfo, setLanguageInfo] = useState(userDetails.languages);
 
 	const Item = styled(Paper)(({ theme }) => ({
 		backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,8 +28,27 @@ function EmploymentPage4({
 		textAlign: "center",
 		color: theme.palette.text.secondary,
 	}));
+	const handleDeleteEmployment = (event) => {
+		employments.splice(event.target.id, 1);
+		setEmploymentInfo(employments);
+	};
 
-	return (
+	const handleDeleteEducation = (event) => {
+		education.splice(event.target.id, 1);
+		setEducationInfo(education);
+	};
+
+	const handleDeleteQualification = (event) => {
+		qualifications.splice(event.target.id, 1);
+		setQualificationInfo(qualifications);
+	};
+
+	const handleDeleteLanguages = (event) => {
+		languages.splice(event.target.id, 1);
+		setLanguageInfo(languages);
+	};
+
+				return (
 		<>
 			<h1>
 				Right to Work, Employment, Education, Qualification and Language History
@@ -56,6 +75,8 @@ function EmploymentPage4({
 					{employmentInfo.map((employment, index) => {
 						return (
 							//need to fix this layout
+							<>
+							<div className="">
 							<Item key={index}>
 								Position: {employment.position}, Employer: {employment.employer}
 								, Still Employed there:{" "}
@@ -64,7 +85,10 @@ function EmploymentPage4({
 								Date: {JSON.stringify(employment.end_date.toLocaleString())},
 								Responsibilities: {employment.responsibilities}, Leaving/Gap
 								Reason: {employment.leaving_reason}
+								<button id={index} onClick={handleDeleteEmployment}>Delete</button>
 							</Item>
+							</div>
+							</>
 						);
 					})}
 				</Stack>
@@ -100,6 +124,7 @@ function EmploymentPage4({
 									Telephone: {education.telephone}, Address1:{" "}
 									{education.address1}, Address2: {education.address2}, Subject:{" "}
 									{education.subject}, Town: {education.town},
+									<button id={index} onClick={handleDeleteEducation}>Delete</button>
 								</Item>
 							);
 						})}
@@ -129,6 +154,7 @@ function EmploymentPage4({
 								Qualification: {qualification.title}, Date:{" "}
 								{JSON.stringify(qualification.date.toLocaleString())}, Status:{" "}
 								{qualification.status},
+								<button id={index} onClick={handleDeleteQualification}>Delete</button>
 							</Item>
 						);
 					})}
@@ -157,6 +183,7 @@ function EmploymentPage4({
 							<Item key={index}>
 								Language: {language.language}, Fluency: {language.fluency},
 								Spoken: {language.spoken?"Yes":"No"}, Written: {language.written?"Yes":"No"},
+								<button id={index} onClick={handleDeleteLanguages}>Delete</button>
 							</Item>
 						);
 					})}

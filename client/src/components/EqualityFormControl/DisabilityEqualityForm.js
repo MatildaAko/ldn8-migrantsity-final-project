@@ -11,7 +11,7 @@ import {
 	Radio,
 } from "@mui/material";
 
-function DisabilityEqualityForm({ changeEqualityDetails }) {
+function DisabilityEqualityForm({ equality, changeEqualityDetails }) {
 	const disabilities = ["Yes", "No", "Prefer not to say"];
 	return (
 			<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
@@ -24,6 +24,7 @@ function DisabilityEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="disability"
 					name="disability"
+					value={equality.disability}
 					onChange={changeEqualityDetails("disability")}
 					sx={{
 						display: "flex",

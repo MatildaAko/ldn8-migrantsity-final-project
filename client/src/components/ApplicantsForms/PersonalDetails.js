@@ -8,25 +8,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 		setKnownCountries(event.target.value);
 		setUserDetails({ ...userDetails, ["country"]: event.target.value });
 	};
-	const [mobile, setMobile] = useState("");
-	const [telephone, setTelephone] = useState("");
-		const setTelephoneValue = (e) => {
-			e.target.value = e.target.value.replace(/[^0-9+-]/g, "");
-			setTelephone(e.target.value);
-			setUserDetails({
-				...userDetails,
-				["telephone"]: telephone,
-			});
-		};
 
-		const setMobileValue = (e) => {
-			e.target.value = e.target.value.replace(/[^0-9+-]/g, "");
-			setMobile(e.target.value);
-			setUserDetails({
-				...userDetails,
-				["mobile"]: mobile,
-			});
-		};
 	return (
 		<>
 			<h2>Personal Details</h2>
@@ -47,10 +29,11 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 				<label htmlFor="first_name">
 					First Name<span className="asterisk">*</span>
 				</label>
-						<TextField
+				<TextField
 					id="first_name"
 					label=""
 					variant="outlined"
+					value={userDetails.first_name}
 					onChange={handleChange("first_name")}
 				/>
 				<label htmlFor="last_name">
@@ -60,6 +43,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="last_name"
 					label=""
 					variant="outlined"
+					value={userDetails.last_name}
 					onChange={handleChange("last_name")}
 				/>
 				<label htmlFor="address1">
@@ -69,6 +53,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="address1"
 					label=""
 					variant="outlined"
+					value={userDetails.address1}
 					onChange={handleChange("address1")}
 				/>
 				<label htmlFor="address2">
@@ -78,6 +63,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="address2"
 					label=""
 					variant="outlined"
+					value={userDetails.address2}
 					onChange={handleChange("address2")}
 				/>
 				<label htmlFor="address3">Address3</label>
@@ -85,6 +71,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="address3"
 					label=""
 					variant="outlined"
+					value={userDetails.address3}
 					onChange={handleChange("address3")}
 				/>
 				<label htmlFor="town">Town</label>
@@ -92,6 +79,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="town"
 					label=""
 					variant="outlined"
+					value={userDetails.town}
 					onChange={handleChange("town")}
 				/>
 				<FormControl
@@ -102,10 +90,10 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					<label htmlFor="country">Country</label>
 					<Select
 						labelId="country"
-						value={knownCountries}
 						label=""
-						onChange={handleChangeCountries}
 						variant="outlined"
+						value={knownCountries}
+						onChange={handleChangeCountries}
 					>
 						{countries.map((country, index) => {
 							return (
@@ -123,27 +111,28 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="postcode"
 					label=""
 					variant="outlined"
+					value={userDetails.postcode}
 					onChange={handleChange("postcode")}
 				/>
 				<label htmlFor="telephone">Telephone</label>
 				<TextField
 					id="telephone"
 					type="tel"
-					value={telephone}
 					label=""
 					variant="outlined"
 					size="small"
-					onChange={setTelephoneValue}
+					value={userDetails.telephone}
+					onChange={handleChange("telephone")}
 				/>
 				<label htmlFor="mobile">Mobile</label>
 				<TextField
 					id="mobile"
 					type="tel"
-					value={mobile}
 					label=""
 					variant="outlined"
 					size="small"
-					onChange={setMobileValue}
+					value={userDetails.mobile}
+					onChange={handleChange("mobile")}
 				/>
 				<label htmlFor="email">
 					Email<span className="asterisk">*</span>
@@ -153,6 +142,7 @@ const PersonalDetails = ({ handleChange, userDetails, setUserDetails }) => {
 					id="email"
 					label=""
 					variant="outlined"
+					value={userDetails.email}
 					onChange={handleChange("email")}
 				/>
 			</Box>
