@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
 import AuthenticationButton from "../Auth0Login/authentication-button";
-import { Avatar } from "@material-ui/core";
 
 const styles = {
   root: {
