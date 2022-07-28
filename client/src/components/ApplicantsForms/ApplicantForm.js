@@ -45,6 +45,11 @@ const StyledTabs = styled((props) => (
 function ApplicantsForm() {
 	// Steps
 	const [value, setValue] = useState(0);
+	const [applicationDetails, setApplicationDetails] = useState({
+		job_id: "",
+		cover_letter: "",
+		description: "",
+	});
 
 	const handleTabChange = (event, newValue) => {
 		setValue(newValue);
@@ -71,8 +76,19 @@ function ApplicantsForm() {
 		education: [],
 		qualifications: [],
 		languages: [],
-		application: [],
-		equality: [],
+		application: applicationDetails,
+		equality: {
+			gender: "",
+			identify: "",
+			age_band: "",
+			ethnic_group: "",
+			disability: "",
+			sex_orientation: "",
+			religion: "",
+			working_pattern: "",
+			flexible_working: "",
+			caring: "",
+		},
 	});
 
 	console.log(userDetails);
@@ -111,8 +127,19 @@ function ApplicantsForm() {
 			education: [],
 			qualifications: [],
 			languages: [],
-			application: [],
-			equality: [],
+			application: applicationDetails,
+			equality: {
+				gender: "",
+				identify: "",
+				age_band: "",
+				ethnic_group: "",
+				disability: "",
+				sex_orientation: "",
+				religion: "",
+				working_pattern: "",
+				flexible_working: "",
+				caring: "",
+			},
 		});
 		setEquality;
 		({
@@ -154,12 +181,6 @@ function ApplicantsForm() {
 		setUserDetails({ ...userDetails, [input]: value });
 	};
 
-	// 	const postApplication = () => {
-	// 		axios.post("/api/applications", userDetails);
-	// 	};
-	// const postEquality = () => {
-	// 	axios.post("/api/equality", equality);
-	// };
 	return (
 		<>
 			<LinearWithValueLabel value={value} />
@@ -205,6 +226,8 @@ function ApplicantsForm() {
 						userDetails={userDetails}
 						setUserDetails={setUserDetails}
 						application={userDetails.application}
+						setApplicationDetails={setApplicationDetails}
+						applicationDetails={applicationDetails}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} setValue={setValue}>

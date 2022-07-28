@@ -5,11 +5,14 @@ import ApplicantCard from "../components/ApplicantDashboard/ApplicantCard";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Auth0Login/Loading";
 import { Button } from "@mui/material";
+
+import "../styles/Applicant.css";
+
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
 	const { user } = useAuth0();
 
-  useEffect(() => {
+	useEffect(() => {
 		fetch(`/api/applications/${applicantId}`)
 			.then((res) => {
 				if (!res.ok) {
@@ -17,7 +20,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 				}
 				return res.json();
 			})
-      .then((data) => {
+			.then((data) => {
 				// console.log(data);
 				setApplications(data);
 			})
@@ -26,7 +29,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 			});
 	}, [applicantId]);
 
-  useEffect(() => {
+	useEffect(() => {
 		fetch(`/api/${applicantId}/applications`)
 			.then((res) => {
 				if (!res.ok) {
@@ -34,7 +37,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 				}
 				return res.json();
 			})
-      .then((data) => {
+			.then((data) => {
 				setApplications(data);
 			})
 			.catch((error) => {
@@ -42,20 +45,26 @@ const ApplicantDashboard = ({ applicantId }) => {
 			});
 	}, [applicantId]);
 
-  return (
-	<Container fluid>
-        <ApplicantNavbar user={user} />
-		<Button sx={{ mx: 10, mb: 3, backgroundColor: "#2ECC71", color:"White" }}>New Apply</Button>
-		{applications.map((application) => {
-		return(
-			<>
-			<div>
-				<ApplicantCard application = { application } />
+	return (
+		<Container fluid>
+			<div className="applicant-content">
+				<ApplicantNavbar user={user} />
+				<Button
+					sx={{ mx: 10, mb: 3, backgroundColor: "#2ECC71", color: "White" }}
+				>
+					New Apply
+				</Button>
+				{applications.map((application, key) => {
+					return (
+						<>
+							<div className="appDetails">
+								<ApplicantCard application={application} key={key} />
+							</div>
+						</>
+					);
+				})}
 			</div>
-			</>
-			);
-		})}
-	</Container>
+		</Container>
 	);
 };
 

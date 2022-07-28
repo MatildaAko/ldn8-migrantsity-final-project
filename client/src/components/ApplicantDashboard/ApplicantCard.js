@@ -23,12 +23,12 @@ const ApplicantCard = ({ application }) => {
         </Typography>
         </Grid>
         <Grid item>
-            <Typography gutterBottom variant="h6" component="div">
+            <Typography gutterBottom variant={"h6"} component={"div"}>
             <Chip label={application.status} color={application.status_id==1?"primary":"success"} />
             </Typography>
         </Grid>
         <Grid item>
-        <Typography variant="h5" component="div">
+        <Typography variant={"h5"} component={"div"}>
           Job: {application.job_title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -36,7 +36,7 @@ const ApplicantCard = ({ application }) => {
         </Typography>
         <Divider />
         <br />
-        <Typography variant="body2">
+        <Typography variant={"body2"}>
           <strong>Skill require: </strong>{application.skills_require}
           <br />
         </Typography>
