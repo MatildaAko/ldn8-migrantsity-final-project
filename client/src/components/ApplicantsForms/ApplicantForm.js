@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import TabPanel from "./TabPanel";
-// import { axios } from "axios";
 import "../../styles/Form.css";
 import { styled } from "@mui/material/styles";
-
-// import Button from "@mui/material/Button";
-
 import { Tabs, Tab, Box } from "@mui/material";
 import LinearWithValueLabel from "./ProgressBar";
 import DetailsPage1 from "./DetailsPage1";
@@ -50,7 +46,8 @@ function ApplicantsForm() {
 		cover_letter: "",
 		description: "",
 	});
-	const handleTabChange = (event, newValue) => {
+
+  const handleTabChange = (event, newValue) => {
 		setValue(newValue);
 	};
 

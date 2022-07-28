@@ -18,6 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 function EmploymentModal({ setUserDetails, userDetails, employments }) {
+
 	const [open, setOpen] = useState(false);
 	const [start_date, setStartDate] = useState(null);
 	const [end_date, setEndDate] = useState(null);

@@ -121,11 +121,11 @@ function EmploymentPage4({
 							return (
 								//need to fix this layout
 								<Item key={index}>
-									School: {edu.school_name}, Course: {edu.course_name},
-									Mobile: {edu.mobile}, Grades: {edu.grades},
-									Telephone: {edu.telephone}, Address1:{" "}
-									{edu.address1}, Address2: {edu.address2}, Subject:{" "}
-									{edu.subject}, Town: {edu.town},
+									School: {education.school_name}, Course: {education.course_name}
+									, Mobile: {education.mobile}, Grades: {education.grades},
+									Telephone: {education.telephone}, Address1:{" "}
+									{education.address1}, Address2: {education.address2}, Subject:{" "}
+									{education.subject}, Town: {education.town},
 									<button id={index} onClick={handleDeleteEducation}>Delete</button>
 								</Item>
 							);
