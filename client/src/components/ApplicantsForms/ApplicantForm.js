@@ -45,7 +45,7 @@ const StyledTabs = styled((props) => (
 function ApplicantsForm() {
 	// Steps
 	const [value, setValue] = useState(0);
-    const [applicationDetails, setApplicationDetails] = useState({
+	const [applicationDetails, setApplicationDetails] = useState({
 		job_id: "",
 		cover_letter: "",
 		description: "",
@@ -140,8 +140,9 @@ function ApplicantsForm() {
 				flexible_working: "",
 				caring: "",
 			},
-	});
-		setEquality; ({
+		});
+		setEquality;
+		({
 			gender: "",
 			identify: "",
 			age_band: "",
@@ -225,6 +226,8 @@ function ApplicantsForm() {
 						userDetails={userDetails}
 						setUserDetails={setUserDetails}
 						application={userDetails.application}
+						setApplicationDetails={setApplicationDetails}
+						applicationDetails={applicationDetails}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} setValue={setValue}>
@@ -268,6 +271,7 @@ function ApplicantsForm() {
 					/>
 				</TabPanel>
 			</Box>
+		</>
 	);
 }
 
