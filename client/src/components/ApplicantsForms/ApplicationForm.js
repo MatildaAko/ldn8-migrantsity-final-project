@@ -3,6 +3,7 @@ import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 
+
 const ApplicationForm = ({ setUserDetails, userDetails, applicationDetails, setApplicationDetails }) => {
     const [allJobs, setAllJobs] = useState([]);
 
@@ -72,7 +73,6 @@ const ApplicationForm = ({ setUserDetails, userDetails, applicationDetails, setA
                 }}
                 />
         </FormControl>
-
         );
 };
 
