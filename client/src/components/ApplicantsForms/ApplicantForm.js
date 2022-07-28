@@ -49,8 +49,7 @@ function ApplicantsForm() {
 
   const handleTabChange = ( event, newValue) => {
     setValue(newValue);
-  };
-
+	};
 	// State variables
 	const [userDetails, setUserDetails] = useState({
 		first_name: "",
@@ -154,12 +153,6 @@ const [equality, setEquality] = useState({
 		setUserDetails({ ...userDetails, [input]: value });
 	};
 
-// 	const postApplication = () => {
-// 		axios.post("/api/applications", userDetails);
-// 	};
-// const postEquality = () => {
-// 	axios.post("/api/equality", equality);
-// };
 	return (
 		<Box
 			sx={{

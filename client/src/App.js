@@ -10,26 +10,14 @@ import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
 import { SnackbarProvider } from "notistack";
 import "./styles/App.css";
-// import LoginButton from "./components/Auth0Login/login-button";
-
-// const Middle = () => {
-
-// 	const { user } = useAuth0();
-// 	// if (user["https://roles"].includes("Admin")) {
-
-// 	// }
-// 	console.log(user);
-// 		return (
-// 			<>
-// 				Hello <LoginButton />
-// 			</>
-// 		);
-// };
 
 import NavBar from "./pages/NavBar";
+import MiddlePage from "./components/Auth0Login/MiddlePage";
+import { useState } from "react";
 
 const App = () => {
 	const { isLoading } = useAuth0();
+	const [applicantId, setApplicantId] = useState("");
 
 	if (isLoading) {
 		return <Loading />;
@@ -39,11 +27,17 @@ const App = () => {
 			<NavBar />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route
+					path="/middle"
+					element={
+						<MiddlePage applicantId={applicantId} setApplicantId={setApplicantId} />
+					}
+				/>
 				<Route path="/hmcview" element={<HMCDashboard />} />
 				<Route path="/application" element={<ApplicantForm />} />
 				<Route
 					path="/applicantdashboard"
-					element={<ApplicantDashboard applicantId={2} />}
+					element={<ApplicantDashboard applicantId={applicantId} />}
 				/>
 				<Route path="/equality" element={<EqualityForm />} />
 				<Route
