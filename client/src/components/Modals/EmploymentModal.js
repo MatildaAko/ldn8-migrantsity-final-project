@@ -17,20 +17,20 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal({ setUserDetails, userDetails, employment_history, setEmploymentInfo }) {
+function EmploymentModal({ setUserDetails, userDetails, employments, setEmploymentInfo }) {
 	const [open, setOpen] = useState(false);
-	const [startDate, setStartDate] = useState(null);
-	const [endDate, setEndDate] = useState(null);
+	const [start_date, setStartDate] = useState(null);
+	const [end_date, setEndDate] = useState(null);
 
 	const [checked, setChecked] = useState(false);
 	const [employmentDetails, setEmploymentDetails] = useState({
 		position: "",
 		employer: "",
-		currentlyWorking: false,
-		startDate: "",
-		endDate: "",
+		currently_working: false,
+		start_date: "",
+		end_date: "",
 		responsibilities: "",
-		leavingReason: "",
+		leaving_reason: "",
 	});
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -48,22 +48,22 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 		setChecked(e.target.checked);
 		setEmploymentDetails({
 			...employmentDetails,
-			["currentlyWorking"]: e.target.checked,
-			["endDate"]: e.target.checked ? "Currently working" : "",
+			["currently_working"]: e.target.checked,
+			["end_date"]: e.target.checked ? null : "",
 		});
 	};
 	const changeStartDate = (e) => {
 		setStartDate(e);
 		setEmploymentDetails({
 			...employmentDetails,
-			["startDate"]: e,
+			["start_date"]: e,
 		});
 	};
 	const changeEndDate = (e) => {
 		setEndDate(e);
 		setEmploymentDetails({
 			...employmentDetails,
-			["endDate"]: e,
+			["end_date"]: e,
 		});
 	};
 	const resetEmployment = () => {
@@ -71,11 +71,11 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 			...employmentDetails,
 			["position"]: "",
 			["employer"]: "",
-			["currentlyWorking"]: false,
-			["startDate"]: "",
-			["endDate"]: "",
+			["currently_working"]: false,
+			["start_date"]: "",
+			["end_date"]: "",
 			["responsibilities"]: "",
-			["leavingReason"]: "",
+			["leaving_reason"]: "",
 		});
 		setStartDate(null);
 		setEndDate(null);
@@ -86,7 +86,7 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 		setEmploymentInfo((info) => [...info, employmentDetails]);
 		setUserDetails({
 			...userDetails,
-			["employment_history"]: employment_history.concat( employmentDetails ),
+			["employments"]: employments.concat( employmentDetails ),
 		});
 		resetEmployment();
 		handleClose();
@@ -124,7 +124,7 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 					/>
 					<FormGroup>
 						<FormControlLabel
-							id="currentlyWorking"
+							id="currently_working"
 							control={
 								<Checkbox
 									value={checked}
@@ -154,7 +154,7 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 									<DesktopDatePicker
 										required
 										inputFormat="dd/MM/yyyy"
-										value={startDate}
+										value={start_date}
 										onChange={changeStartDate}
 										renderInput={(params) => <TextField {...params} />}
 									/>
@@ -167,9 +167,9 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 								<Stack spacing={2}>
 									<DesktopDatePicker
 										inputFormat="dd/MM/yyyy"
-										value={endDate}
+										value={end_date}
 										maxDate={new Date()}
-										minDate={startDate}
+										minDate={start_date}
 										onChange={changeEndDate}
 										disabled={checked ? true : false}
 										required={checked ? false : true}
@@ -186,11 +186,10 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 						id="responsibilities"
 						variant="outlined"
 						size="small"
-						rows={4}
+						rows={3}
 						fullWidth
 						onChange={addEmployment("responsibilities")}
 					/>
-					<br />
 					<br />
 					<DialogContentText>
 						Reason For Leaving / Explanation for Gap in Employment
@@ -199,16 +198,15 @@ function EmploymentModal({ setUserDetails, userDetails, employment_history, setE
 					<TextField
 						required
 						multiline
-						id="leavingReason"
+						id="leaving_reason"
 						variant="outlined"
 						size="small"
-						rows={4}
-						onChange={addEmployment("leavingReason")}
+						rows={3}
+						onChange={addEmployment("leaving_reason")}
 						helperText="Please enter N/A if you are still employed or had no gaps in employment."
 						fullWidth
 					/>
 				</DialogContent>
-				<br />
 				<br />
 				<DialogActions>
 					<Button variant="contained" onClick={handleClose}>

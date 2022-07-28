@@ -2,150 +2,60 @@
 	/* What is your flexible working arrangement?
 	 */
 }
-import React, { useRef } from "react";
+import React from "react";
 
 import {
-	Box,
 	TextField,
 	FormLabel,
 	FormControl,
-	FormGroup,
 	FormControlLabel,
-	Checkbox,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 
-function WorkingArrangementEqualityForm({ changeEqualityDetails }) {
-	const ref = useRef(null);
+function WorkingArrangementEqualityForm({ equality, changeEqualityDetails }) {
+	const workingArrangement = [
+		"None",
+		"Flexi-time",
+		"Staggered hours",
+		"Term-time hours",
+		"Annualised hours",
+		"Job-share",
+		"Flexible shifts",
+		"Compressed hours",
+		"Homeworking",
+		"Prefer not to say"	];
+
 	return (
-		<Box sx={{ display: "flex" }}>
+		<>
 			<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
 				<FormLabel component="legend">
 					<b>What is your flexible working arrangement?</b>
 				</FormLabel>
-				<FormGroup row={true}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="None"
-							/>
-						}
-						value="None"
-						label="None"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Flexi-time"
-							/>
-						}
-						value="Flexi-time"
-						label="Flexi-time"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Staggered hours"
-							/>
-						}
-						values="Staggered hours"
-						label="Staggered hours"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Term-time hours"
-							/>
-						}
-						value="Term-time hours"
-						label="Term-time hours"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Annualised hours"
-							/>
-						}
-						value="Annualised hours"
-						label="Annualised hours"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Job-share"
-							/>
-						}
-						value="Job-share"
-						label="Job-share"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Flexible shifts"
-							/>
-						}
-						value="Flexible shifts"
-						label="Flexible shifts"
-						labelPlacement="start"
-					/>
 
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Compressed hours"
+				<RadioGroup
+					required
+					aria-label="workingArrangement"
+					name="workingArrangement"
+					value={equality.flexible_working}
+					onChange={changeEqualityDetails("flexible_working")}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flexStart",
+					}}
+				>
+					{workingArrangement.map((arrangement, index) => {
+						return (
+							<FormControlLabel
+								key={index}
+								control={<Radio />}
+								label={arrangement}
+								value={arrangement}
 							/>
-						}
-						value="Compressed hours"
-						label="Compressed hours"
-						labelPlacement="start"
-					/>
-
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Homeworking"
-							/>
-						}
-						value="Homeworking"
-						label="Homeworking"
-						labelPlacement="start"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								ref={ref}
-								onChange={changeEqualityDetails("flexible_working")}
-								name="Prefer not to say"
-							/>
-						}
-						value="N/A"
-						label="Prefer not to say"
-						labelPlacement="start"
-					/>
-				</FormGroup>
+						);
+					})}
+				</RadioGroup>
 				<FormControlLabel
 					control={
 						<TextField
@@ -163,10 +73,9 @@ function WorkingArrangementEqualityForm({ changeEqualityDetails }) {
 				required
 				error={"error"}
 				component="fieldset"
-				sx={{ m: 3 }}
 				variant="standard"
 			></FormControl>
-		</Box>
+		</>
 	);
 }
 

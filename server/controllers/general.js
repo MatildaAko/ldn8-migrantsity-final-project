@@ -2,7 +2,8 @@ import pool from "../db";
 
 //////////--------- Select Queries --------////////////
 const applicationsQueryString = `
-	Select * from (Select applications.id as id, applicant_id, first_name, last_name, concat(first_name,' ',last_name) as fullName, 
+	Select * from (Select applications.id as id, applicant_id, first_name, last_name, supp_statement, cv, 
+		(case when status_id = 5 then cast(applicant_id as varchar) else concat(first_name,' ',last_name) end)  as fullName,
       email, telephone, mobile, town, country, address1, address2, address3, postcode, 
 			current_employee, right_to_work, skills, job_id, 
 			jobs.title as job_title, jobs.description as job_description, 
@@ -25,11 +26,11 @@ const applicantsQueryString = `
 ////////////////////////////////////////////////////////
 
 const getTableName = (req) => {
-    const regexp = "(?<=\/)(.*?)(?=\/)";
 	const path = req.path;
-	const firstPart = path.match(regexp);
+	const firstPart = req.path.slice(1).split("/")[0];
 	const isFirstPartNumber = Number.isInteger(parseInt(firstPart, 10));
 	const lastPart = path.slice(path.lastIndexOf("/")+1);
+	console.log(path, firstPart);
 	return path.match(/[/]/g).length==1 ? path.slice(1) : isFirstPartNumber?lastPart:firstPart ;
 };
 

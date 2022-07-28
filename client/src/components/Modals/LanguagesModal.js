@@ -15,7 +15,6 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { InputLabel } from "@mui/material";
 import { commonLanguages } from "../ApplicantsForms/LanguageOptions";
 
 function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, languages }) {
@@ -27,8 +26,8 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 	const [languageDetails, setLanguageDetails] = useState({
 		language: "",
 		fluency: "",
-		spoken: null,
-		written: null,
+		spoken: false,
+		written: false,
 	});
 
 	const handleClickOpen = () => {
@@ -51,16 +50,17 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 			...languageDetails,
 			["language"]: "",
 			["fluency"]: "",
-			["spoken"]: null,
-			["written"]: null,
+			["spoken"]: false,
+			["written"]: false,
 		});
 		setKnownLanguages("");
 		setDegree("");
-		setRadioSpoken(null);
-		setRadioWritten(null);
+		setRadioSpoken(false);
+		setRadioWritten(false);
 	};
 
 	const addLanguageToPage = () => {
+		console.log("languageDetails", languageDetails);
 		setLanguageInfo((info) => [...info, languageDetails]);
 		setUserDetails({
 			...userDetails,
@@ -76,13 +76,13 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 	};
 
 	const handleChangeSpoken = (event) => {
-		setRadioSpoken(event.target.value);
-		setLanguageDetails({ ...languageDetails, ["spoken"]: event.target.value });
+		setRadioSpoken(event.target.value=="true");
+		setLanguageDetails({ ...languageDetails, ["spoken"]: event.target.value=="true" });
 	};
 
 	const handleChangeWritten = (event) => {
-		setRadioWritten(event.target.value);
-		setLanguageDetails({ ...languageDetails, ["written"]: event.target.value });
+		setRadioWritten(event.target.value=="true");
+		setLanguageDetails({ ...languageDetails, ["written"]: event.target.value=="true" });
 	};
 	return (
 		<div>
@@ -93,10 +93,9 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 				<DialogContent>
 					<Box
 						sx={{
-							width: 550,
-							height: 200,
+							width: "100%",
 							display: "flex",
-							alignItems: "center",
+							alignItems: "space-between",
 							"& > :not(style)": { m: 1 },
 						}}
 					>
@@ -106,14 +105,13 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 							</DialogContentText>
 							<FormControl
 								variant="standard"
-								sx={{ m: 1, minWidth: 200 }}
+								sx={{ minWidth: 200 }}
 								size="small"
 							>
-								<InputLabel id="knownLanguages">Please Select</InputLabel>
 								<Select
-									labelId="languages"
+									labelId="language"
 									value={knownLanguages}
-									label=""
+									placeholder="Please Select"
 									onChange={handleChangeLanguage}
 									variant="outlined"
 								>
@@ -131,14 +129,12 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 							<DialogContentText>Degree of Fluency*</DialogContentText>
 							<FormControl
 								variant="standard"
-								sx={{ m: 1, minWidth: 220 }}
+								sx={{ minWidth: 200 }}
 								size="small"
 							>
-								<InputLabel id="fluency">Please Select</InputLabel>
 								<Select
 									labelId="fluency"
 									value={degree}
-									label=""
 									onChange={handleChangeDegree}
 									variant="outlined"
 								>
@@ -162,8 +158,6 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 					<Box
 						className="spokenAndWritten"
 						sx={{
-							width: 420,
-							height: 100,
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "space-between",
@@ -183,11 +177,11 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 									onChange={handleChangeSpoken}
 								>
 									<FormControlLabel
-										value="Yes"
+										value={true}
 										control={<Radio />}
 										label="Yes"
 									/>
-									<FormControlLabel value="No" control={<Radio />} label="No" />
+									<FormControlLabel value={false} control={<Radio />} label="No" />
 								</RadioGroup>
 							</FormControl>
 						</Box>
@@ -204,11 +198,11 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 									onChange={handleChangeWritten}
 								>
 									<FormControlLabel
-										value="Yes"
+										value={true}
 										control={<Radio />}
 										label="Yes"
 									/>
-									<FormControlLabel value="No" control={<Radio />} label="No" />
+									<FormControlLabel value={false} control={<Radio />} label="No" />
 								</RadioGroup>
 							</FormControl>
 						</Box>

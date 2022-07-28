@@ -53,8 +53,9 @@ router
 .delete("/cities/:cityId", citiesController.deleteCity);
 
 //Equality Params
-router
-.get("/equality", equalityController.getEquality);
+router.route("/equality")
+.get(equalityController.getEquality)
+.post(equalityController.createEquality);
 
 router
 .get("/flexible_working", equalityController.getFlexibleWorking)
@@ -63,8 +64,7 @@ router
 .get("/sex_orientations", equalityController.getSexOrientations)
 .get("/age_bands", equalityController.getAgeBands)
 .get("/religions",  equalityController.getReligions)
-.get("/ethnic_groups",  equalityController.getEthnicGroups)
-.get("/equality",  equalityController.getEquality);
+.get("/ethnic_groups",  equalityController.getEthnicGroups);
 
 //Applications
 
@@ -109,4 +109,3 @@ router
 .delete("/languages/:languageId", languagesController.deleteLanguages);
 
 export default router;
-

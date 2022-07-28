@@ -11,15 +11,15 @@ import LanguagesModal from "../Modals/LanguagesModal";
 function EmploymentPage4({
 	setUserDetails,
 	userDetails,
-	employment_history,
-	education_history,
-	professional_qualifications,
+	employments,
+	education,
+	qualifications,
 	languages,
 }) {
-	const [employmentInfo, setEmploymentInfo] = useState([]);
-	const [educationInfo, setEducationInfo] = useState([]);
-	const [qualificationInfo, setQualificationInfo] = useState([]);
-	const [languageInfo, setLanguageInfo] = useState([]);
+	const [employmentInfo, setEmploymentInfo] = useState(userDetails.employments);
+	const [educationInfo, setEducationInfo] = useState(userDetails.education);
+	const [qualificationInfo, setQualificationInfo] = useState(userDetails.qualifications);
+	const [languageInfo, setLanguageInfo] = useState(userDetails.languages);
 
 	const Item = styled(Paper)(({ theme }) => ({
 		backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,8 +28,27 @@ function EmploymentPage4({
 		textAlign: "center",
 		color: theme.palette.text.secondary,
 	}));
+	const handleDeleteEmployment = (event) => {
+		employments.splice(event.target.id, 1);
+		setEmploymentInfo(employments);
+	};
 
-	return (
+	const handleDeleteEducation = (event) => {
+		education.splice(event.target.id, 1);
+		setEducationInfo(education);
+	};
+
+	const handleDeleteQualification = (event) => {
+		qualifications.splice(event.target.id, 1);
+		setQualificationInfo(qualifications);
+	};
+
+	const handleDeleteLanguages = (event) => {
+		languages.splice(event.target.id, 1);
+		setLanguageInfo(languages);
+	};
+
+				return (
 		<>
 			<h1>
 				Right to Work, Employment, Education, Qualification and Language History
@@ -49,22 +68,27 @@ function EmploymentPage4({
 						setEmploymentInfo={setEmploymentInfo}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
-						employment_history={employment_history}
+						employments={employments}
 					/>
 				</div>
 				<Stack spacing={2}>
 					{employmentInfo.map((employment, index) => {
 						return (
 							//need to fix this layout
+							<>
+							<div className="">
 							<Item key={index}>
 								Position: {employment.position}, Employer: {employment.employer}
 								, Still Employed there:{" "}
-								{employment.currentlyWorking ? "yes" : "no"}, Start Date:{" "}
-								{JSON.stringify(employment.startDate.toLocaleString())}, End
-								Date: {JSON.stringify(employment.endDate.toLocaleString())},
+								{employment.currently_working ? "yes" : "no"}, Start Date:{" "}
+								{employment.end_date?JSON.stringify(employment.start_date.toLocaleString()):""}, End
+								Date: {employment.end_date?JSON.stringify(employment.end_date.toLocaleString()):""},
 								Responsibilities: {employment.responsibilities}, Leaving/Gap
-								Reason: {employment.leavingReason}
+								Reason: {employment.leaving_reason}
+								<button id={index} onClick={handleDeleteEmployment}>Delete</button>
 							</Item>
+							</div>
+							</>
 						);
 					})}
 				</Stack>
@@ -87,7 +111,7 @@ function EmploymentPage4({
 							setEducationInfo={setEducationInfo}
 							setUserDetails={setUserDetails}
 							userDetails={userDetails}
-							education_history={education_history}
+							education={education}
 						/>
 					</div>
 					<Stack spacing={2}>
@@ -100,6 +124,7 @@ function EmploymentPage4({
 									Telephone: {education.telephone}, Address1:{" "}
 									{education.address1}, Address2: {education.address2}, Subject:{" "}
 									{education.subject}, Town: {education.town},
+									<button id={index} onClick={handleDeleteEducation}>Delete</button>
 								</Item>
 							);
 						})}
@@ -116,7 +141,7 @@ function EmploymentPage4({
 					</p>
 					<ProfessionalQualificationsModal
 						setQualificationInfo={setQualificationInfo}
-						professional_qualifications={professional_qualifications}
+						qualifications={qualifications}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 					/>
@@ -129,6 +154,7 @@ function EmploymentPage4({
 								Qualification: {qualification.title}, Date:{" "}
 								{JSON.stringify(qualification.date.toLocaleString())}, Status:{" "}
 								{qualification.status},
+								<button id={index} onClick={handleDeleteQualification}>Delete</button>
 							</Item>
 						);
 					})}
@@ -156,7 +182,8 @@ function EmploymentPage4({
 							//need to fix this layout
 							<Item key={index}>
 								Language: {language.language}, Fluency: {language.fluency},
-								Spoken: {language.spoken}, Written: {language.written},
+								Spoken: {language.spoken?"Yes":"No"}, Written: {language.written?"Yes":"No"},
+								<button id={index} onClick={handleDeleteLanguages}>Delete</button>
 							</Item>
 						);
 					})}

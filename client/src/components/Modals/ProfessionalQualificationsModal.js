@@ -16,7 +16,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 function ProfessionalQualificationsModal({
 	setQualificationInfo,
-	professional_qualifications,
+	qualifications,
 	setUserDetails,
 	userDetails,
 }) {
@@ -65,8 +65,8 @@ function ProfessionalQualificationsModal({
 		setQualificationInfo((info) => [...info, qualificationDetails]);
 		setUserDetails({
 			...userDetails,
-			["professional_qualifications"]:
-				professional_qualifications.concat(qualificationDetails),
+			["qualifications"]:
+				qualifications.concat(qualificationDetails),
 		});
 		resetQualifications();
 		handleClose();
@@ -88,42 +88,38 @@ function ProfessionalQualificationsModal({
 						id="title"
 						label=""
 						variant="outlined"
-						size="small"
 						fullWidth
 						onChange={addQualification("title")}
-					/>
-					<Box
+						/>
+						<br />
+						<br />
+						<Box
 						sx={{
-							width: 500,
-							height: 200,
 							display: "flex",
 							alignItems: "center",
-							"& > :not(style)": { m: 1 },
+							"& > :not(style)": { m: 0 },
 						}}
-					>
+						>
 						<Box>
 							<DialogContentText>
 								Date<span className="asterisk">*</span>
 							</DialogContentText>
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
-								<Stack spacing={2}>
-									<DesktopDatePicker
-										label="date"
-										inputFormat="dd/MM/yyyy"
-										value={date}
-										onChange={changeDate}
-										renderInput={(params) => <TextField {...params} />}
-									/>
-								</Stack>
+								<DesktopDatePicker
+									inputFormat="dd/MM/yyyy"
+									value={date}
+									onChange={changeDate}
+									renderInput={(params) => <TextField {...params} />}
+								/>
 							</LocalizationProvider>
 						</Box>
+						<Box sx={{ padding: 2 }}></Box>
 						<Box>
 							<DialogContentText>Status</DialogContentText>
 							<TextField
 								id="status"
 								label=""
 								variant="outlined"
-								size="small"
 								fullWidth
 								onChange={addQualification("status")}
 							/>

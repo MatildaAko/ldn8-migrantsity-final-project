@@ -14,7 +14,7 @@ function EducationHistoryModal({
 	setEducationInfo,
 	setUserDetails,
 	userDetails,
-	education_history,
+	education,
 }) {
 	const [eduOpen, setEduOpen] = useState(false);
 	const [mobile, setMobile] = useState("");
@@ -83,7 +83,7 @@ function EducationHistoryModal({
 		setEducationInfo((info) => [...info, educationDetails]);
 		setUserDetails({
 			...userDetails,
-			["education_history"]: education_history.concat(educationDetails),
+			["education"]: education.concat(educationDetails),
 		});
 		resetEducation();
 		handleClose();
@@ -182,6 +182,8 @@ function EducationHistoryModal({
 							/>
 						</Box>
 					</Box>
+					<br />
+					<br />
 					<Box className="flex-space">
 						<Box className="flex-half">
 							<DialogContentText>Telephone</DialogContentText>
@@ -210,6 +212,8 @@ function EducationHistoryModal({
 							/>
 						</Box>
 					</Box>
+					<br />
+					<br />
 					<Box>
 						<DialogContentText>Grades:</DialogContentText>
 						<TextField
@@ -218,7 +222,7 @@ function EducationHistoryModal({
 							id="grades"
 							variant="outlined"
 							size="small"
-							rows={4}
+							rows={2}
 							fullWidth
 							onChange={addEducation("grades")}
 						/>

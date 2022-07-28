@@ -34,13 +34,12 @@ function GenderEqualityForm({ changeEqualityDetails, equality, setEquality }) {
 					required
 					aria-label="gender"
 					name="gender"
+					value={equality.gender}
 					onChange={(e) => {
 						setChosenGender(e.target.value);
 						setEquality({ ...equality, ["gender"]: e.target.value });
 					}}
 					sx={{
-						width: 420,
-						height: 50,
 						display: "flex",
 						flexDirection: "row",
 						justifyContent: "flexStart",
@@ -57,8 +56,6 @@ function GenderEqualityForm({ changeEqualityDetails, equality, setEquality }) {
 						);
 					})}
 				</RadioGroup>
-				<br />
-				<br />
 				<FormControlLabel
 					control={
 						<TextField
@@ -77,7 +74,6 @@ function GenderEqualityForm({ changeEqualityDetails, equality, setEquality }) {
 				required
 				error={"error"}
 				component="fieldset"
-				sx={{ m: 3 }}
 				variant="standard"
 			></FormControl>
 		</Box>
