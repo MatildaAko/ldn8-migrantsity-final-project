@@ -11,7 +11,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Box from "@mui/material/Box";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import Stack from "@mui/material/Stack";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 function ProfessionalQualificationsModal({

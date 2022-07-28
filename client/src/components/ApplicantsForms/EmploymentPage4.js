@@ -12,6 +12,7 @@ function EmploymentPage4({
 	setUserDetails,
 	userDetails,
 	employments,
+	setEmployments,
 	education,
 	qualifications,
 	languages,
@@ -30,7 +31,7 @@ function EmploymentPage4({
 	}));
 	const handleDeleteEmployment = (event) => {
 		employments.splice(event.target.id, 1);
-		setEmploymentInfo(employments);
+		setEmployment(employments);
 	};
 
 	const handleDeleteEducation = (event) => {
@@ -119,8 +120,8 @@ function EmploymentPage4({
 							return (
 								//need to fix this layout
 								<Item key={index}>
-									School: {education.school_name}, Course: {education.course_name}
-									, Mobile: {education.mobile}, Grades: {education.grades},
+									School: {education.school_name}, Course: {education.course_name},
+									Mobile: {education.mobile}, Grades: {education.grades},
 									Telephone: {education.telephone}, Address1:{" "}
 									{education.address1}, Address2: {education.address2}, Subject:{" "}
 									{education.subject}, Town: {education.town},
