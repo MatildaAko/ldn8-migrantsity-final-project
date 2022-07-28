@@ -12,7 +12,7 @@ import {
 	Radio,
 } from "@mui/material";
 
-function AgeEqualityForm({ changeEqualityDetails }) {
+function AgeEqualityForm({ equality, changeEqualityDetails }) {
 	const ageBand = [
 		"16-24",
 		"25-29",
@@ -37,6 +37,7 @@ function AgeEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="age"
 					name="age"
+					value={equality.age_band}
 					onChange={changeEqualityDetails("age_band")}
 					sx={{
 						display: "flex",

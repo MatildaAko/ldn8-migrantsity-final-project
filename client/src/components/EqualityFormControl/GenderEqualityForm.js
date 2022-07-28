@@ -34,6 +34,7 @@ function GenderEqualityForm({ changeEqualityDetails, equality, setEquality }) {
 					required
 					aria-label="gender"
 					name="gender"
+					value={equality.gender}
 					onChange={(e) => {
 						setChosenGender(e.target.value);
 						setEquality({ ...equality, ["gender"]: e.target.value });

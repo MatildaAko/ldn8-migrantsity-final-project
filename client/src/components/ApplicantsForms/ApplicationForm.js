@@ -1,87 +1,79 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import axios from "axios";
+import FormControl from "@mui/material/FormControl";
 
-const ApplicationForm = ({ setUserDetails, userDetails }) => {
-	const [allJobs, setAllJobs] = useState([]);
-	const [jobID, setJobID] = useState(0);
-	const [coverLetter, setCoverLetter] = useState("");
-	const [description, setDescription] = useState("");
-	const [applicationDetails, setApplicationDetails] = useState({
-		job_id: "",
-		cover_letter: "",
-		description: "",
-	});
 
-	useEffect(() => {
-		const arr = [];
-		axios.get("/api/jobs").then((res) => {
-			res.data.map((job) => {
-				arr.push({ label: job.title, id: job.id });
-			});
-			setAllJobs(arr);
-		});
-	}, []);
+const ApplicationForm = ({ setUserDetails, userDetails, applicationDetails, setApplicationDetails }) => {
+    const [allJobs, setAllJobs] = useState([]);
 
-	useEffect(() => {
-		setApplicationDetails({
-			job_id: jobID,
-			cover_letter: coverLetter,
-			description: description,
-		});
-		setUserDetails({ ...userDetails, ["application"]: [applicationDetails] });
-	}, [jobID, coverLetter, description]);
+    console.log(applicationDetails, userDetails);
+    useEffect(() => {
+        async function loadJob() {
+        const arr = [];
+        await axios.get("/api/jobs")
+        .then((res) => {
+            res.data.map((job) => {
+                arr.push({ label: job.title, id: job.id });
+            });
+            setAllJobs(arr);
+        });
+    }
+    loadJob();
+}, []);
 
-	const handleChangeJob = (event, value) => {
-		setJobID(value.id);
+    const handleChange = (event, param) => {
+        setApplicationDetails({ ...applicationDetails, [param]: event.target.value  });
+        setUserDetails({ ...userDetails, ["application"]: applicationDetails });
 	};
 
-	const handleChangeCoverLetter = (event) => {
-		setCoverLetter(event.target.value);
-	};
-
-	const handleChangeDescription = (event) => {
-		setDescription(event.target.value);
-	};
-
-	return (
-		<div>
-			<Autocomplete
-				disablePortal
-				id="job"
-				aria-label="job"
-				name="job"
-				options={allJobs}
-				sx={{ width: 600 }}
-				renderInput={(params) => <TextField {...params} label="Jobs" />}
-				onChange={handleChangeJob}
-			/>
-			<br></br>
-			<TextField
-				id="cover-letter"
-				aria-label="cover-letter"
-				label="Cover Letter"
-				multiline
-				rows={8}
-				defaultValue=""
-				sx={{ width: 600 }}
-				onChange={handleChangeCoverLetter}
-			/>
-			<br></br>
-			<br></br>
-			<TextField
-				id="description"
-				aria-label="description"
-				label="Description"
-				multiline
-				rows={8}
-				defaultValue=""
-				sx={{ width: 600 }}
-				onChange={handleChangeDescription}
-			/>
-		</div>
-	);
+    return (
+        <FormControl>
+        <InputLabel id="jobs-label">Jobs</InputLabel>
+        <Select
+          sx={{ width: "100%" }}
+          labelId="jobs-label"
+          id="jobs"
+          value={applicationDetails.job_id}
+          label="Jobs"
+          onChange={(event) => {
+            handleChange(event, "job_id");
+            }}
+        >
+            {allJobs.map((job, index) => {
+                return(
+               <MenuItem key={index+1} value={job.id}>{job.label}</MenuItem>
+                );
+            })}
+        </Select>
+        <br></br>
+        <TextField
+            id="cover-letter"
+            aria-label="cover-letter"
+            label="Cover Letter"
+            multiline
+            rows={8}
+            value={applicationDetails.cover_letter}
+            sx={{ width: 600 }}
+            onChange={(event) => {
+                handleChange(event, "cover_letter");
+                }}
+                />
+        <br></br>
+        <TextField
+            id="description"
+            aria-label="description"
+            label="Description"
+            multiline
+            rows={8}
+            value={applicationDetails.description}
+            sx={{ width: 600 }}
+            onChange={(event) => {
+                handleChange(event, "description");
+                }}
+                />
+        </FormControl>
+        );
 };
 
 export default ApplicationForm;

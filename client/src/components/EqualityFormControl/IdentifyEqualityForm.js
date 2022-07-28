@@ -12,7 +12,7 @@ import {
 	Radio,
 } from "@mui/material";
 
-function IdentifyEqualityForm({ changeEqualityDetails }) {
+function IdentifyEqualityForm({ equality, changeEqualityDetails }) {
 	const identify = ["Yes","No","Prefer not to say"];
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -25,6 +25,7 @@ function IdentifyEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="identify"
 					name="identify"
+					value={equality.identify}
 					onChange={changeEqualityDetails("identify")}
 					sx={{
 						width: 420,
