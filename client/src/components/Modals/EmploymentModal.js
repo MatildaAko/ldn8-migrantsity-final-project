@@ -17,7 +17,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal({ setUserDetails, userDetails, employments, setEmploymentInfo }) {
+function EmploymentModal({ setUserDetails, userDetails, employments }) {
 	const [open, setOpen] = useState(false);
 	const [start_date, setStartDate] = useState(null);
 	const [end_date, setEndDate] = useState(null);
@@ -83,7 +83,6 @@ function EmploymentModal({ setUserDetails, userDetails, employments, setEmployme
 	};
 
 	const addEmploymentToPage = () => {
-		setEmploymentInfo((info) => [...info, employmentDetails]);
 		setUserDetails({
 			...userDetails,
 			["employments"]: employments.concat( employmentDetails ),

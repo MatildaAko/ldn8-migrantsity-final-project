@@ -50,7 +50,6 @@ function ApplicantsForm() {
 		cover_letter: "",
 		description: "",
 	});
-
 	const handleTabChange = (event, newValue) => {
 		setValue(newValue);
 	};

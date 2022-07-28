@@ -17,7 +17,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { commonLanguages } from "../ApplicantsForms/LanguageOptions";
 
-function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, languages }) {
+function LanguagesModal({ setUserDetails, userDetails, languages }) {
 	const [open, setOpen] = useState(false);
 	const [knownLanguages, setKnownLanguages] = useState("");
 	const [degree, setDegree] = useState("");
@@ -60,8 +60,6 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 	};
 
 	const addLanguageToPage = () => {
-		console.log("languageDetails", languageDetails);
-		setLanguageInfo((info) => [...info, languageDetails]);
 		setUserDetails({
 			...userDetails,
 			["languages"]: languages.concat(languageDetails),

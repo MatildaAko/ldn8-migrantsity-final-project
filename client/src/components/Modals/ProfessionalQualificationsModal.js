@@ -14,7 +14,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 function ProfessionalQualificationsModal({
-	setQualificationInfo,
 	qualifications,
 	setUserDetails,
 	userDetails,
@@ -61,7 +60,6 @@ function ProfessionalQualificationsModal({
 	};
 
 	const addQualificationsToPage = () => {
-		setQualificationInfo((info) => [...info, qualificationDetails]);
 		setUserDetails({
 			...userDetails,
 			["qualifications"]:
