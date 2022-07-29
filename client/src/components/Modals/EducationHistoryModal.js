@@ -11,7 +11,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Box from "@mui/material/Box";
 
 function EducationHistoryModal({
-	setEducationInfo,
 	setUserDetails,
 	userDetails,
 	education,
@@ -80,7 +79,6 @@ function EducationHistoryModal({
 	};
 
 	const addEducationToPage = () => {
-		setEducationInfo((info) => [...info, educationDetails]);
 		setUserDetails({
 			...userDetails,
 			["education"]: education.concat(educationDetails),

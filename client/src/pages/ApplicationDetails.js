@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
-
-import "../styles/App.css"
+import "../styles/App.css";
 
 const ApplicationDetails = () => {
   let { id } = useParams();
+  console.log({ id });
   const [applications, setApplications] = useState([]);
   useEffect(() => {
    const fetchData = async () => {
@@ -32,7 +32,7 @@ const ApplicationDetails = () => {
 					<p>Skills: {applicationInformation.Applicant[0].skills}</p>
 					<p>
 						Current employee:{" "}
-						{applicationInformation.Applicant[0].current_employee ? "Yes" : "No"}
+						{applicationInformation.Applicant[0].currently_work ? "Yes" : "No"}
 					</p>
 					<p>Applicant skills: {applicationInformation.Applicant[0].skills}</p>
 				</div>
@@ -47,4 +47,3 @@ const ApplicationDetails = () => {
 };
 
 export default ApplicationDetails;
-
