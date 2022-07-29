@@ -10,15 +10,16 @@ import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
 import { SnackbarProvider } from "notistack";
 import "./styles/App.css";
-// import { useState } from "react";
+import MiddlePage from "./components/Auth0Login/MiddlePage";
+
+import { useState } from "react";
 import NavBar from "./pages/NavBar";
 
 import Home from "./pages/Home";
 
 const App = () => {
 	const { isLoading } = useAuth0();
-  import MiddlePage from "./components/Auth0Login/MiddlePage";
-	// const [applicantId, setApplicantId] = useState("");
+	const [applicantId, setApplicantId] = useState("");
 
 	if (isLoading) {
 		return <Loading />;
