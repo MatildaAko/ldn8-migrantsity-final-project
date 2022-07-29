@@ -52,7 +52,6 @@ function ApplicantsForm() {
 	const handleTabChange = (event, newValue) => {
 		setValue(newValue);
 	};
-
 	// State variables
 	const [userDetails, setUserDetails] = useState({
 		first_name: "",

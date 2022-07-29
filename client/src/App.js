@@ -10,15 +10,15 @@ import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
 import { SnackbarProvider } from "notistack";
 import "./styles/App.css";
-
+// import { useState } from "react";
 import NavBar from "./pages/NavBar";
+
 import Home from "./pages/Home";
-// import ApplicationFormAndDetails from "./pages/ApplicationFormAndDetails";
-// import ApplicationsAdminBar from "./pages/ApplicationsAdminBar";
 
 const App = () => {
 	const { isLoading } = useAuth0();
-	// const [pageBar, setPageBar] = useState("Home");
+  import MiddlePage from "./components/Auth0Login/MiddlePage";
+	// const [applicantId, setApplicantId] = useState("");
 
 	if (isLoading) {
 		return <Loading />;
@@ -28,6 +28,12 @@ const App = () => {
 			<NavBar />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route
+					path="/middle"
+					element={
+						<MiddlePage applicantId={applicantId} setApplicantId={setApplicantId} />
+					}
+				/>
 				<Route path="/hmcview" element={<HMCDashboard />} />
 				<Route
 					path="/application"
@@ -36,7 +42,7 @@ const App = () => {
 				/>
 				<Route
 					path="/applicantdashboard"
-					element={<ApplicantDashboard applicantId={2} />}
+					element={<ApplicantDashboard applicantId={applicantId} />}
 				/>
 				<Route path="/equality" element={<EqualityForm />} />
 				<Route

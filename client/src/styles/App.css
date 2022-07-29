@@ -58,3 +58,8 @@ button.btn.btn-primary.btn-block:hover{
     justify-content: center;
     height: 800px;
 }
+
+.inline {
+    display: flex;
+    align-items: flex-end;
+}
