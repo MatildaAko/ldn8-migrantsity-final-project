@@ -26,7 +26,7 @@ const ApplicationDetails = () => {
 				<Box className="applicationDetails">
 					<Card>
 						<CardContent>
-							<Typography variant="h3">
+							<Typography variant="h4">
 								Application ID: {applicationInformation.id}
 							</Typography>
 							<Typography variant="body1">
@@ -65,20 +65,31 @@ const ApplicationDetails = () => {
 											applicationInformation.country
 										}, ${applicationInformation.postcode}`}
 									</Typography>
+									{applicationInformation.telephone && (
+										<Typography variant="body1">
+											<b>Telephone:</b> {applicationInformation.telephone}
+										</Typography>
+									)}
+									{applicationInformation.mobile && (
+										<Typography variant="body1">
+											<b>Mobile:</b> {applicationInformation.mobile}
+										</Typography>
+									)}
 									<Typography variant="body1">
-										<b>Telephone:</b> {applicationInformation.telephone}
+										<b>Email:</b> {applicationInformation.email}
 									</Typography>
-									<Typography variant="body1">
-										<b>Mobile:</b> {applicationInformation.mobile}
-									</Typography>
-									{/* <Typography variant="body1">
-									<b>:</b> {applicationInformation.}
-								</Typography>
-								<Typography variant="body1">
-									<b>:</b> {applicationInformation.}
-								</Typography> */}
 								</>
 							)}
+							<Typography variant="body1">
+								<b>CV:</b> {applicationInformation.cv}
+							</Typography>
+							<Typography variant="body1">
+								<b>Cover Letter:</b> {applicationInformation.supp_statement}
+							</Typography>
+							<Typography variant="h5">Employment History</Typography>
+							<Typography variant="body1">
+								<b>CV:</b> {applicationInformation.cv}
+							</Typography>
 						</CardContent>
 					</Card>
 					{/* <h1>Application ID: {applicationInformation.id}</h1>
