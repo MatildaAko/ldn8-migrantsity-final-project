@@ -19,7 +19,9 @@ const appOnlyQueryString = `Select id, applicant_id, job_id, job_title, job_desc
 
 const applicantsSelect = "Select * From applicants Where id = $1";
 const applicantsQueryString = `		
-	Select * from (Select applicants.*, role_name
+	Select * from (Select applicants.id as applicant_id, 
+		concat(first_name,' ',last_name) as fullname, 
+		applicants.*, role_name
 	From applicants
 	Inner join users on users.id = user_id
 	Inner join roles on roles.role_id = users.role_id ) TableSelect `;

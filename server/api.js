@@ -71,6 +71,7 @@ router
 
 router
 .get("/applications/:applicationId", applicationsController.getApplicationById)
+.get("/applications/id/:applicationId", applicationsController.getApplicationByIdOld)
 .get("/applications", applicationsController.getApplications)
 .get("/:applicantId/applications", applicationsController.getApplicationsByApplicantId)
 .post("/applications", applicationsController.createNewApplication)
