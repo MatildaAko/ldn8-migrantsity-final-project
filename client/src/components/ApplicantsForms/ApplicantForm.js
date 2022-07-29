@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import TabPanel from "./TabPanel";
-// import { axios } from "axios";
 import "../../styles/Form.css";
 import { styled } from "@mui/material/styles";
-
-// import Button from "@mui/material/Button";
-
 import { Tabs, Tab, Box } from "@mui/material";
 import LinearWithValueLabel from "./ProgressBar";
 import DetailsPage1 from "./DetailsPage1";
@@ -15,6 +11,8 @@ import EmploymentPage4 from "./EmploymentPage4";
 import EqualityForm from "../../pages/EqualityForm";
 import PersonalDetails from "./PersonalDetails";
 import ApplicationForm from "./ApplicationForm";
+
+import ApplicationFormAndDetails from "../../pages/ApplicationFormAndDetails";
 
 const showFormPage = (index) => {
 	return {
@@ -182,6 +180,7 @@ function ApplicantsForm() {
 
 	return (
 		<>
+			<ApplicationFormAndDetails />
 			<LinearWithValueLabel value={value} />
 			<Box
 				sx={{

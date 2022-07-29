@@ -1,0 +1,31 @@
+img {
+	margin-bottom: 0 !important;
+}
+
+.MuiTypography-h5 {
+	padding-left: 7px;
+}
+
+.applicant-content {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.css-1b6skll-MuiButtonBase-root-MuiButton-root,
+.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
+	background-color: #158284 !important;
+	color: #f3f3f3 !important;
+	margin: 30px auto !important;
+	border-radius: 3px !important;
+	padding: 10px 20px !important;
+}
+
+.appDetails {
+	margin-top: 15px;
+}
+
+.MuiButtonBase-root {
+	padding: 6px 8px;
+    border-radius: 3px !important;
+}

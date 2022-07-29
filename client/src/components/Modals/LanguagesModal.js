@@ -15,10 +15,9 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { InputLabel } from "@mui/material";
 import { commonLanguages } from "../ApplicantsForms/LanguageOptions";
 
-function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, languages }) {
+function LanguagesModal({ setUserDetails, userDetails, languages }) {
 	const [open, setOpen] = useState(false);
 	const [knownLanguages, setKnownLanguages] = useState("");
 	const [degree, setDegree] = useState("");
@@ -61,8 +60,6 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 	};
 
 	const addLanguageToPage = () => {
-		console.log("languageDetails", languageDetails);
-		setLanguageInfo((info) => [...info, languageDetails]);
 		setUserDetails({
 			...userDetails,
 			["languages"]: languages.concat(languageDetails),
@@ -94,10 +91,9 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 				<DialogContent>
 					<Box
 						sx={{
-							width: 550,
-							height: 200,
+							width: "100%",
 							display: "flex",
-							alignItems: "center",
+							alignItems: "space-between",
 							"& > :not(style)": { m: 1 },
 						}}
 					>
@@ -107,14 +103,13 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 							</DialogContentText>
 							<FormControl
 								variant="standard"
-								sx={{ m: 1, minWidth: 200 }}
+								sx={{ minWidth: 200 }}
 								size="small"
 							>
-								<InputLabel id="knownLanguages">Please Select</InputLabel>
 								<Select
-									labelId="languages"
+									labelId="language"
 									value={knownLanguages}
-									label=""
+									placeholder="Please Select"
 									onChange={handleChangeLanguage}
 									variant="outlined"
 								>
@@ -132,14 +127,12 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 							<DialogContentText>Degree of Fluency*</DialogContentText>
 							<FormControl
 								variant="standard"
-								sx={{ m: 1, minWidth: 220 }}
+								sx={{ minWidth: 200 }}
 								size="small"
 							>
-								<InputLabel id="fluency">Please Select</InputLabel>
 								<Select
 									labelId="fluency"
 									value={degree}
-									label=""
 									onChange={handleChangeDegree}
 									variant="outlined"
 								>
@@ -163,8 +156,6 @@ function LanguagesModal({ setLanguageInfo, setUserDetails, userDetails, language
 					<Box
 						className="spokenAndWritten"
 						sx={{
-							width: 420,
-							height: 100,
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "space-between",

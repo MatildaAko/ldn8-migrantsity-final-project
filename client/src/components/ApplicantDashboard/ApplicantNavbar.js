@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import SettingsIcon from "@mui/icons-material/Settings";
+// import SettingsIcon from "@mui/icons-material/Settings";
 import { Box } from "@mui/material";
-import AuthenticationButton from "../Auth0Login/authentication-button";
+// import AuthenticationButton from "../Auth0Login/authentication-button";
 import { Avatar } from "@material-ui/core";
+
+import "../../styles/Applicant.css";
 
 const styles = {
   root: {
@@ -29,15 +31,15 @@ function ApplicantNavbar({ user, classes }) {
     <div className={classes.root}>
         <Toolbar className={classes.bar}>
           <Typography variant="h3" color="inherit" className={classes.grow}>
-            Dashboard
+            Submitted Applications
           </Typography>
-        <Box sx={{ display:"flex", alignItems: "end", flexDirection: "column" }}>
-            <SettingsIcon />
+        <Box sx={{ display:"flex", alignItems: "center", flexDirection: "row" }}>
+            {/* <SettingsIcon /> */}
           <Avatar alt={user.nickname} src={user.picture} />
           <Typography variant="h5" color="inherit" className={classes.detailTitle}>
-           Hi {user.nickname}!
+           Hi, {user.nickname}!
           </Typography>
-          <AuthenticationButton />
+          {/* <AuthenticationButton /> */}
         </Box>
         </Toolbar>
     </div>
