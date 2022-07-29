@@ -44,16 +44,18 @@ const ApplicantDashboard = ({ applicantId }) => {
 				console.error(error);
 			});
 	}, [applicantId]);
-  return (
-	<Container fluid>
-		<ApplicantNavbar user={user} />
-		<SingleApplication applicant_id = { applicantId } />
-		{applications.map((application) => {
-		return(
-			<>
-			<div className="appDetails">
-				<ApplicantCard application = { application } />
-			</div>
+	return (
+		<Container fluid>
+			<ApplicantNavbar user={user} />
+			<SingleApplication applicant_id={applicantId} />
+			{applications.map((application) => {
+				return (
+					// eslint-disable-next-line react/jsx-key
+					<div className="appDetails">
+						<ApplicantCard application={application} />
+					</div>
+				);
+			})}
 		</Container>
 	);
 };
