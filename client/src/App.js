@@ -25,6 +25,7 @@ const App = () => {
 	return (
 		<SnackbarProvider maxSnack={3}>
 			<NavBar />
+			<Home />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route
