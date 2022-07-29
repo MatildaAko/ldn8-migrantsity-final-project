@@ -10,23 +10,6 @@ import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
 import { SnackbarProvider } from "notistack";
 import "./styles/App.css";
-// import LoginButton from "./components/Auth0Login/login-button";
-
-// const Middle = () => {
-
-// 	const { user } = useAuth0();
-// 	// if (user["https://roles"].includes("Admin")) {
-
-// 	// }
-// 	console.log(user);
-// 		return (
-// 			<>
-// 				Hello <LoginButton />
-// 			</>
-// 		);
-// };
-
-// import { Navigate } from "react-router-dom";
 
 import NavBar from "./pages/NavBar";
 import Home from "./pages/Home";
@@ -43,8 +26,8 @@ const App = () => {
 	return (
 		<SnackbarProvider maxSnack={3}>
 			<NavBar />
-			<Home />
 			<Routes>
+				<Route path="/" element={<Home />} />
 				<Route path="/hmcview" element={<HMCDashboard />} />
 				<Route
 					path="/application"

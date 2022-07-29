@@ -1,0 +1,23 @@
+.userAndButtons {
+	margin: auto;
+	display: flex;
+	flex-direction: row-reverse;
+	width: 1000px;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+	background-color: #158284 !important;
+	color: #f3f3f3 !important;
+	margin-left: 20px !important;
+	border-radius: 3px !important;
+}
+
+.HMCNavbar-bar-2 {
+    margin: 20px 60px 10px 60px;
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

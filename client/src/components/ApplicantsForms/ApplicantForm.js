@@ -12,6 +12,8 @@ import EqualityForm from "../../pages/EqualityForm";
 import PersonalDetails from "./PersonalDetails";
 import ApplicationForm from "./ApplicationForm";
 
+import ApplicationFormAndDetails from "../../pages/ApplicationFormAndDetails";
+
 const showFormPage = (index) => {
 	return {
 		id: `vertical-tab-${index}`,
@@ -47,7 +49,7 @@ function ApplicantsForm() {
 		description: "",
 	});
 
-  const handleTabChange = (event, newValue) => {
+	const handleTabChange = (event, newValue) => {
 		setValue(newValue);
 	};
 
@@ -179,6 +181,7 @@ function ApplicantsForm() {
 
 	return (
 		<>
+			<ApplicationFormAndDetails />
 			<LinearWithValueLabel value={value} />
 			<Box
 				sx={{

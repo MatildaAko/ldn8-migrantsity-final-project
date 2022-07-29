@@ -8,6 +8,8 @@ import "../styles/Applicant.css";
 
 import SingleApplication from "../components/Modals/SingleApplication";
 
+import ApplicationFormAndDetails from "./ApplicationFormAndDetails";
+
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
 	const { user } = useAuth0();
@@ -46,6 +48,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 	}, [applicantId]);
 	return (
 		<Container fluid>
+			<ApplicationFormAndDetails />
 			<ApplicantNavbar user={user} />
 			<SingleApplication applicant_id={applicantId} />
 			{applications.map((application) => {

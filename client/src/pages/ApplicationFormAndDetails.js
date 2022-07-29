@@ -4,8 +4,7 @@ import AuthenticationButton from "../components/Auth0Login/auth-nav";
 
 import "../styles/App.css";
 
-function ApplicationFormAndDetails({ setPageBar }) {
-	setPageBar("Form");
+function ApplicationFormAndDetails() {
 	return (
 		<div className="page-header">
 			<div className="container">

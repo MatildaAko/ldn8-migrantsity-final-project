@@ -58,4 +58,5 @@ button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.
 /* Buttons Back and Next */
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
 	color: #408083 !important;
+	margin-top: 10px !important;
 }
