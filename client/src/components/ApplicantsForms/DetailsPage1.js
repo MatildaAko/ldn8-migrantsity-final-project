@@ -12,7 +12,7 @@ import {
 	Paper,
 } from "@mui/material";
 
-function DetailsPage1({ handleChange }) {
+function DetailsPage1({ values, handleChange }) {
 	return (
 		<div>
 			<Paper>
@@ -32,6 +32,7 @@ function DetailsPage1({ handleChange }) {
 								required
 								aria-label="current_employee"
 								name="current_employee"
+								value={values.current_employee}
 								onChange={handleChange("current_employee")}
 								sx={{
 									width: 420,
@@ -66,6 +67,7 @@ function DetailsPage1({ handleChange }) {
 								required
 								aria-label="right-to-work"
 								name="right-to-work"
+								value={values.right_to_work}
 								onChange={handleChange("right_to_work")}
 								sx={{
 									width: 420,

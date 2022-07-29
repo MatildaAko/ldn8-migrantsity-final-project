@@ -234,10 +234,9 @@ const createApplicantWithAllData = (req, res) => {
 	const addApplication = () => {
 		fields = [];
 		items  = [];
-		req.body.application.map((param) => {
-			fields = Object.keys(param);
-			items.push(Object.values(param));
-		});
+
+		fields = Object.keys(req.body.application);
+		items.push(Object.values(req.body.application));
 
 		Object.values(items).map((param, index) => {
 			params = params.concat(param);
@@ -255,10 +254,9 @@ const createApplicantWithAllData = (req, res) => {
 	const addEquality = () => {
 		fields = [];
 		items  = [];
-		req.body.equality.map((param) => {
-			fields = Object.keys(param);
-			items.push(Object.values(param));
-		});
+
+		fields = Object.keys(req.body.equality);
+		items.push(Object.values(req.body.equality));
 
 		Object.values(items).map((param, index) => {
 			params = params.concat(param);
