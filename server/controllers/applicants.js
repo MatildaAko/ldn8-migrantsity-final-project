@@ -4,6 +4,7 @@ import generalController from "./general";
 
 const getApplicantById = (req, res) => {
     const applicantId = req.params.applicantId;
+	console.log("ByID");
 	const params = [applicantId];
 	const queryString = `${generalController.applicantsQueryString} Where id = $1`;
 
@@ -17,6 +18,17 @@ const getApplicantById = (req, res) => {
 			.catch((error) => res.status(500).json(error));
 		}
 	}).catch((error) => res.status(500).json(error));
+};
+
+const getApplicantByEmail = (req, res) => {
+    const email = req.params.email;
+	const params = [email];
+	const queryString = `${generalController.applicantsQueryString} Where email = $1 `;
+	console.log(queryString);
+
+	pool.query(queryString, params)
+	.then((result) =>res.status(201).json(result.rows))
+	.catch((error) => res.status(500).json(error));
 };
 
 const updateApplicant = (req, res) => {
@@ -234,10 +246,9 @@ const createApplicantWithAllData = (req, res) => {
 	const addApplication = () => {
 		fields = [];
 		items  = [];
-		req.body.application.map((param) => {
-			fields = Object.keys(param);
-			items.push(Object.values(param));
-		});
+
+		fields = Object.keys(req.body.application);
+		items.push(Object.values(req.body.application));
 
 		Object.values(items).map((param, index) => {
 			params = params.concat(param);
@@ -255,10 +266,9 @@ const createApplicantWithAllData = (req, res) => {
 	const addEquality = () => {
 		fields = [];
 		items  = [];
-		req.body.equality.map((param) => {
-			fields = Object.keys(param);
-			items.push(Object.values(param));
-		});
+
+		fields = Object.keys(req.body.equality);
+		items.push(Object.values(req.body.equality));
 
 		Object.values(items).map((param, index) => {
 			params = params.concat(param);
@@ -321,6 +331,7 @@ module.exports = {
     updateApplicant,
     deleteApplicant,
     getAllApplicants,
+    getApplicantByEmail,
 	getApplicantData,
 	getApplicantAllData,
 	createApplicantWithAllData,

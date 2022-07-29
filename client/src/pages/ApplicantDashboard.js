@@ -4,9 +4,9 @@ import ApplicantNavbar from "../components/ApplicantDashboard/ApplicantNavbar";
 import ApplicantCard from "../components/ApplicantDashboard/ApplicantCard";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Auth0Login/Loading";
-import { Button } from "@mui/material";
-
 import "../styles/Applicant.css";
+
+import SingleApplication from "../components/Modals/SingleApplication";
 
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
@@ -44,25 +44,15 @@ const ApplicantDashboard = ({ applicantId }) => {
 				console.error(error);
 			});
 	}, [applicantId]);
-
-	return (
-		<Container fluid>
-			<div className="applicant-content">
-				<ApplicantNavbar user={user} />
-				<Button
-					sx={{ mx: 10, mb: 3, backgroundColor: "#2ECC71", color: "White" }}
-				>
-					New Apply
-				</Button>
-				{applications.map((application, key) => {
-					return (
-						<>
-							<div className="appDetails">
-								<ApplicantCard application={application} key={key} />
-							</div>
-						</>
-					);
-				})}
+  return (
+	<Container fluid>
+		<ApplicantNavbar user={user} />
+		<SingleApplication applicant_id = { applicantId } />
+		{applications.map((application) => {
+		return(
+			<>
+			<div className="appDetails">
+				<ApplicantCard application = { application } />
 			</div>
 		</Container>
 	);

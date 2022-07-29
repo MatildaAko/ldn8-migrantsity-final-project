@@ -17,7 +17,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-function EmploymentModal({ setUserDetails, userDetails, employments, setEmploymentInfo }) {
+function EmploymentModal({ setUserDetails, userDetails, employments }) {
+
 	const [open, setOpen] = useState(false);
 	const [start_date, setStartDate] = useState(null);
 	const [end_date, setEndDate] = useState(null);
@@ -49,7 +50,7 @@ function EmploymentModal({ setUserDetails, userDetails, employments, setEmployme
 		setEmploymentDetails({
 			...employmentDetails,
 			["currently_working"]: e.target.checked,
-			["end_date"]: e.target.checked ? "Currently working" : "",
+			["end_date"]: e.target.checked ? null : "",
 		});
 	};
 	const changeStartDate = (e) => {
@@ -83,7 +84,6 @@ function EmploymentModal({ setUserDetails, userDetails, employments, setEmployme
 	};
 
 	const addEmploymentToPage = () => {
-		setEmploymentInfo((info) => [...info, employmentDetails]);
 		setUserDetails({
 			...userDetails,
 			["employments"]: employments.concat( employmentDetails ),
@@ -186,11 +186,10 @@ function EmploymentModal({ setUserDetails, userDetails, employments, setEmployme
 						id="responsibilities"
 						variant="outlined"
 						size="small"
-						rows={4}
+						rows={3}
 						fullWidth
 						onChange={addEmployment("responsibilities")}
 					/>
-					<br />
 					<br />
 					<DialogContentText>
 						Reason For Leaving / Explanation for Gap in Employment
@@ -202,13 +201,12 @@ function EmploymentModal({ setUserDetails, userDetails, employments, setEmployme
 						id="leaving_reason"
 						variant="outlined"
 						size="small"
-						rows={4}
+						rows={3}
 						onChange={addEmployment("leaving_reason")}
 						helperText="Please enter N/A if you are still employed or had no gaps in employment."
 						fullWidth
 					/>
 				</DialogContent>
-				<br />
 				<br />
 				<DialogActions>
 					<Button variant="contained" onClick={handleClose}>

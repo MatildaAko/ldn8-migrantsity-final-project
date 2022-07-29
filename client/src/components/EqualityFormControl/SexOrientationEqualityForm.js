@@ -12,7 +12,7 @@ import {
 	Radio,
 } from "@mui/material";
 
-function SexOrientationEqualityForm({ changeEqualityDetails }) {
+function SexOrientationEqualityForm({ equality, changeEqualityDetails }) {
 	const sexOrientation = [
 		"Heterosexual",
 		"Gay",
@@ -32,6 +32,7 @@ function SexOrientationEqualityForm({ changeEqualityDetails }) {
 					required
 					aria-label="sexOrientation"
 					name="sexOrientation"
+					value={equality.sex_orientation}
 					onChange={changeEqualityDetails("sex_orientation")}
 					sx={{
 						display: "flex",

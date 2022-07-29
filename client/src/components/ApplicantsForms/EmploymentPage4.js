@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from "react";
+import React from "react";
 import { Stack, styled, Paper } from "@mui/material";
 import "../../styles/JobsHistory.css";
 
@@ -16,10 +16,6 @@ function EmploymentPage4({
 	qualifications,
 	languages,
 }) {
-	const [employmentInfo, setEmploymentInfo] = useState([]);
-	const [educationInfo, setEducationInfo] = useState([]);
-	const [qualificationInfo, setQualificationInfo] = useState([]);
-	const [languageInfo, setLanguageInfo] = useState([]);
 
 	const Item = styled(Paper)(({ theme }) => ({
 		backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,8 +24,35 @@ function EmploymentPage4({
 		textAlign: "center",
 		color: theme.palette.text.secondary,
 	}));
+	const handleDeleteEmployment = (event) => {
+		employments.splice(event.target.id, 1);
+		setUserDetails({
+			...userDetails,
+			["employments"]: employments });
+	};
 
-	return (
+	const handleDeleteEducation = (event) => {
+		education.splice(event.target.id, 1);
+		setUserDetails({
+			...userDetails,
+			["education"]: education });
+	};
+
+	const handleDeleteQualification = (event) => {
+		qualifications.splice(event.target.id, 1);
+		setUserDetails({
+			...userDetails,
+			["qualifications"]: qualifications });
+	};
+
+	const handleDeleteLanguages = (event) => {
+		languages.splice(event.target.id, 1);
+		setUserDetails({
+			...userDetails,
+			["languages"]: languages });
+	};
+
+				return (
 		<>
 			<h1>
 				Right to Work, Employment, Education, Qualification and Language History
@@ -46,25 +69,29 @@ function EmploymentPage4({
 						Click on the text highlighted in red to edit your entry.
 					</p>
 					<EmploymentModal
-						setEmploymentInfo={setEmploymentInfo}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 						employments={employments}
 					/>
 				</div>
 				<Stack spacing={2}>
-					{employmentInfo.map((employment, index) => {
+					{employments.map((employment, index) => {
 						return (
 							//need to fix this layout
+							<>
+							<div className="">
 							<Item key={index}>
 								Position: {employment.position}, Employer: {employment.employer}
 								, Still Employed there:{" "}
 								{employment.currently_working ? "yes" : "no"}, Start Date:{" "}
-								{JSON.stringify(employment.start_date.toLocaleString())}, End
-								Date: {JSON.stringify(employment.end_date.toLocaleString())},
+								{employment.end_date?JSON.stringify(employment.start_date.toLocaleString()):""}, End
+								Date: {employment.end_date?JSON.stringify(employment.end_date.toLocaleString()):""},
 								Responsibilities: {employment.responsibilities}, Leaving/Gap
 								Reason: {employment.leaving_reason}
+								<button id={index} onClick={handleDeleteEmployment}>Delete</button>
 							</Item>
+							</div>
+							</>
 						);
 					})}
 				</Stack>
@@ -84,14 +111,13 @@ function EmploymentPage4({
 							Click on the text highlighted in red to edit your entry.
 						</p>
 						<EducationHistoryModal
-							setEducationInfo={setEducationInfo}
 							setUserDetails={setUserDetails}
 							userDetails={userDetails}
 							education={education}
 						/>
 					</div>
 					<Stack spacing={2}>
-						{educationInfo.map((education, index) => {
+						{education.map((edu, index) => {
 							return (
 								//need to fix this layout
 								<Item key={index}>
@@ -100,6 +126,7 @@ function EmploymentPage4({
 									Telephone: {education.telephone}, Address1:{" "}
 									{education.address1}, Address2: {education.address2}, Subject:{" "}
 									{education.subject}, Town: {education.town},
+									<button id={index} onClick={handleDeleteEducation}>Delete</button>
 								</Item>
 							);
 						})}
@@ -115,20 +142,20 @@ function EmploymentPage4({
 						highlighted in red to edit your entry.
 					</p>
 					<ProfessionalQualificationsModal
-						setQualificationInfo={setQualificationInfo}
 						qualifications={qualifications}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 					/>
 				</div>
 				<Stack spacing={2}>
-					{qualificationInfo.map((qualification, index) => {
+					{qualifications.map((qualification, index) => {
 						return (
 							//need to fix this layout
 							<Item key={index}>
 								Qualification: {qualification.title}, Date:{" "}
 								{JSON.stringify(qualification.date.toLocaleString())}, Status:{" "}
 								{qualification.status},
+								<button id={index} onClick={handleDeleteQualification}>Delete</button>
 							</Item>
 						);
 					})}
@@ -144,19 +171,19 @@ function EmploymentPage4({
 						highlighted in red to edit your entry.
 					</p>
 					<LanguagesModal
-						setLanguageInfo={setLanguageInfo}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 						languages={languages}
 					/>
 				</div>
 				<Stack spacing={2}>
-					{languageInfo.map((language, index) => {
+					{languages.map((language, index) => {
 						return (
 							//need to fix this layout
 							<Item key={index}>
 								Language: {language.language}, Fluency: {language.fluency},
 								Spoken: {language.spoken?"Yes":"No"}, Written: {language.written?"Yes":"No"},
+								<button id={index} onClick={handleDeleteLanguages}>Delete</button>
 							</Item>
 						);
 					})}

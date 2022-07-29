@@ -11,7 +11,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Box from "@mui/material/Box";
 
 function EducationHistoryModal({
-	setEducationInfo,
 	setUserDetails,
 	userDetails,
 	education,
@@ -80,7 +79,6 @@ function EducationHistoryModal({
 	};
 
 	const addEducationToPage = () => {
-		setEducationInfo((info) => [...info, educationDetails]);
 		setUserDetails({
 			...userDetails,
 			["education"]: education.concat(educationDetails),
@@ -182,6 +180,8 @@ function EducationHistoryModal({
 							/>
 						</Box>
 					</Box>
+					<br />
+					<br />
 					<Box className="flex-space">
 						<Box className="flex-half">
 							<DialogContentText>Telephone</DialogContentText>
@@ -210,6 +210,8 @@ function EducationHistoryModal({
 							/>
 						</Box>
 					</Box>
+					<br />
+					<br />
 					<Box>
 						<DialogContentText>Grades:</DialogContentText>
 						<TextField
@@ -218,7 +220,7 @@ function EducationHistoryModal({
 							id="grades"
 							variant="outlined"
 							size="small"
-							rows={4}
+							rows={2}
 							fullWidth
 							onChange={addEducation("grades")}
 						/>
