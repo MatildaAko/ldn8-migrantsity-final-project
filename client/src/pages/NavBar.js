@@ -1,7 +1,13 @@
-import React from "react";
+// import React, { useState } from "react";
 import "../styles/NavBar.css";
+// import Home from "./Home";
+// import ApplicationsAdminBar from "./ApplicationsAdminBar";
+// import ApplicationFormAndDetails from "./ApplicationFormAndDetails";
+
 
 function NavBar() {
+	// const [pageBar, setPageBar] = useState("/");
+
 	return (
 		<div className="site-header-wrapper">
 			<header className="site-header container">
@@ -51,6 +57,20 @@ function NavBar() {
 					</ul>
 				</nav>
 			</header>
+			{/* {<Navigate setPageBar={"/"} to="/" replace={true} /> ? (
+				<Home />
+			) : <Navigate setPageBar={"/application"} to="/application" replace={true} /> ? (
+				<ApplicationFormAndDetails  />
+			) : (
+				<ApplicationsAdminBar />
+			)} */}
+			{/* {pageBar === "Home" ? (
+				<Home setPageBar={setPageBar} />
+			) : pageBar === "Form" ? (
+				<ApplicationFormAndDetails setPageBar={setPageBar} />
+			) : (
+				<ApplicationsAdminBar setPageBar={setPageBar} />
+			)} */}
 		</div>
 	);
 }

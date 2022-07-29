@@ -4,12 +4,15 @@ import ApplicantNavbar from "../components/ApplicantDashboard/ApplicantNavbar";
 import ApplicantCard from "../components/ApplicantDashboard/ApplicantCard";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Auth0Login/Loading";
+import "../styles/Applicant.css";
+
 import SingleApplication from "../components/Modals/SingleApplication";
+
 const ApplicantDashboard = ({ applicantId }) => {
 	const [applications, setApplications] = useState([]);
 	const { user } = useAuth0();
 
-  useEffect(() => {
+	useEffect(() => {
 		fetch(`/api/applications/${applicantId}`)
 			.then((res) => {
 				if (!res.ok) {
@@ -17,7 +20,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 				}
 				return res.json();
 			})
-      .then((data) => {
+			.then((data) => {
 				// console.log(data);
 				setApplications(data);
 			})
@@ -26,7 +29,7 @@ const ApplicantDashboard = ({ applicantId }) => {
 			});
 	}, [applicantId]);
 
-  useEffect(() => {
+	useEffect(() => {
 		fetch(`/api/${applicantId}/applications`)
 			.then((res) => {
 				if (!res.ok) {
@@ -34,14 +37,13 @@ const ApplicantDashboard = ({ applicantId }) => {
 				}
 				return res.json();
 			})
-      .then((data) => {
+			.then((data) => {
 				setApplications(data);
 			})
 			.catch((error) => {
 				console.error(error);
 			});
 	}, [applicantId]);
-
   return (
 	<Container fluid>
 		<ApplicantNavbar user={user} />
@@ -49,13 +51,10 @@ const ApplicantDashboard = ({ applicantId }) => {
 		{applications.map((application) => {
 		return(
 			<>
-			<div>
+			<div className="appDetails">
 				<ApplicantCard application = { application } />
 			</div>
-			</>
-			);
-		})}
-	</Container>
+		</Container>
 	);
 };
 

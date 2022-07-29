@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
+
 import "../styles/App.css";
 
 const ApplicationDetails = () => {
