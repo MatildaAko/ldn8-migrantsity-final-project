@@ -10,7 +10,7 @@ const LoginButton = () => {
 			onClick={() =>
 				loginWithRedirect({
 					appState: {
-						returnTo: "/hmcview",
+						returnTo: "/middle",
 					},
 				})
 			}
