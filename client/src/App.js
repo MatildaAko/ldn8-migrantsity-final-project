@@ -27,7 +27,6 @@ const App = () => {
 			<NavBar />
 			<Home />
 			<Routes>
-				<Route path="/" element={<Home />} />
 				<Route
 					path="/middle"
 					element={
