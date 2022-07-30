@@ -30,7 +30,7 @@ button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.
 	color: #f3f3f3 !important;
 	margin-left: 20px !important;
 	border-radius: 3px !important;
-	margin-top: 5px;
+	margin-top: 5px !important;
 }
 
 .item:hover {
