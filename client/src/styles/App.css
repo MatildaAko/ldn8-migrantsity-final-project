@@ -37,11 +37,11 @@ body {
 }
 
 button.btn.btn-primary.btn-block {
-    background-color: #f3f3f3;
-    color: #158284;
-	margin-left: 20px;
-    border-radius: 3px;
-	padding: 10px 20px;
+    background-color: #f3f3f3 !important;
+    color: #158284 !important;
+	margin-left: 20px !important;
+    border-radius: 3px !important;
+	padding: 10px 20px !important;
 }
 
 button.btn.btn-primary.btn-block:focus {

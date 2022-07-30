@@ -30,6 +30,7 @@ button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.
 	color: #f3f3f3 !important;
 	margin-left: 20px !important;
 	border-radius: 3px !important;
+	margin-top: 5px;
 }
 
 .item:hover {
@@ -70,3 +71,4 @@ button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.
 	border-radius: 3px !important;
 	margin-top: 12px !important;
 }
+
