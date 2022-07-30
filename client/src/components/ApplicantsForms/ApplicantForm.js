@@ -15,6 +15,8 @@ import EmploymentPage4 from "./EmploymentPage4";
 import EqualityForm from "../../pages/EqualityForm";
 import PersonalDetails from "./PersonalDetails";
 import ApplicationForm from "./ApplicationForm";
+import Loading from "../Auth0Login/Loading";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const showFormPage = (index) => {
 	return {
@@ -256,5 +258,6 @@ const [equality, setEquality] = useState({
 		</Box>
 	);
 }
-
-export default ApplicantsForm;
+export default withAuthenticationRequired(ApplicantsForm, {
+	onRedirecting: () => <Loading />,
+});
