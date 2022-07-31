@@ -2,9 +2,17 @@ import pool from "../db";
 const generalController = require("./general");
 const applicantsController = require("./applicants");
 
+// const getApplicationByIdOld = (req, res) => {
+// 	const applicationId = req.params.applicationId;
+// 	const queryString = `${generalController.applicationsQueryString} where id = $1`;
+// 	pool.query(queryString, [applicationId])
+// 	.then((result) => res.status(201).json(result.rows))
+// 	.catch((error) => res.status(500).json(error));
+// };
+
+
 
 const getApplicationById = async (req, res) => {
-
    const allResult = [];
    const applicationId = req.params.applicationId;
 
@@ -42,6 +50,7 @@ const getApplicationById = async (req, res) => {
    };
 
 const getApplications = (req, res) => generalController.get(req, res, generalController.applicationsQueryString );
+const getApplicationsStatus = (req, res) => generalController.get(req, res);
 const getApplicationsByApplicantId = (req, res) => applicantsController.getApplicantData( req, res, generalController.applicationsQueryString);
 const createNewApplication = (req, res) => generalController.post( req, res);
 const updateApplication = (req, res) => generalController.put( req, res);
@@ -55,4 +64,5 @@ module.exports = {
    createNewApplication,
    updateApplication,
    deleteApplication,
+   getApplicationsStatus,
 };

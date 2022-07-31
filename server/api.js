@@ -70,6 +70,7 @@ router
 //Applications
 
 router
+.get("/applications/status", applicationsController.getApplicationsStatus)
 .get("/applications/:applicationId", applicationsController.getApplicationById)
 .get("/applications", applicationsController.getApplications)
 .get("/:applicantId/applications", applicationsController.getApplicationsByApplicantId)
