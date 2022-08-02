@@ -11,7 +11,7 @@ const ApplicationDetails = () => {
   const [applications, setApplications] = useState([]);
   useEffect(() => {
    const fetchData = async () => {
-			const res = await fetch(`/api/${id}/applicantAllData`);
+			const res = await fetch(`/api/applications/${id}`);
 			const data = await res.json();
      setApplications(data);
     };
@@ -36,6 +36,7 @@ const ApplicationDetails = () => {
 					</p>
 					<p>Applicant skills: {applicationInformation.Applicant[0].skills}</p>
 				</div>
+
 			)}
 			<Link to="/hmcview">
 				<Button>Back</Button>

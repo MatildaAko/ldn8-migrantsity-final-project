@@ -20,11 +20,11 @@ const EqualityForm = ({
 }) => {
 	// Handle fields change
 	const changeEqualityDetails = (input) => (e) => {
-		// console.log(e.target.value);
 		setEquality({ ...equality, [input]: e.target.value });
 		setUserDetails({ ...userDetails,
-			["equality"]: [{ ...equality, [input]: e.target.value }] });
-		};
+			["equality"]: { ...equality, [input]: e.target.value } });
+console.log(equality.ethnic_group);
+};
 
 	console.log(equality);
 	return (
@@ -62,22 +62,34 @@ const EqualityForm = ({
 			/>
 
 			{/* Identify */}
-			<IdentifyEqualityForm changeEqualityDetails={changeEqualityDetails} />
+			<IdentifyEqualityForm
+				equality={equality}
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			<hr />
 
 			{/* Age */}
-			<AgeEqualityForm changeEqualityDetails={changeEqualityDetails} />
+			<AgeEqualityForm
+				equality={equality}
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			<hr />
 
 			{/* What is your ethnicity? */}
-			<EthnicityEqualityForm changeEqualityDetails={changeEqualityDetails} />
+			<EthnicityEqualityForm
+				equality={equality}
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			<hr />
 
 			{/* Do you consider yourself to have a disability or health condition?    */}
-			<DisabilityEqualityForm changeEqualityDetails={changeEqualityDetails} />
+			<DisabilityEqualityForm
+				equality={equality}
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 			<br />
 			<br />
 			<p>
@@ -90,19 +102,24 @@ const EqualityForm = ({
 
 			{/* What is your sexual orientation? */}
 			<SexOrientationEqualityForm
+				equality={equality}
 				changeEqualityDetails={changeEqualityDetails}
 			/>
 
 			<hr />
 
 			{/* What is your religion or belief? */}
-			<ReligionEqualityForm changeEqualityDetails={changeEqualityDetails} />
+			<ReligionEqualityForm
+				equality={equality}
+				changeEqualityDetails={changeEqualityDetails}
+			/>
 
 			<hr />
 
 			{/* What is your working pattern?
 			 */}
 			<WorkingPatternEqualityForm
+				equality={equality}
 				changeEqualityDetails={changeEqualityDetails}
 			/>
 
@@ -111,6 +128,7 @@ const EqualityForm = ({
 			{/* What is your flexible working arrangement?
 			 */}
 			<WorkingArrangementEqualityForm
+				equality={equality}
 				changeEqualityDetails={changeEqualityDetails}
 			/>
 
@@ -118,13 +136,13 @@ const EqualityForm = ({
 			 */}
 			<CaringEqualityForm
 				changeEqualityDetails={changeEqualityDetails}
-				values={equality}
+				equality={equality}
 			/>
 
 			<hr />
 
 			<ConfirmEqualityForm
-				values={equality}
+				equality={equality}
 			/>
 
 			<hr />

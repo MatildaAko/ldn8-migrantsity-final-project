@@ -1,7 +1,7 @@
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 
-function ConfirmEqualityForm({ values }) {
+function ConfirmEqualityForm({ equality }) {
 	const {
 		gender,
 		identify,
@@ -13,7 +13,7 @@ function ConfirmEqualityForm({ values }) {
 		working_pattern,
 		flexible_working,
 		caring,
-	} = values;
+	} = equality;
 
 	// const handleSubmit = (e) => {
 	// 	e.preventDefault();

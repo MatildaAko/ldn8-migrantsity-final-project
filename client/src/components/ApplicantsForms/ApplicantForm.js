@@ -48,11 +48,15 @@ const StyledTabs = styled((props) => (
 function ApplicantsForm() {
 	// Steps
 	const [value, setValue] = useState(0);
+    const [applicationDetails, setApplicationDetails] = useState({
+		job_id: "",
+		cover_letter: "",
+		description: "",
+	});
 
   const handleTabChange = ( event, newValue) => {
     setValue(newValue);
-  };
-
+	};
 	// State variables
 	const [userDetails, setUserDetails] = useState({
 		first_name: "",
@@ -74,8 +78,19 @@ function ApplicantsForm() {
 		education: [],
 		qualifications: [],
 		languages: [],
-		application: [],
-		equality: [],
+		application: applicationDetails,
+		equality: {
+			gender: "",
+			identify: "",
+			age_band: "",
+			ethnic_group: "",
+			disability: "",
+			sex_orientation: "",
+			religion: "",
+			working_pattern: "",
+			flexible_working: "",
+			caring: "",
+		},
 	});
 
 	console.log(userDetails);
@@ -114,8 +129,19 @@ const [equality, setEquality] = useState({
 			education: [],
 			qualifications: [],
 			languages: [],
-			application: [],
-			equality: [],
+			application: applicationDetails,
+			equality: {
+				gender: "",
+				identify: "",
+				age_band: "",
+				ethnic_group: "",
+				disability: "",
+				sex_orientation: "",
+				religion: "",
+				working_pattern: "",
+				flexible_working: "",
+				caring: "",
+			},
 	});
 		setEquality; ({
 			gender: "",
@@ -156,12 +182,6 @@ const [equality, setEquality] = useState({
 		setUserDetails({ ...userDetails, [input]: value });
 	};
 
-// 	const postApplication = () => {
-// 		axios.post("/api/applications", userDetails);
-// 	};
-// const postEquality = () => {
-// 	axios.post("/api/equality", equality);
-// };
 	return (
 		<Box
 			sx={{
@@ -209,6 +229,8 @@ const [equality, setEquality] = useState({
 					userDetails={userDetails}
 					setUserDetails={setUserDetails}
 					application={userDetails.application}
+					setApplicationDetails={setApplicationDetails}
+					applicationDetails={applicationDetails}
 				/>
 			</TabPanel>
 			<TabPanel

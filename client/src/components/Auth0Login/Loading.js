@@ -5,7 +5,7 @@ const loadingImg =
 
 const Loading = () => (
 	<div className="loading">
-		<img src={loadingImg} alt="Loading..." />
+		<img crossOrigin="anonymous" src={loadingImg} alt="Loading..." />
 	</div>
 );
 
