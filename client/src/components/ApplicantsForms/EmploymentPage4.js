@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from "react";
+import React from "react";
 import { Stack, styled, Paper } from "@mui/material";
 import "../../styles/JobsHistory.css";
 
@@ -16,10 +16,6 @@ function EmploymentPage4({
 	qualifications,
 	languages,
 }) {
-	const [employmentInfo, setEmploymentInfo] = useState(userDetails.employments);
-	const [educationInfo, setEducationInfo] = useState(userDetails.education);
-	const [qualificationInfo, setQualificationInfo] = useState(userDetails.qualifications);
-	const [languageInfo, setLanguageInfo] = useState(userDetails.languages);
 
 	const Item = styled(Paper)(({ theme }) => ({
 		backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -30,22 +26,30 @@ function EmploymentPage4({
 	}));
 	const handleDeleteEmployment = (event) => {
 		employments.splice(event.target.id, 1);
-		setEmploymentInfo(employments);
+		setUserDetails({
+			...userDetails,
+			["employments"]: employments });
 	};
 
 	const handleDeleteEducation = (event) => {
 		education.splice(event.target.id, 1);
-		setEducationInfo(education);
+		setUserDetails({
+			...userDetails,
+			["education"]: education });
 	};
 
 	const handleDeleteQualification = (event) => {
 		qualifications.splice(event.target.id, 1);
-		setQualificationInfo(qualifications);
+		setUserDetails({
+			...userDetails,
+			["qualifications"]: qualifications });
 	};
 
 	const handleDeleteLanguages = (event) => {
 		languages.splice(event.target.id, 1);
-		setLanguageInfo(languages);
+		setUserDetails({
+			...userDetails,
+			["languages"]: languages });
 	};
 
 				return (
@@ -65,14 +69,13 @@ function EmploymentPage4({
 						Click on the text highlighted in red to edit your entry.
 					</p>
 					<EmploymentModal
-						setEmploymentInfo={setEmploymentInfo}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 						employments={employments}
 					/>
 				</div>
 				<Stack spacing={2}>
-					{employmentInfo.map((employment, index) => {
+					{employments.map((employment, index) => {
 						return (
 							//need to fix this layout
 							<>
@@ -81,8 +84,8 @@ function EmploymentPage4({
 								Position: {employment.position}, Employer: {employment.employer}
 								, Still Employed there:{" "}
 								{employment.currently_working ? "yes" : "no"}, Start Date:{" "}
-								{JSON.stringify(employment.start_date.toLocaleString())}, End
-								Date: {JSON.stringify(employment.end_date.toLocaleString())},
+								{employment.end_date?JSON.stringify(employment.start_date.toLocaleString()):""}, End
+								Date: {employment.end_date?JSON.stringify(employment.end_date.toLocaleString()):""},
 								Responsibilities: {employment.responsibilities}, Leaving/Gap
 								Reason: {employment.leaving_reason}
 								<button id={index} onClick={handleDeleteEmployment}>Delete</button>
@@ -108,14 +111,13 @@ function EmploymentPage4({
 							Click on the text highlighted in red to edit your entry.
 						</p>
 						<EducationHistoryModal
-							setEducationInfo={setEducationInfo}
 							setUserDetails={setUserDetails}
 							userDetails={userDetails}
 							education={education}
 						/>
 					</div>
 					<Stack spacing={2}>
-						{educationInfo.map((education, index) => {
+						{education.map((edu, index) => {
 							return (
 								//need to fix this layout
 								<Item key={index}>
@@ -140,14 +142,13 @@ function EmploymentPage4({
 						highlighted in red to edit your entry.
 					</p>
 					<ProfessionalQualificationsModal
-						setQualificationInfo={setQualificationInfo}
 						qualifications={qualifications}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 					/>
 				</div>
 				<Stack spacing={2}>
-					{qualificationInfo.map((qualification, index) => {
+					{qualifications.map((qualification, index) => {
 						return (
 							//need to fix this layout
 							<Item key={index}>
@@ -170,14 +171,13 @@ function EmploymentPage4({
 						highlighted in red to edit your entry.
 					</p>
 					<LanguagesModal
-						setLanguageInfo={setLanguageInfo}
 						setUserDetails={setUserDetails}
 						userDetails={userDetails}
 						languages={languages}
 					/>
 				</div>
 				<Stack spacing={2}>
-					{languageInfo.map((language, index) => {
+					{languages.map((language, index) => {
 						return (
 							//need to fix this layout
 							<Item key={index}>

@@ -11,7 +11,7 @@ const applicationsQueryString = `
 	From applications 
 	Inner join applicants on applicants.id = applicant_id
 	Inner join jobs on jobs.id = job_id
-	Inner join application_status on application_status.id = status_id) selectTable `;
+	Inner join status on status.id = status_id) selectTable `;
 
 const appOnlyQueryString = `Select id, applicant_id, job_id, job_title, job_description,
 								skills_require, cover_letter, description, status_id, status 
@@ -19,7 +19,9 @@ const appOnlyQueryString = `Select id, applicant_id, job_id, job_title, job_desc
 
 const applicantsSelect = "Select * From applicants Where id = $1";
 const applicantsQueryString = `		
-	Select * from (Select applicants.*, role_name
+	Select * from (Select applicants.id as applicant_id, 
+		concat(first_name,' ',last_name) as fullname, 
+		applicants.*, role_name
 	From applicants
 	Inner join users on users.id = user_id
 	Inner join roles on roles.role_id = users.role_id ) TableSelect `;
@@ -28,10 +30,11 @@ const applicantsQueryString = `
 const getTableName = (req) => {
 	const path = req.path;
 	const firstPart = req.path.slice(1).split("/")[0];
-	const isFirstPartNumber = Number.isInteger(parseInt(firstPart, 10));
 	const lastPart = path.slice(path.lastIndexOf("/")+1);
+	const isFirstPartNumber = Number.isInteger(parseInt(firstPart, 10));
+	const isLastPartNumber = Number.isInteger(parseInt(lastPart, 10));
 	console.log(path, firstPart);
-	return path.match(/[/]/g).length==1 ? path.slice(1) : isFirstPartNumber?lastPart:firstPart ;
+	return path.match(/[/]/g).length==1 ? path.slice(1) : (!isFirstPartNumber && !isLastPartNumber)?lastPart:isFirstPartNumber?lastPart:firstPart ;
 };
 
 const get = (req, res, query = "") => {

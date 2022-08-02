@@ -4,6 +4,7 @@ import generalController from "./general";
 
 const getApplicantById = (req, res) => {
     const applicantId = req.params.applicantId;
+	console.log("ByID");
 	const params = [applicantId];
 	const queryString = `${generalController.applicantsQueryString} Where id = $1`;
 
@@ -17,6 +18,17 @@ const getApplicantById = (req, res) => {
 			.catch((error) => res.status(500).json(error));
 		}
 	}).catch((error) => res.status(500).json(error));
+};
+
+const getApplicantByEmail = (req, res) => {
+    const email = req.params.email;
+	const params = [email];
+	const queryString = `${generalController.applicantsQueryString} Where email = $1 `;
+	console.log(queryString);
+
+	pool.query(queryString, params)
+	.then((result) =>res.status(201).json(result.rows))
+	.catch((error) => res.status(500).json(error));
 };
 
 const updateApplicant = (req, res) => {
@@ -319,6 +331,7 @@ module.exports = {
     updateApplicant,
     deleteApplicant,
     getAllApplicants,
+    getApplicantByEmail,
 	getApplicantData,
 	getApplicantAllData,
 	createApplicantWithAllData,

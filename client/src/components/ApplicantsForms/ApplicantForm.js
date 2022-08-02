@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import TabPanel from "./TabPanel";
-// import { axios } from "axios";
 import "../../styles/Form.css";
 import { styled } from "@mui/material/styles";
-
-// import Button from "@mui/material/Button";
-
 import { Tabs, Tab, Box } from "@mui/material";
-
+import LinearWithValueLabel from "./ProgressBar";
 import DetailsPage1 from "./DetailsPage1";
 import CVPage2 from "./CVPage2";
 import StatementPage3 from "./StatementPage3";
@@ -18,6 +14,8 @@ import ApplicationForm from "./ApplicationForm";
 import Loading from "../Auth0Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import ApplicationFormAndDetails from "../../pages/ApplicationFormAndDetails";
+
 const showFormPage = (index) => {
 	return {
 		id: `vertical-tab-${index}`,
@@ -27,14 +25,14 @@ const showFormPage = (index) => {
 
 const StyledTabs = styled((props) => (
 	<Tabs
-  {...props}
-  TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+		{...props}
+		TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
 	/>
-  ))({
+))({
 	"& .MuiTabs-indicator": {
 		maxWidth: 6,
 		width: "100%",
-		backgroundColor: "#4c8a8f",
+		backgroundColor: "#51CC56",
 		textAlign: "left",
 	},
 	"& .MuiTabs-indicatorSpan": {
@@ -42,20 +40,19 @@ const StyledTabs = styled((props) => (
 		width: "100%",
 		backgroundColor: "#4c8a8f",
 	},
-  });
-
+});
 
 function ApplicantsForm() {
 	// Steps
 	const [value, setValue] = useState(0);
-    const [applicationDetails, setApplicationDetails] = useState({
+	const [applicationDetails, setApplicationDetails] = useState({
 		job_id: "",
 		cover_letter: "",
 		description: "",
 	});
 
-  const handleTabChange = ( event, newValue) => {
-    setValue(newValue);
+	const handleTabChange = (event, newValue) => {
+		setValue(newValue);
 	};
 	// State variables
 	const [userDetails, setUserDetails] = useState({
@@ -95,18 +92,18 @@ function ApplicantsForm() {
 
 	console.log(userDetails);
 
-const [equality, setEquality] = useState({
-	gender: "",
-	identify: "",
-	age_band: "",
-	ethnic_group: "",
-	disability: "",
-	sex_orientation: "",
-	religion: "",
-	working_pattern: "",
-	flexible_working: "",
-	caring: "",
-});
+	const [equality, setEquality] = useState({
+		gender: "",
+		identify: "",
+		age_band: "",
+		ethnic_group: "",
+		disability: "",
+		sex_orientation: "",
+		religion: "",
+		working_pattern: "",
+		flexible_working: "",
+		caring: "",
+	});
 
 	const handleReset = () => {
 		setUserDetails({
@@ -142,8 +139,9 @@ const [equality, setEquality] = useState({
 				flexible_working: "",
 				caring: "",
 			},
-	});
-		setEquality; ({
+		});
+		setEquality;
+		({
 			gender: "",
 			identify: "",
 			age_band: "",
@@ -183,101 +181,97 @@ const [equality, setEquality] = useState({
 	};
 
 	return (
-		<Box
-			sx={{
-				flexGrow: 1,
-				bgcolor: "background.paper",
-				display: "flex",
-				height: 224,
-			}}
-		>
-			<StyledTabs
-				orientation="vertical"
-				variant="standard"
-				indicatorColor="secondary"
-				textColor="secondary"
-				value={value}
-				onChange={handleTabChange}
-				aria-label="secondary tabs example"
+		<>
+			<ApplicationFormAndDetails />
+			<LinearWithValueLabel value={value} />
+			<Box
 				sx={{
-					maxWidth:200,
-					minWidth:200,
+					flexGrow: 1,
+					bgcolor: "background.paper",
+					display: "flex",
+					height: 224,
 				}}
 			>
-				<Tab
-					label="Application Data"
-					{...showFormPage(0)}
-				/>
-				<Tab
-					label="Right to Work, Personal Details, CV and Supporting Statement"
-					{...showFormPage(1)}
-				/>
-				<Tab
-					label="Employment, Education, Qualification and Language History"
-					{...showFormPage(2)}
-				/>
-				<Tab label="Equal Opportunities and Submission" {...showFormPage(3)} />
-			</StyledTabs>
-			<TabPanel
-				value={value}
-				index={0}
-				setValue={setValue}
+				<StyledTabs
+					orientation="vertical"
+					variant="standard"
+					indicatorColor="secondary"
+					textColor="secondary"
+					value={value}
+					onChange={handleTabChange}
+					aria-label="secondary tabs example"
+					sx={{
+						maxWidth: 200,
+						minWidth: 200,
+					}}
 				>
-				<ApplicationForm
-					values={userDetails}
-					handleChange={handleChange}
-					userDetails={userDetails}
-					setUserDetails={setUserDetails}
-					application={userDetails.application}
-					setApplicationDetails={setApplicationDetails}
-					applicationDetails={applicationDetails}
-				/>
-			</TabPanel>
-			<TabPanel
-				value={value}
-				index={1}
-				setValue={setValue}
-				>
-				<DetailsPage1 values={userDetails} handleChange={handleChange} />
-				<PersonalDetails
-					values={userDetails}
-					handleChange={handleChange}
-					userDetails={userDetails}
-					setUserDetails={setUserDetails}
-					country={userDetails.country}
+					<Tab label="Application Data" {...showFormPage(0)} />
+					<Tab
+						label="Right to Work, Personal Details, CV and Supporting Statement"
+						{...showFormPage(1)}
 					/>
-				<CVPage2 values={userDetails} handleChange={handleChange} />
-				<StatementPage3 values={userDetails} handleChange={handleChange} />
-			</TabPanel>
-			<TabPanel value={value} index={2} setValue={setValue}>
-				<EmploymentPage4
-					values={userDetails}
-					handleChange={handleChange}
-					setUserDetails={setUserDetails}
+					<Tab
+						label="Employment, Education, Qualification and Language History"
+						{...showFormPage(2)}
+					/>
+					<Tab
+						label="Equal Opportunities and Submission"
+						{...showFormPage(3)}
+					/>
+				</StyledTabs>
+				<TabPanel value={value} index={0} setValue={setValue}>
+					<ApplicationForm
+						values={userDetails}
+						handleChange={handleChange}
+						userDetails={userDetails}
+						setUserDetails={setUserDetails}
+						application={userDetails.application}
+						setApplicationDetails={setApplicationDetails}
+						applicationDetails={applicationDetails}
+					/>
+				</TabPanel>
+				<TabPanel value={value} index={1} setValue={setValue}>
+					<DetailsPage1 values={userDetails} handleChange={handleChange} />
+					<PersonalDetails
+						values={userDetails}
+						handleChange={handleChange}
+						userDetails={userDetails}
+						setUserDetails={setUserDetails}
+						country={userDetails.country}
+					/>
+					<CVPage2 values={userDetails} handleChange={handleChange} />
+					<StatementPage3 values={userDetails} handleChange={handleChange} />
+				</TabPanel>
+				<TabPanel value={value} index={2} setValue={setValue}>
+					<EmploymentPage4
+						values={userDetails}
+						handleChange={handleChange}
+						setUserDetails={setUserDetails}
+						userDetails={userDetails}
+						employments={userDetails.employments}
+						education={userDetails.education}
+						qualifications={userDetails.qualifications}
+						languages={userDetails.languages}
+					/>
+				</TabPanel>
+				<TabPanel
+					value={value}
+					index={3}
+					setValue={setValue}
 					userDetails={userDetails}
-					employments={userDetails.employments}
-					education={userDetails.education}
-					qualifications={userDetails.qualifications}
-					languages={userDetails.languages}
-				/>
-			</TabPanel>
-			<TabPanel
-				value={value}
-				index={3}
-				setValue={setValue}
-				userDetails={userDetails}
-				handleReset={handleReset}
-			>
-				<EqualityForm
-					values={userDetails}
-					handleChange={handleChange}
-					setUserDetails={setUserDetails}
-					userDetails={userDetails}
-					equality={equality}
-					setEquality={setEquality}
-				/>
-			</TabPanel>
-		</Box>
+					handleReset={handleReset}
+				>
+					<EqualityForm
+						values={userDetails}
+						handleChange={handleChange}
+						setUserDetails={setUserDetails}
+						userDetails={userDetails}
+						equality={equality}
+						setEquality={setEquality}
+					/>
+				</TabPanel>
+			</Box>
+		</>
 	);
 }
 export default withAuthenticationRequired(ApplicantsForm, {

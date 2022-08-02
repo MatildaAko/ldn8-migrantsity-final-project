@@ -7,7 +7,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 
 const Applications = () => {
 	const [applications, setApplications] = useState([]);
-    useEffect(() => {
+	useEffect(() => {
 		fetch("/api/applications")
 			.then((res) => {
 				if (!res.ok) {
@@ -15,7 +15,7 @@ const Applications = () => {
 				}
 				return res.json();
 			})
-      .then((body) => {
+			.then((body) => {
 				console.log(body);
 				setApplications(body);
 			})
@@ -23,6 +23,7 @@ const Applications = () => {
 				console.error(err);
 			});
 	}, []);
+	console.log(applications);
 	const columns = [
 		{
 			field: "fullname",
@@ -40,7 +41,7 @@ const Applications = () => {
 			field: "status",
 			headerName: "STATUS",
 			width: 120,
-			editable: false,
+			editable: true,
 		},
 		{
 			field: "city",
@@ -52,15 +53,16 @@ const Applications = () => {
 			field: "notes",
 			headerName: "Notes",
 			width: 300,
-			editable: false,
+			editable: true,
 		},
 		{
 			field: "rightToWork",
 			headerName: "Right to Work",
-			description: "This column has a value getter and is not sortable.",
 			width: 100,
 			editable: false,
-			renderCell: (params) => <img alt={params.value} src={params.value=="Yes"?Like:DisLike} />,
+			renderCell: (params) => (
+				<img alt={params.value} src={params.value == "Yes" ? Like : DisLike} />
+			),
 		},
 		{
 			field: "actions",
@@ -71,7 +73,9 @@ const Applications = () => {
 			align: "right",
 			renderCell: (params) => (
 				<>
-					<a href={`/applicationdetails/${params.id}`} id="detail" ><ListAltIcon /></a>
+					<a href={`/applicationdetails/${params.id}`} id="detail">
+						<ListAltIcon />
+					</a>
 				</>
 			),
 		},
@@ -86,58 +90,64 @@ const Applications = () => {
 			cover: application.cover_letter,
 			notes: application.notes,
 			status: application.status,
-			fullname: application.fullname,
-			city: application.city,
+			fullname:
+				!["Applied", "Rejected", "In progress"].includes(application.status)
+					? application.id
+					: application.fullname,
+			city: application.town,
 		};
 	});
 
-    return (
-        <>
-		<Box
-			container
-			display="flex"
-			alignItems="center"
-			justifyContent="center"
-			height="60vh"
-			padding= "0 84px"
+	return (
+		<>
+			<Box
+				container
+				display="flex"
+				alignItems="center"
+				justifyContent="center"
+				height="60vh"
+				padding="0 84px"
 			>
-		<Box
-			sx={{
-				height: "100%",
-				width: "100%",
-				"& .other": {
-				},
-				"& .rejected": {
-					backgroundColor: "#ff943975",
-					color: "#1a3e72",
-				},
-				"& .inProgress": {
-					backgroundColor: "#b9d5ff91",
-					color: "#1a3e72",
-				},
-			}}
-		>
-			<DataGrid
-				getCellClassName={(params) => {
-					switch (params.value) {
-						case "Rejected": return "rejected";
-						case "In progress": return "inProgress";
-						case "Accepted": return "accepted";
-						default: "other";
-					}
-				}}
-				getRowHeight={() => "auto"}
-				getEstimatedRowHeight={() => 10}
-				rows={rows}
-				columns={columns}
-				rowsPerPageOptions={[10, 25, 50, 100]}
-				checkboxSelection
-				disableSelectionOnClick
-				/>
-		</Box>
-		</Box>
-        </>
-     );
+				<Box
+					sx={{
+						height: "100%",
+						width: "100%",
+						"& .other": {},
+						"& .rejected": {
+							backgroundColor: "#ff943975",
+							color: "#1a3e72",
+						},
+						"& .inProgress": {
+							backgroundColor: "#b9d5ff91",
+							color: "#1a3e72",
+						},
+					}}
+				>
+					<DataGrid
+						getCellClassName={(params) => {
+							switch (params.value) {
+								case "Rejected":
+									return "rejected";
+								case "In progress":
+									return "inProgress";
+								case "Accepted":
+									return "accepted";
+								default:
+									"other";
+							}
+						}}
+						getRowHeight={() => "auto"}
+						getEstimatedRowHeight={() => 10}
+						rows={rows}
+						columns={columns}
+						rowsPerPageOptions={[10, 25, 50, 100]}
+						checkboxSelection
+						disableSelectionOnClick
+					/>
+				</Box>
+			</Box>
+		</>
+	);
 };
 
 export default Applications;

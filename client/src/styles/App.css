@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+    font-family: 'Lexend', sans-serif;
 }
 
 body {
@@ -56,4 +57,9 @@ button.btn.btn-primary.btn-block:hover{
     align-items: center;
     justify-content: center;
     height: 800px;
+}
+
+.inline {
+    display: flex;
+    align-items: flex-end;
 }
