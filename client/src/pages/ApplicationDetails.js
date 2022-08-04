@@ -45,7 +45,7 @@ const ApplicationDetails = () => {
 							<Typography variant="body1">
 								<b>Job Title:</b> {applicationInformation.job_title}
 							</Typography>
-							{["Applied", "Rejected", "In progress"].includes(
+							{!["Applied", "Rejected", "In progress"].includes(
 								applicationInformation.status
 							) && (
 								<>
