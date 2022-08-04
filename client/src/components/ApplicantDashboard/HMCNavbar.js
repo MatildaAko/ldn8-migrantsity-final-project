@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 // import SettingsIcon from "@mui/icons-material/Settings";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 // import AuthenticationButton from "../Auth0Login/authentication-button";
 
 const styles = {
@@ -23,25 +23,24 @@ const styles = {
 	},
 };
 
-function HMCNavbar({ user, classes, picture }) {
+function HMCNavbar({ user, classes }) {
 	console.log("user:", user);
+	console.log(user.picture);
 	return (
 		<div className={classes.root}>
 			<Toolbar className={classes.bar}>
 				{/* <Typography variant="h3" color="inherit" className={classes.grow}>
 					Dashboard
 				</Typography> */}
-				<Box
-					sx={{ display: "flex", alignItems: "end", flexDirection: "column" }}
-				>
+        <Box sx={{ display:"flex", alignItems: "center", flexDirection: "row" }}>
 					{/* <SettingsIcon /> */}
-					<img crossOrigin="anonymous" alt={user} src={picture} />
-					<Typography
-						variant="h5"
-						color="inherit"
-						className={classes.detailTitle}
-					>
-						Hi {user}!
+					<Avatar
+						alt={user}
+						src={user.picture}
+						style={{ justifyContent: "center", display: "flex" }}
+						/>
+					<Typography variant="h5" color="inherit" className={classes.detailTitle}>
+						Hi, {user.name}!
 					</Typography>
 					{/* <AuthenticationButton /> */}
 				</Box>
