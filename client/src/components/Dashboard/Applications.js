@@ -91,7 +91,7 @@ const Applications = () => {
 			notes: application.notes,
 			status: application.status,
 			fullname:
-				!["Applied", "Rejected", "In progress"].includes(application.status)
+				["Applied", "Rejected", "In progress"].includes(application.status)
 					? application.id
 					: application.fullname,
 			city: application.town,
