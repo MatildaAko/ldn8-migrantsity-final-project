@@ -2,9 +2,9 @@
 	margin: auto;
 	display: flex;
 	flex-direction: row-reverse;
-	width: 1000px;
+	width: 100%;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
@@ -16,7 +16,7 @@
 
 .HMCNavbar-bar-2 {
     margin: 20px 60px 10px 60px;
-    width: 15rem;
+    width: 20rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -14,20 +14,19 @@ import ApplicationsAdminBar from "../pages/ApplicationsAdminBar";
 
 const HMCDashboard = () => {
 	const { user } = useAuth0();
-	const { name, picture } = user;
 	const [panel, setPanel] = useState(<Applications />);
 	return (
 		<Container fluid>
 			<ApplicationsAdminBar />
 			<div className="userAndButtons">
-				<HMCNavbar user={name} picture={picture} />
+				<HMCNavbar user={user} />
 				<Box
 					container
 					display="flex"
 					justifyContent="start"
 					width="100%"
 					// height="10vh"
-					padding="0 84px"
+					padding="0 66px"
 				>
 					<Button className="buttonApp" onClick={() => setPanel(<Applications />)}>
 						{" "}

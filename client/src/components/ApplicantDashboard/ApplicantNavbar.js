@@ -37,7 +37,7 @@ function ApplicantNavbar({ user, classes }) {
             {/* <SettingsIcon /> */}
           <Avatar alt={user.nickname} src={user.picture} />
           <Typography variant="h5" color="inherit" className={classes.detailTitle}>
-           Hi, {user.nickname}!
+           Hi, {user.name}!
           </Typography>
           {/* <AuthenticationButton /> */}
         </Box>

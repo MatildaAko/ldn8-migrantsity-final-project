@@ -4,9 +4,31 @@ import { Box } from "@mui/system";
 import Like from "../../assets/true.png";
 import DisLike from "../../assets/false.png";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import axios from "axios";
 
 const Applications = () => {
 	const [applications, setApplications] = useState([]);
+	const [status, setStatus] = useState([]);
+	const [load, setLoad] = useState(false);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = (label, event) => {
+		const statusId = label.split(":")[0];
+		const applicationId = anchorEl.id;
+		const updatedApp = { "status_id": statusId };
+
+		console.log(statusId, anchorEl.id, event.target);
+
+		axios.put(`/api/applications/${applicationId}`, updatedApp);
+		setAnchorEl(null);
+		setLoad(!load);
+	};
+
 	useEffect(() => {
 		fetch("/api/applications")
 			.then((res) => {
@@ -22,7 +44,21 @@ const Applications = () => {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, []);
+
+			fetch("/api/applications/status")
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error(res.statusText);
+				}
+				return res.json();
+			})
+			.then((body) => {
+				setStatus(body.map((el)=> `${el.id}:${el.status}`));
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}, [load]);
 	console.log(applications);
 	const columns = [
 		{
@@ -73,6 +109,43 @@ const Applications = () => {
 			align: "right",
 			renderCell: (params) => (
 				<>
+				<IconButton
+        aria-label="more"
+        id={params.id}
+        aria-controls={open ? "long-menu" : undefined}
+        aria-expanded={open ? "true" : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        MenuListProps={{
+          "aria-labelledby": "long-button",
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        {status.map((option) => (
+          <MenuItem key={option} id={params.id} selected={option === "1:Applied"} onClick={(event)=>handleClose(option, event)}>
+            {option}
+          </MenuItem>
+        ))}
+      </Menu>
+	</>
+			),
+		},
+		{
+			field: "details",
+			headerName: "Details",
+			width: 70,
+			value: 1,
+			editable: false,
+			align: "right",
+			renderCell: (params) => (
+				<>
 					<a href={`/applicationdetails/${params.id}`} id="detail">
 						<ListAltIcon />
 					</a>
@@ -97,7 +170,7 @@ const Applications = () => {
 			city: application.town,
 		};
 	});
-
+console.log(status);
 	return (
 		<>
 			<Box

@@ -1,5 +1,6 @@
 // import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 import ApplicantForm from "./components/ApplicantsForms/ApplicantForm";
 import Loading from "./components/Auth0Login/Loading";
@@ -9,16 +10,26 @@ import HMCDashboard from "./pages/HMCDashboard";
 import ApplicationDetails from "./pages/ApplicationDetails";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
 import { SnackbarProvider } from "notistack";
-import "./styles/App.css";
-// import { useState } from "react";
 import NavBar from "./pages/NavBar";
-
+import MiddlePage from "./components/Auth0Login/MiddlePage";
 import Home from "./pages/Home";
+import axios from "axios";
+import "./styles/App.css";
 
 const App = () => {
-	const { isLoading } = useAuth0();
-  import MiddlePage from "./components/Auth0Login/MiddlePage";
-	// const [applicantId, setApplicantId] = useState("");
+	const { isLoading, user } = useAuth0();
+	const [applicantId, setApplicantId] = useState("");
+
+	if(user && user["https://ldn8-migrantsity-final-project.herokuapp.com/roles"][0]==="Applicant") {
+		axios.get(`/api/applicants/email/${user.email}`)
+		.then((res) => {
+			if(res.data.length>0) {
+				console.log(res.data[0]);
+			} else {
+				console.log("Redirect to Application Form...", applicantId);
+			}
+		});
+	}
 
 	if (isLoading) {
 		return <Loading />;
