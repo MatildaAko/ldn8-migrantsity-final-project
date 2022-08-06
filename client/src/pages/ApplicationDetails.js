@@ -51,7 +51,7 @@ const ApplicationDetails = () => {
 									? "Yes"
 									: "No"}
 							</Typography>
-							{["Applied", "Rejected", "In progress"].includes(
+							{!["Applied", "Rejected", "In progress"].includes(
 								applicationInformation.Application.status
 							) && (
 								<>
