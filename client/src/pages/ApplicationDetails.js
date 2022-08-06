@@ -19,6 +19,13 @@ const ApplicationDetails = () => {
 	}, [id]);
 
 	const applicationInformation = Object.assign({}, ...applications);
+	const options = {
+		weekday: "long",
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	};
+	console.log(applicationInformation);
 	return (
 		<div className="content-details">
 			{applications.length && (
@@ -119,11 +126,19 @@ const ApplicationDetails = () => {
 											{employment.currently_working ? "Yes" : "No"}
 										</Typography>
 										<Typography variant="body1" key={index}>
-											<b>Start Date:</b> {employment.start_date}
+											<b>Start Date:</b>{" "}
+											{new Date(employment.start).toLocaleDateString(
+												"en-gb",
+												options
+											)}
 										</Typography>
 										{!employment.currently_working && (
 											<Typography variant="body1" key={index}>
-												<b>End Date:</b> {employment.end_date}
+												<b>End Date:</b>{" "}
+												{new Date(employment.end_date).toLocaleDateString(
+													"en-gb",
+													options
+												)}
 											</Typography>
 										)}
 										<Typography variant="body1" key={index}>
@@ -182,10 +197,10 @@ const ApplicationDetails = () => {
 											<b>Title:</b> {qualification.title}
 										</Typography>
 										<Typography variant="body1">
-											<b>Date:</b> {qualification.status}
+											<b>Date:</b>{new Date(qualification.date).toLocaleDateString("en-gb", options)}
 										</Typography>
 										<Typography variant="body1">
-											<b>Status:</b> {qualification.date}
+											<b>Status:</b> {qualification.status}
 										</Typography>
 									</>
 								);
